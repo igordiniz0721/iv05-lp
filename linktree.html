@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instituto Veon | A Escola do Varejo</title>
+  <meta name="description" content="Assessoria especializada no varejo. +250 empresários atendidos, método comprovado para dobrar faturamento em 180 dias.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { overflow-x: hidden; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: #0a2a42;
+      color: #fff;
+      min-height: 100svh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== LAYOUT ===== */
+    .page {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-logo {
+      height: 28px;
+      filter: brightness(0) invert(1);
+    }
+
+    .header-step {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 600;
+    }
+
+    .progress-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0c3c5f, #e40a2d);
+      transition: width 0.4s ease;
+      border-radius: 0 3px 3px 0;
+    }
+
+    /* ===== STEP CONTENT ===== */
+    .step-wrapper {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+    }
+
+    .step {
+      display: none;
+      max-width: 480px;
+      width: 100%;
+      animation: fadeIn 0.35s ease;
+    }
+
+    .step.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #e40a2d;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .step h2 {
+      font-size: 26px;
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .step .sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* ===== INPUTS ===== */
+    .field {
+      margin-bottom: 24px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 16px 0;
+      border: none;
+      border-bottom: 2px solid rgba(255,255,255,0.12);
+      background: transparent;
+      color: #fff;
+      font-size: 18px;
+      font-family: inherit;
+      font-weight: 600;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+
+    .field input:focus {
+      border-color: #0c3c5f;
+    }
+
+    .field input::placeholder {
+      color: rgba(255,255,255,0.2);
+      font-weight: 400;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-next {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      background: #0c3c5f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-next:hover { background: #0a3050; transform: scale(1.02); }
+    .btn-next:active { transform: scale(0.98); }
+
+    .btn-next svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, #e40a2d, #b8081f);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-submit:hover { transform: scale(1.02); }
+    .btn-submit:active { transform: scale(0.98); }
+
+    .key-hint {
+      display: inline-block;
+      margin-top: 14px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.2);
+    }
+
+    .key-hint kbd {
+      background: rgba(255,255,255,0.08);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 11px;
+    }
+
+    /* ===== HERO ===== */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      margin-bottom: 28px;
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 9 / 10;
+      max-height: 420px;
+    }
+
+    .hero-section img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px 24px 24px;
+      background: linear-gradient(to top, rgba(10,42,66,0.95) 0%, rgba(10,42,66,0.7) 50%, transparent 100%);
+    }
+
+    .hero-overlay .hero-tag {
+      display: inline-block;
+      background: #e40a2d;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+
+    .hero-overlay h1 {
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    .hero-overlay h1 span {
+      color: #e40a2d;
+    }
+
+    /* ===== WELCOME STEP ===== */
+    .welcome-stats {
+      display: flex;
+      gap: 24px;
+      margin: 28px 0;
+    }
+
+    .welcome-stats .ws {
+      text-align: center;
+    }
+
+    .welcome-stats .ws-val {
+      font-size: 24px;
+      font-weight: 900;
+      color: #e40a2d;
+      text-shadow: 0 0 15px rgba(228,10,45,0.3);
+      line-height: 1;
+    }
+
+    .welcome-stats .ws-lbl {
+      font-size: 10px;
+      color: rgba(255,255,255,0.35);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .btn-start {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 40px;
+      background: linear-gradient(135deg, #e40a2d, #b8081f);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 24px rgba(228,10,45,0.3);
+    }
+
+    .btn-start:hover { transform: scale(1.03); box-shadow: 0 6px 30px rgba(228,10,45,0.4); }
+    .btn-start:active { transform: scale(0.97); }
+
+    /* ===== DEPOIMENTO ===== */
+    .depo {
+      margin-top: 12px;
+      padding: 20px;
+      background: rgba(255,255,255,0.03);
+      border-radius: 12px;
+      border-left: 3px solid #0c3c5f;
+    }
+
+    .depo:first-of-type {
+      margin-top: 32px;
+    }
+
+    .depo-text {
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .depo-author {
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .depo-role {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* ===== SUCCESS ===== */
+    .success-ico {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .success-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 28px;
+      width: 100%;
+    }
+
+    .success-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+
+    .success-link:hover { transform: scale(1.02); }
+
+    .success-link.wpp {
+      background: #25D366;
+      color: #fff;
+    }
+
+    .success-link.ig {
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .success-link svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 16px 24px;
+      text-align: center;
+    }
+
+    .footer p {
+      font-size: 10px;
+      color: rgba(255,255,255,0.15);
+    }
+
+    .footer a {
+      color: rgba(255,255,255,0.2);
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- HEADER -->
+    <div class="header">
+      <img src="https://assessoriaveon.com/iv03/assets/logo.png" alt="Instituto Veon" class="header-logo">
+      <span class="header-step" id="stepCount"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+    <!-- STEPS -->
+    <div class="step-wrapper">
+
+      <!-- STEP 0: WELCOME -->
+      <div class="step active" id="step0">
+        <div class="hero-section">
+          <img src="fundadores.png" alt="Fundadores do Instituto Veon">
+          <div class="hero-overlay">
+            <div class="hero-tag">A Escola do Varejo</div>
+            <h1>A maior assessoria <span>especializada no varejo</span> do Brasil</h1>
+          </div>
+        </div>
+        <div class="welcome-stats">
+          <div class="ws"><div class="ws-val">250+</div><div class="ws-lbl">Empresários</div></div>
+          <div class="ws"><div class="ws-val">2x</div><div class="ws-lbl">Faturamento</div></div>
+          <div class="ws"><div class="ws-val">180d</div><div class="ws-lbl">Garantia</div></div>
+        </div>
+        <button class="btn-start" onclick="goStep(1)">Conheça Nossa Assessoria e Entre na Comunidade Exclusiva →</button>
+        <div class="depo">
+          <div class="depo-text">"Vendemos 1 colchão a cada 90 minutos. Resultado que parecia impossível antes do Instituto Veon."</div>
+          <div class="depo-author">Vanderlei</div>
+          <div class="depo-role">Empresário do Varejo — Concórdia/SC</div>
+        </div>
+        <div class="depo">
+          <div class="depo-text">"Encontramos tudo que precisávamos para destravar a loja. Hoje nosso faturamento dobrou."</div>
+          <div class="depo-author">Beatriz e Lucas</div>
+          <div class="depo-role">Empresários do Varejo — Estreito/MA</div>
+        </div>
+        <div class="depo">
+          <div class="depo-text">"Fizemos a melhor Black Friday da história da loja. A concorrência não entendeu como foi possível."</div>
+          <div class="depo-author">Fábio Gosman</div>
+          <div class="depo-role">Empresário do Varejo — Santa Catarina</div>
+        </div>
+      </div>
+
+      <!-- STEP 1: NOME -->
+      <div class="step" id="step1">
+        <div class="step-label">Etapa 1 de 5</div>
+        <h2>Como devemos te chamar?</h2>
+        <p class="sub">Queremos te conhecer melhor.</p>
+        <div class="field">
+          <input type="text" id="nome" placeholder="Seu nome" autofocus onkeydown="if(event.key==='Enter'){event.preventDefault();goStep(2)}">
+        </div>
+        <button class="btn-next" onclick="goStep(2)">Prosseguir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="key-hint">Pressione <kbd>Enter ↵</kbd></div>
+      </div>
+
+      <!-- STEP 2: WHATSAPP -->
+      <div class="step" id="step2">
+        <div class="step-label">Etapa 2 de 5</div>
+        <h2>Qual seu WhatsApp?</h2>
+        <p class="sub">Para nosso time entrar em contato com você.</p>
+        <div class="field">
+          <input type="tel" id="whatsapp" placeholder="(XX) XXXXX-XXXX" onkeydown="if(event.key==='Enter'){event.preventDefault();goStep(3)}">
+        </div>
+        <button class="btn-next" onclick="goStep(3)">Prosseguir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="key-hint">Pressione <kbd>Enter ↵</kbd></div>
+      </div>
+
+      <!-- STEP 3: EMAIL -->
+      <div class="step" id="step3">
+        <div class="step-label">Etapa 3 de 5</div>
+        <h2>Qual seu e-mail?</h2>
+        <p class="sub">Para te enviarmos mais informações.</p>
+        <div class="field">
+          <input type="email" id="email" placeholder="seu@email.com" onkeydown="if(event.key==='Enter'){event.preventDefault();goStep(4)}">
+        </div>
+        <button class="btn-next" onclick="goStep(4)">Prosseguir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="key-hint">Pressione <kbd>Enter ↵</kbd></div>
+      </div>
+
+      <!-- STEP 4: INSTAGRAM -->
+      <div class="step" id="step4">
+        <div class="step-label">Etapa 4 de 5</div>
+        <h2>Qual o Instagram da sua loja?</h2>
+        <p class="sub">Queremos conhecer sua presença digital.</p>
+        <div class="field">
+          <input type="text" id="instagram" placeholder="@sualoja" onkeydown="if(event.key==='Enter'){event.preventDefault();goStep(5)}">
+        </div>
+        <button class="btn-next" onclick="goStep(5)">Prosseguir <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+        <div class="key-hint">Pressione <kbd>Enter ↵</kbd></div>
+      </div>
+
+      <!-- STEP 5: CIDADE -->
+      <div class="step" id="step5">
+        <div class="step-label">Última etapa</div>
+        <h2>Em qual cidade fica sua loja?</h2>
+        <p class="sub">Para conectar você ao especialista da sua região.</p>
+        <div class="field">
+          <input type="text" id="cidade" placeholder="Ex: Concórdia/SC" onkeydown="if(event.key==='Enter'){event.preventDefault();submitForm()}">
+        </div>
+        <button class="btn-submit" onclick="submitForm()">Quero Conhecer a Assessoria →</button>
+      </div>
+
+      <!-- STEP 6: SUCCESS -->
+      <div class="step" id="step6">
+        <div class="success-ico">🎉</div>
+        <h2>Pronto, <span id="nameBack"></span>!</h2>
+        <p class="sub">Recebemos seus dados. Nosso time entra em contato pelo WhatsApp em até 1 hora.</p>
+        <div class="success-links">
+          <a href="https://wa.me/5545991294761?text=Ol%C3%A1%2C%20vim%20pela%20bio%20do%20Instagram%20do%20Instituto%20Veon%20e%20quero%20entrar%20na%20comunidade%20exclusiva%20de%20varejistas!" target="_blank" class="success-link wpp">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.999 2C6.477 2 2 6.477 2 12c0 1.89.522 3.659 1.432 5.17L2.05 22l4.952-1.354A9.954 9.954 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.952 7.952 0 0 1-4.29-1.253l-.308-.183-3.168.866.85-3.082-.2-.316A7.954 7.954 0 0 1 4 12c0-4.411 3.589-8 8-8s8 3.589 8 8-3.589 8-8 8z"/></svg>
+            Receber Link da Comunidade Exclusiva
+          </a>
+          <a href="https://www.instagram.com/institutoveon/" target="_blank" class="success-link ig">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+            Siga o Instituto Veon no Instagram
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <p>Instituto Veon © 2026 — Ao prosseguir você concorda com nossos <a href="#">termos de uso</a> e <a href="#">política de privacidade</a>.</p>
+    </div>
+
+  </div>
+
+  <script>
+    // Pixel
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init','1459060829132519');fbq('track','PageView');
+
+    // UTM
+    const P=new URLSearchParams(location.search),U={source:P.get('utm_source')||'instagram',campaign:P.get('utm_campaign')||'bio_link',content:P.get('utm_content')||'',adset:P.get('utm_adset')||'',placement:P.get('placement')||'',fbclid:P.get('fbclid')||''};
+
+    const totalSteps = 5;
+    let current = 0;
+    // Phone mask
+    document.getElementById('whatsapp').addEventListener('input',function(e){let v=e.target.value.replace(/\D/g,'');if(v.length>11)v=v.slice(0,11);if(v.length>6)v=`(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;else if(v.length>2)v=`(${v.slice(0,2)}) ${v.slice(2)}`;else if(v.length>0)v=`(${v}`;e.target.value=v});
+
+    function goStep(n) {
+      // Validate current step
+      if (n > current && current >= 1) {
+        const fields = ['','nome','whatsapp','email','instagram','cidade'];
+        const input = document.getElementById(fields[current]);
+        if (input && !input.value.trim()) {
+          input.focus();
+          input.style.borderColor = '#e40a2d';
+          setTimeout(() => input.style.borderColor = '', 1500);
+          return;
+        }
+      }
+
+      document.getElementById('step' + current).classList.remove('active');
+      current = n;
+      document.getElementById('step' + current).classList.add('active');
+
+      // Update progress
+      const pct = current === 0 ? 0 : Math.round((current / totalSteps) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('stepCount').textContent = current > 0 && current <= totalSteps ? current + '/' + totalSteps : '';
+
+      // Focus input
+      const step = document.getElementById('step' + current);
+      const input = step.querySelector('input');
+      if (input) setTimeout(() => input.focus(), 100);
+    }
+
+    async function submitForm() {
+      const cidade = document.getElementById('cidade');
+      if (!cidade.value.trim()) {
+        cidade.focus();
+        cidade.style.borderColor = '#e40a2d';
+        setTimeout(() => cidade.style.borderColor = '', 1500);
+        return;
+      }
+
+      const nome = document.getElementById('nome').value;
+      document.getElementById('nameBack').textContent = nome.split(' ')[0];
+
+      const d = {
+        nome: nome,
+        whatsapp: document.getElementById('whatsapp').value,
+        email: document.getElementById('email').value,
+        instagram: document.getElementById('instagram').value,
+        cidade: cidade.value,
+        lp: 'linktree',
+        tipo: 'varejista',
+        ...U
+      };
+
+      // Send data
+      try{await fetch('https://lqvcsgkcavkighxgteel.supabase.co/functions/v1/webhook/unidade-start/lp_linktree',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)})}catch(x){}
+      try{await fetch('https://lqvcsgkcavkighxgteel.supabase.co/functions/v1/tracking',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'lead',lp:'linktree',...U})})}catch(x){}
+
+      fbq('track','Lead');
+      
+      fbq('trackCustom','FormularioLinktree',{lp:'linktree',nome:d.nome,cidade:d.cidade,source:U.source,campaign:U.campaign});
+
+      goStep(6);
+    }
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1459060829132519&ev=PageView&noscript=1"></noscript>
+</body>
+</html>
