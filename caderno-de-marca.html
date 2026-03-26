@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Caderno de Marca | Instituto Veon</title>
+  <meta name="description" content="Conheça a identidade visual do Instituto Veon - A Escola do Varejo. Nossa bússola aponta para o sucesso empresarial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --azul: #0c3c5f;
+      --azul-dark: #071e30;
+      --azul-light: #15537f;
+      --vermelho: #e40a2d;
+      --vermelho-dark: #b80823;
+      --branco: #f8fafc;
+      --cinza-100: #e2e8f0;
+      --cinza-200: #cbd5e1;
+      --cinza-300: #94a3b8;
+      --cinza-400: #64748b;
+      --cinza-500: #475569;
+      --bg: #050a12;
+      --bg-card: #0a1628;
+      --border: rgba(12,60,95,0.3);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--branco);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== NAV ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(5,10,18,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .nav-logo {
+      height: 36px;
+      filter: brightness(0) invert(1);
+    }
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255,255,255,0.15);
+    }
+    .nav-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cinza-200);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      position: relative;
+      padding: 120px 24px 80px;
+      text-align: center;
+      background:
+        radial-gradient(ellipse at 30% 0%, rgba(12,60,95,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 0%, rgba(228,10,45,0.1) 0%, transparent 60%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 40px,
+        rgba(12,60,95,0.03) 40px,
+        rgba(12,60,95,0.03) 80px
+      );
+      animation: drift 60s linear infinite;
+    }
+    @keyframes drift {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(80px, 80px); }
+    }
+
+    .hero-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(228,10,45,0.1);
+      border: 1px solid rgba(228,10,45,0.25);
+      color: var(--vermelho);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      padding: 8px 24px;
+      border-radius: 30px;
+      margin-bottom: 28px;
+      text-transform: uppercase;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 .hl { color: var(--vermelho); }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--cinza-200);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-lema {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--cinza-300);
+      border-left: 3px solid var(--vermelho);
+      padding-left: 16px;
+      display: inline-block;
+      text-align: left;
+    }
+
+    /* ===== SECTION COMMON ===== */
+    section {
+      padding: 80px 24px;
+    }
+
+    .section-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--vermelho);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: 32px;
+      font-weight: 900;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .section-desc {
+      font-size: 16px;
+      color: var(--cinza-300);
+      line-height: 1.7;
+      max-width: 700px;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    /* ===== CONCEITO ===== */
+    .conceito-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .conceito-text p {
+      color: var(--cinza-200);
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .conceito-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .compass-icon {
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--azul), var(--azul-dark));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow:
+        0 0 60px rgba(12,60,95,0.4),
+        0 0 120px rgba(12,60,95,0.2),
+        inset 0 0 30px rgba(255,255,255,0.03);
+    }
+    .compass-icon svg {
+      width: 140px;
+      height: 140px;
+    }
+    .compass-icon::after {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      border: 1px solid rgba(228,10,45,0.2);
+    }
+
+    /* ===== ATRIBUTOS ===== */
+    .atributos-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .atributo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px 28px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .atributo-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--vermelho));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .atributo-card:hover {
+      border-color: rgba(12,60,95,0.5);
+      transform: translateY(-4px);
+    }
+    .atributo-card:hover::before {
+      opacity: 1;
+    }
+
+    .atributo-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .atributo-icon.ousada { background: rgba(228,10,45,0.1); color: var(--vermelho); }
+    .atributo-icon.profissional { background: rgba(12,60,95,0.2); color: #4a9fd4; }
+    .atributo-icon.moderna { background: rgba(228,10,45,0.08); color: #f87171; }
+
+    .atributo-card h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .atributo-card p {
+      font-size: 14px;
+      color: var(--cinza-300);
+      line-height: 1.7;
+    }
+
+    /* ===== ESCALA MARCA ===== */
+    .escala-items {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .escala-item {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 28px;
+    }
+
+    .escala-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cinza-400);
+      min-width: 140px;
+      text-align: right;
+    }
+
+    .escala-bar-wrapper {
+      flex: 1;
+      position: relative;
+      height: 6px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .escala-bar {
+      height: 100%;
+      border-radius: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--vermelho));
+      transition: width 1s ease;
+    }
+
+    .escala-value {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--cinza-400);
+      min-width: 140px;
+    }
+
+    /* ===== CORES ===== */
+    .cores-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .cor-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .cor-swatch {
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+    }
+    .cor-swatch.azul { background: #0c3c5f; }
+    .cor-swatch.vermelho { background: #e40a2d; }
+
+    .cor-swatch h3 {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+    }
+
+    .cor-info {
+      background: var(--bg-card);
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cor-spec {
+      display: flex;
+      flex-direction: column;
+    }
+    .cor-spec-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cinza-400);
+      margin-bottom: 4px;
+    }
+    .cor-spec-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--branco);
+      font-family: 'DM Sans', monospace;
+    }
+
+    /* ===== TIPOGRAFIA ===== */
+    .tipo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .tipo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 36px;
+    }
+
+    .tipo-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--vermelho);
+      margin-bottom: 8px;
+    }
+
+    .tipo-name {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .tipo-sample {
+      font-size: 14px;
+      color: var(--cinza-300);
+      line-height: 2;
+      letter-spacing: 1px;
+    }
+
+    .tipo-weights {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .tipo-weight {
+      font-size: 13px;
+      color: var(--cinza-400);
+    }
+    .tipo-weight.medium { font-weight: 500; }
+    .tipo-weight.bold { font-weight: 700; }
+
+    /* ===== LOGO SECTION ===== */
+    .logo-showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .logo-item {
+      border-radius: 16px;
+      padding: 48px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      min-height: 200px;
+      position: relative;
+    }
+    .logo-item.light { background: #e8eaed; }
+    .logo-item.dark { background: var(--azul-dark); }
+    .logo-item.gradient { background: linear-gradient(135deg, var(--azul-dark), #1a0a10); }
+
+    .logo-item svg {
+      width: 160px;
+      height: auto;
+    }
+
+    .logo-item-label {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .logo-item.light .logo-item-label { color: var(--cinza-500); }
+    .logo-item.dark .logo-item-label, .logo-item.gradient .logo-item-label { color: var(--cinza-400); }
+
+    /* ===== RESTRICOES ===== */
+    .restricoes-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .restricao-item {
+      background: var(--bg-card);
+      border: 1px solid rgba(228,10,45,0.15);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .restricao-x {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(228,10,45,0.1);
+      color: var(--vermelho);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .restricao-item p {
+      font-size: 14px;
+      color: var(--cinza-200);
+      line-height: 1.5;
+    }
+
+    /* ===== MATERIAIS ===== */
+    .materiais-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .material-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .material-card:hover {
+      border-color: rgba(12,60,95,0.5);
+      transform: translateY(-4px);
+    }
+
+    .material-thumb {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .material-thumb.corp { background: linear-gradient(135deg, #1a2d45, #0c1e33); }
+    .material-thumb.digital { background: linear-gradient(135deg, var(--azul-dark), #1a0a15); }
+    .material-thumb.vest { background: linear-gradient(135deg, #2a1520, var(--azul-dark)); }
+
+    .material-thumb-icon {
+      font-size: 48px;
+      opacity: 0.7;
+    }
+
+    .material-body {
+      padding: 24px;
+    }
+
+    .material-body h3 {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .material-body p {
+      font-size: 13px;
+      color: var(--cinza-400);
+      line-height: 1.6;
+    }
+
+    /* ===== MISSAO ===== */
+    .missao-block {
+      background: linear-gradient(135deg, var(--azul-dark), #0a0a1a);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 60px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .missao-block::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--azul), var(--vermelho), var(--azul));
+    }
+
+    .missao-quote {
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .missao-quote .hl { color: var(--vermelho); }
+
+    .missao-lema {
+      font-size: 16px;
+      font-style: italic;
+      color: var(--cinza-300);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      padding: 40px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-brand {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .footer-brand svg { height: 28px; }
+
+    .footer p {
+      font-size: 13px;
+      color: var(--cinza-500);
+    }
+    .footer a {
+      color: var(--cinza-400);
+      text-decoration: none;
+    }
+
+    /* ===== SEPARADOR ===== */
+    .sep {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), var(--vermelho), var(--border), transparent);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 100px 20px 60px; }
+      .hero h1 { font-size: 28px; }
+      .hero-sub { font-size: 15px; }
+      .conceito-grid { grid-template-columns: 1fr; gap: 32px; }
+      .conceito-visual { order: -1; }
+      .compass-icon { width: 180px; height: 180px; }
+      .compass-icon svg { width: 100px; height: 100px; }
+      .atributos-cards { grid-template-columns: 1fr; }
+      .cores-grid { grid-template-columns: 1fr; }
+      .tipo-grid { grid-template-columns: 1fr; }
+      .logo-showcase { grid-template-columns: 1fr; }
+      .restricoes-grid { grid-template-columns: 1fr; }
+      .materiais-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 26px; }
+      .missao-block { padding: 40px 24px; }
+      .missao-quote { font-size: 22px; }
+      .escala-item { flex-direction: column; gap: 8px; text-align: center; }
+      .escala-label, .escala-value { min-width: auto; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav">
+    <svg class="nav-logo" viewBox="0 0 200 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="30" cy="30" r="26" stroke="white" stroke-width="3" fill="none"/>
+      <path d="M30 6 L26 30 L30 26 L34 30 Z" fill="white"/>
+      <path d="M30 54 L34 30 L30 34 L26 30 Z" fill="white" opacity="0.5"/>
+      <text x="65" y="25" font-family="Arial Black, sans-serif" font-size="12" font-weight="900" fill="white" letter-spacing="1">INSTITUTO</text>
+      <text x="65" y="48" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="white" letter-spacing="2">VEON</text>
+    </svg>
+    <div class="nav-divider"></div>
+    <span class="nav-title">Caderno de Marca</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">A Escola do Varejo</div>
+      <h1>Caderno de <span class="hl">Marca</span></h1>
+      <p class="hero-sub">
+        A identidade visual que guia empresarios rumo ao sucesso.
+        Conhega os pilares visuais que sustentam o <strong>Instituto Veon</strong>
+        e sua missao de transformar o varejo brasileiro.
+      </p>
+      <p class="hero-lema">"Eu sou a bussola que aponta para o sucesso, meu e de meus companheiros"</p>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- CONCEITO -->
+  <section id="conceito">
+    <div class="section-inner">
+      <div class="conceito-grid">
+        <div class="conceito-text">
+          <div class="section-header">
+            <span class="section-label">Conceito</span>
+            <h2 class="section-title">Uma narrativa nautica enraizada na cultura</h2>
+          </div>
+          <p>O Instituto Veon carrega em sua essencia uma narrativa nautica profundamente enraizada em sua cultura organizacional. Cada colaborador desempenha funcoes especificas, assim como em uma embarcacao, e cada novo cliente e acolhido como um tripulante em uma jornada rumo ao sucesso empresarial.</p>
+          <p>A missao da empresa e clara: <strong style="color: var(--branco);">"Guiar ate a terra da prosperidade empresarios presos na ilha da escassez."</strong></p>
+          <p>A bussola, elemento central da identidade, simboliza <strong style="color: var(--branco);">direcionamento, precisao e confiabilidade.</strong></p>
+        </div>
+        <div class="conceito-visual">
+          <div class="compass-icon">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="42" stroke="white" stroke-width="2.5" fill="none" opacity="0.3"/>
+              <circle cx="50" cy="50" r="36" stroke="white" stroke-width="1" fill="none" opacity="0.15"/>
+              <path d="M50 12 L44 50 L50 44 L56 50 Z" fill="#e40a2d"/>
+              <path d="M50 88 L56 50 L50 56 L44 50 Z" fill="white" opacity="0.4"/>
+              <path d="M12 50 L50 44 L44 50 L50 56 Z" fill="white" opacity="0.25"/>
+              <path d="M88 50 L50 56 L56 50 L50 44 Z" fill="white" opacity="0.25"/>
+              <circle cx="50" cy="50" r="4" fill="white"/>
+              <text x="50" y="10" text-anchor="middle" fill="white" font-size="6" font-weight="bold" opacity="0.6">N</text>
+              <text x="50" y="96" text-anchor="middle" fill="white" font-size="6" font-weight="bold" opacity="0.4">S</text>
+              <text x="7" y="52" text-anchor="middle" fill="white" font-size="6" font-weight="bold" opacity="0.4">O</text>
+              <text x="93" y="52" text-anchor="middle" fill="white" font-size="6" font-weight="bold" opacity="0.4">L</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- ATRIBUTOS DA MARCA -->
+  <section id="atributos">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Atributos da Marca</span>
+        <h2 class="section-title">Personalidade que se destaca</h2>
+        <p class="section-desc">Tres pilares definem a personalidade visual do Instituto Veon e guiam todas as decisoes de comunicacao.</p>
+      </div>
+
+      <div class="atributos-cards">
+        <div class="atributo-card">
+          <div class="atributo-icon ousada">&#9889;</div>
+          <h3>Ousada</h3>
+          <p>Transformacao corajosa que modernizou elementos nauticos classicos em uma linguagem visual contemporanea e impactante. A ousadia se expressa na simplificacao inteligente da bussola, transformando-a em icone poderoso e memoravel.</p>
+        </div>
+        <div class="atributo-card">
+          <div class="atributo-icon profissional">&#9878;</div>
+          <h3>Profissional</h3>
+          <p>O mais alto padrao de profissionalismo, adequado as exigencias de um mercado competitivo e sofisticado. A geometria precisa da bussola, o equilibrio cromatico e a tipografia convergem para criar uma presenca visual que inspira confianca.</p>
+        </div>
+        <div class="atributo-card">
+          <div class="atributo-icon moderna">&#10024;</div>
+          <h3>Moderna</h3>
+          <p>Capacidade de dialogar com as tendencias contemporaneas do design, sem perder identidade unica. A simplificacao estrategica resulta em uma marca versatil e atemporal, com linhas limpas e formas otimizadas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESCALA DE POSICIONAMENTO -->
+  <section id="posicionamento">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Posicionamento</span>
+        <h2 class="section-title">Onde a marca se posiciona</h2>
+      </div>
+
+      <div class="escala-items">
+        <div class="escala-item">
+          <span class="escala-label">Conservadora</span>
+          <div class="escala-bar-wrapper">
+            <div class="escala-bar" style="width: 78%;"></div>
+          </div>
+          <span class="escala-value">Ousada</span>
+        </div>
+        <div class="escala-item">
+          <span class="escala-label">Amigavel</span>
+          <div class="escala-bar-wrapper">
+            <div class="escala-bar" style="width: 82%;"></div>
+          </div>
+          <span class="escala-value">Profissional</span>
+        </div>
+        <div class="escala-item">
+          <span class="escala-label">Moderna</span>
+          <div class="escala-bar-wrapper">
+            <div class="escala-bar" style="width: 70%;"></div>
+          </div>
+          <span class="escala-value">Classica</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- LOGO -->
+  <section id="logo">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Logo</span>
+        <h2 class="section-title">Versatilidade em cada aplicacao</h2>
+        <p class="section-desc">O icone da bussola estilizada funciona de forma independente, mantendo alta legibilidade e reconhecimento mesmo em pequenas dimensoes.</p>
+      </div>
+
+      <div class="logo-showcase">
+        <div class="logo-item light">
+          <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="32" stroke="#0c3c5f" stroke-width="3" fill="none"/>
+            <path d="M40 10 L35 40 L40 35 L45 40 Z" fill="#e40a2d"/>
+            <path d="M40 70 L45 40 L40 45 L35 40 Z" fill="#0c3c5f"/>
+            <text x="82" y="30" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" fill="#0c3c5f" letter-spacing="0.5">INSTITUTO</text>
+            <text x="82" y="55" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="#0c3c5f" letter-spacing="1">VEON</text>
+          </svg>
+          <span class="logo-item-label">Colorida</span>
+        </div>
+        <div class="logo-item light">
+          <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="32" stroke="#1a1a1a" stroke-width="3" fill="none"/>
+            <path d="M40 10 L35 40 L40 35 L45 40 Z" fill="#1a1a1a"/>
+            <path d="M40 70 L45 40 L40 45 L35 40 Z" fill="#1a1a1a"/>
+            <text x="82" y="30" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" fill="#1a1a1a" letter-spacing="0.5">INSTITUTO</text>
+            <text x="82" y="55" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="#1a1a1a" letter-spacing="1">VEON</text>
+          </svg>
+          <span class="logo-item-label">Monocromatica</span>
+        </div>
+        <div class="logo-item dark">
+          <svg viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="40" r="32" stroke="white" stroke-width="3" fill="none"/>
+            <path d="M40 10 L35 40 L40 35 L45 40 Z" fill="white"/>
+            <path d="M40 70 L45 40 L40 45 L35 40 Z" fill="white" opacity="0.5"/>
+            <text x="82" y="30" font-family="Arial Black, sans-serif" font-size="11" font-weight="900" fill="white" letter-spacing="0.5">INSTITUTO</text>
+            <text x="82" y="55" font-family="Arial Black, sans-serif" font-size="22" font-weight="900" fill="white" letter-spacing="1">VEON</text>
+          </svg>
+          <span class="logo-item-label">Fundo escuro</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- CORES -->
+  <section id="cores">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Paleta Cromatica</span>
+        <h2 class="section-title">Cores que comunicam</h2>
+        <p class="section-desc">Azul predomina em 70% das aplicacoes representando confianca e tecnologia. O vermelho e aplicado pontualmente em 30%, transmitindo energia e urgencia.</p>
+      </div>
+
+      <div class="cores-grid">
+        <div class="cor-card">
+          <div class="cor-swatch azul">
+            <h3>Azul Navegante</h3>
+          </div>
+          <div class="cor-info">
+            <div class="cor-spec">
+              <span class="cor-spec-label">HEX</span>
+              <span class="cor-spec-value">#0c3c5f</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">PANTONE</span>
+              <span class="cor-spec-value">7694C</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">CMYK</span>
+              <span class="cor-spec-value">95 / 60 / 12 / 0</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">Uso</span>
+              <span class="cor-spec-value">70% - Base</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cor-card">
+          <div class="cor-swatch vermelho">
+            <h3>Vermelho Bussola</h3>
+          </div>
+          <div class="cor-info">
+            <div class="cor-spec">
+              <span class="cor-spec-label">HEX</span>
+              <span class="cor-spec-value">#e40a2d</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">PANTONE</span>
+              <span class="cor-spec-value">186C</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">CMYK</span>
+              <span class="cor-spec-value">45 / 10 / 228 / 0</span>
+            </div>
+            <div class="cor-spec">
+              <span class="cor-spec-label">Uso</span>
+              <span class="cor-spec-value">30% - Destaque</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- TIPOGRAFIA -->
+  <section id="tipografia">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Tipografia</span>
+        <h2 class="section-title">Fontes que falam pela marca</h2>
+        <p class="section-desc">Um sistema tipografico composto por duas familias complementares que garantem consistencia e versatilidade.</p>
+      </div>
+
+      <div class="tipo-grid">
+        <div class="tipo-card">
+          <div class="tipo-label">Primaria</div>
+          <h3 class="tipo-name">Swis721 Ex BT</h3>
+          <p style="font-size: 13px; color: var(--cinza-400); margin-bottom: 16px;">Utilizada exclusivamente na logomarca para garantir consistencia e reconhecimento da marca.</p>
+          <div class="tipo-sample" style="font-weight: 800; font-size: 18px; letter-spacing: 2px; color: var(--branco);">
+            INSTITUTO VEON
+          </div>
+        </div>
+        <div class="tipo-card">
+          <div class="tipo-label">Secundaria</div>
+          <h3 class="tipo-name">Sweet Sans Pro</h3>
+          <p style="font-size: 13px; color: var(--cinza-400); margin-bottom: 16px;">Fonte secundaria para textos gerais, oferecendo variacoes em Regular, Medium e Bold.</p>
+          <div class="tipo-sample">
+            abcdefghijklmnopqrstuvwxyz<br>
+            ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>
+            1234567890 "!@#$%&*()
+          </div>
+          <div class="tipo-weights">
+            <span class="tipo-weight">regular</span>
+            <span class="tipo-weight medium">medio</span>
+            <span class="tipo-weight bold">bold</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- RESTRICOES -->
+  <section id="restricoes">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Restricoes</span>
+        <h2 class="section-title">O que nao fazer</h2>
+        <p class="section-desc">Para manter a integridade da marca, estas praticas devem ser evitadas em todas as aplicacoes.</p>
+      </div>
+
+      <div class="restricoes-grid">
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao alterar as proporcoes ou distorcer a logomarca em nenhuma aplicacao</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao alterar as cores oficiais da logomarca para cores nao autorizadas</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao aplicar efeitos visuais como sombras, relevos ou gradientes no logo</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao usar fundos que comprometam a legibilidade e o contraste</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao posicionar outros elementos muito proximos a area de protecao</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao utilizar a logo em tamanhos menores que o minimo estabelecido</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao rotacionar ou inverter a logomarca em nenhuma aplicacao</p>
+        </div>
+        <div class="restricao-item">
+          <div class="restricao-x">X</div>
+          <p>Nao alterar a hierarquia tipografica (VEON abaixo de INSTITUTO)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- MATERIAIS -->
+  <section id="materiais">
+    <div class="section-inner">
+      <div class="section-header">
+        <span class="section-label">Aplicacoes</span>
+        <h2 class="section-title">A marca em acao</h2>
+        <p class="section-desc">Materiais corporativos, digitais e vestuario que traduzem a identidade visual em experiencias tangiveis.</p>
+      </div>
+
+      <div class="materiais-grid">
+        <div class="material-card">
+          <div class="material-thumb corp">
+            <span class="material-thumb-icon">&#128188;</span>
+          </div>
+          <div class="material-body">
+            <h3>Materiais Corporativos</h3>
+            <p>Cartoes de visita, papel timbrado, agenda executiva em couro premium e canetas metalicas com gravacao da logomarca.</p>
+          </div>
+        </div>
+        <div class="material-card">
+          <div class="material-thumb digital">
+            <span class="material-thumb-icon">&#128187;</span>
+          </div>
+          <div class="material-body">
+            <h3>Materiais Digitais</h3>
+            <p>Landing pages, interfaces web e apresentacoes seguindo os principios da identidade com adaptacoes para o ambiente digital.</p>
+          </div>
+        </div>
+        <div class="material-card">
+          <div class="material-thumb vest">
+            <span class="material-thumb-icon">&#128085;</span>
+          </div>
+          <div class="material-body">
+            <h3>Vestuario</h3>
+            <p>Camisetas polo para diferenciacao de equipes, camisetas casuais e moletons com aplicacao criativa da marca.</p>
+          </div>
+        </div>
+        <div class="material-card">
+          <div class="material-thumb corp">
+            <span class="material-thumb-icon">&#127873;</span>
+          </div>
+          <div class="material-body">
+            <h3>Souvenirs & Brindes</h3>
+            <p>Ecobags sustentaveis, copos termicos, chaveiros metalicos e kits corporativos para fidelizacao de clientes.</p>
+          </div>
+        </div>
+        <div class="material-card">
+          <div class="material-thumb digital">
+            <span class="material-thumb-icon">&#128241;</span>
+          </div>
+          <div class="material-body">
+            <h3>Redes Sociais</h3>
+            <p>Templates para posts, stories e thumbnails seguindo a paleta cromatica e as diretrizes de marca.</p>
+          </div>
+        </div>
+        <div class="material-card">
+          <div class="material-thumb vest">
+            <span class="material-thumb-icon">&#127891;</span>
+          </div>
+          <div class="material-body">
+            <h3>Apresentacoes</h3>
+            <p>Slides institucionais com uso predominante do azul e aplicacoes pontuais do vermelho para hierarquia visual.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="sep"></div>
+
+  <!-- MISSAO / CTA -->
+  <section id="missao">
+    <div class="section-inner">
+      <div class="missao-block">
+        <svg viewBox="0 0 60 60" width="60" height="60" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 24px; opacity: 0.3;">
+          <circle cx="30" cy="30" r="26" stroke="white" stroke-width="2" fill="none"/>
+          <path d="M30 6 L26 30 L30 26 L34 30 Z" fill="white"/>
+          <path d="M30 54 L34 30 L30 34 L26 30 Z" fill="white" opacity="0.4"/>
+        </svg>
+        <p class="missao-quote">
+          "Guiar ate a terra da <span class="hl">prosperidade</span> empresarios presos na ilha da <span class="hl">escassez</span>"
+        </p>
+        <p class="missao-lema">"Eu sou a bussola que aponta para o sucesso, meu e de meus companheiros"</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-brand">
+      <svg viewBox="0 0 200 60" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="30" cy="30" r="26" stroke="white" stroke-width="2" fill="none" opacity="0.3"/>
+        <path d="M30 6 L26 30 L30 26 L34 30 Z" fill="white" opacity="0.3"/>
+        <text x="65" y="25" font-family="Arial Black, sans-serif" font-size="12" font-weight="900" fill="white" letter-spacing="1" opacity="0.3">INSTITUTO</text>
+        <text x="65" y="48" font-family="Arial Black, sans-serif" font-size="24" font-weight="900" fill="white" letter-spacing="2" opacity="0.3">VEON</text>
+      </svg>
+    </div>
+    <p>Instituto Veon &mdash; A Escola do Varejo | Cascavel/PR</p>
+    <p style="margin-top: 8px;">Identidade visual desenvolvida por <a href="#">Teva Arquitetura</a></p>
+  </footer>
+
+</body>
+</html>
