@@ -40,14 +40,15 @@ Se o horário mudar, atualize também os textos "Seg. a sex. · 8h às 18h" e o 
 
 ## Publicação (Vercel)
 
-Projeto estático, sem build. Na Vercel: **Add New → Project → importar `igordiniz0721/iv05-lp`**, com:
+No ar em **https://lj-climatizacao.vercel.app/** (projeto `lj-climatizacao`, conta `igordiniz0721-7935s-projects`).
 
-- **Root Directory:** `lj-climatizacao`
-- **Framework Preset:** Other (sem build command e sem output directory)
+Site estático, sem build. Para publicar uma nova versão, rode dentro desta pasta:
 
-Depois do primeiro deploy:
+```bash
+npx vercel@latest deploy --prod --scope igordiniz0721-7935s-projects
+```
 
-- Troque `og-image.jpg` no `og:image` e no `image` do JSON-LD pela URL completa (`https://SEU-PROJETO.vercel.app/og-image.jpg` ou o domínio próprio), senão a prévia do link não aparece no WhatsApp.
+- Se o site ganhar domínio próprio, troque `https://lj-climatizacao.vercel.app/` no `canonical`, `og:url`, `og:image` e no JSON-LD (`url` e `image`).
 - Se for usar Meta Pixel ou Google Analytics, cole o código antes do `</head>`.
 
 ## Para confirmar com o cliente
