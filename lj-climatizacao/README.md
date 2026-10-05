@@ -38,10 +38,12 @@ const CFG = {
 
 Se o horário mudar, atualize também os textos "Seg. a sex. · 8h às 18h" e o `openingHoursSpecification` do JSON-LD no `<head>`.
 
-## Depois de publicar
+## Publicação
 
-1. Troque `og-image.jpg` nas tags `og:image` e no JSON-LD pela URL completa (ex.: `https://ljclimatizacao.com.br/og-image.jpg`), senão a prévia do link não aparece no WhatsApp.
-2. Se for usar Meta Pixel ou Google Analytics, cole o código antes do `</head>`.
+Publicado no GitHub Pages (branch `gh-pages`): https://igordiniz0721.github.io/iv05-lp/lj-climatizacao/
+
+- Se o site for para um domínio próprio, troque essa URL no `canonical`, `og:url`, `og:image` e no JSON-LD (`url` e `image`), senão a prévia do link no WhatsApp aponta para o endereço antigo.
+- Se for usar Meta Pixel ou Google Analytics, cole o código antes do `</head>`.
 
 ## Para confirmar com o cliente
 
