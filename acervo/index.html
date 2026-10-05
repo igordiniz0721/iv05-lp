@@ -88,6 +88,7 @@ body {
   overflow-x: hidden;
 }
 img { max-width: 100%; display: block; }
+[hidden] { display: none !important; }
 a { color: inherit; }
 h1, h2, h3 { margin: 0; font-family: var(--f-display); text-wrap: balance; }
 p { margin: 0; }
@@ -324,6 +325,7 @@ section[id] { scroll-margin-top: 72px; }
 .g-item figcaption .mono { font-size: .7rem; opacity: .8; }
 .g-item:hover figcaption, .g-item:focus-within figcaption { opacity: 1; }
 @media (hover: none) { .g-item figcaption { display: none; } }
+.g-more-wrap { display: flex; justify-content: center; margin-top: 12px; }
 @media (max-width: 560px) { .masonry { columns: 2; column-gap: 10px; } .g-item { margin-bottom: 10px; } }
 
 /* lightbox */
@@ -492,13 +494,120 @@ section[id] { scroll-margin-top: 72px; }
 .final { background: var(--ink); color: var(--paper); border-radius: 6px; overflow: hidden; display: grid; }
 .final-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; }
 .final-strip img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
-.final-body { padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 64px); display: grid; gap: 22px; justify-items: start; }
 .final h2 { font-weight: 820; font-stretch: 112%; font-size: clamp(2rem, 1rem + 3.4vw, 3.8rem); line-height: 1; letter-spacing: -.02em; max-width: 16em; }
-.final .mono { font-size: .82rem; opacity: .75; }
 @media (max-width: 640px) { .final-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); } .final-strip img:nth-child(n+5) { display: none; } }
 
-footer { padding-block: 40px 56px; }
-.foot { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: .88rem; color: var(--ink-soft); }
+/* ---------- botão pílula com seta ---------- */
+.btn--primary:hover { box-shadow: 0 12px 28px -12px var(--magenta); }
+.btn--pill { border-radius: 999px; padding: 8px 8px 8px 22px; gap: 14px; }
+.pill-arrow {
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--on-accent); color: var(--magenta);
+  transition: transform .2s ease;
+}
+.btn--pill:hover .pill-arrow { transform: rotate(45deg); }
+.btn .pill-arrow svg { width: 16px; height: 16px; }
+.btn--big { font-size: 1.1rem; padding: 10px 10px 10px 28px; }
+.btn--big .pill-arrow { width: 42px; height: 42px; }
+
+/* ---------- vantagens ---------- */
+.perks { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.perk { background: var(--surface); border-radius: 6px; padding: 26px 24px 28px; display: grid; gap: 10px; align-content: start; }
+.perk svg { width: 30px; height: 30px; fill: none; stroke: var(--magenta); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; margin-bottom: 6px; }
+.perk h3 { font-weight: 720; font-stretch: 106%; font-size: 1.18rem; }
+.perk p { color: var(--ink-soft); font-size: .96rem; }
+@media (max-width: 900px) { .perks { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .perks { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- faixa de chamada ---------- */
+.strip {
+  margin-top: 36px;
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center;
+  gap: 12px 32px;
+  background: var(--surface); border-radius: 6px;
+  padding: 22px 22px 22px 28px;
+}
+.strip h3 { font-weight: 780; font-stretch: 110%; font-size: 1.5rem; }
+.strip p { color: var(--ink-soft); }
+@media (max-width: 760px) { .strip { grid-template-columns: minmax(0, 1fr); justify-items: start; padding: 24px; } }
+
+/* ---------- pastas incluídas ---------- */
+.extras { display: grid; gap: 18px; }
+.extra {
+  display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
+}
+.extra-img { aspect-ratio: 4 / 3; background: var(--paper); min-height: 100%; }
+.extra-img img { width: 100%; height: 100%; object-fit: cover; }
+.extra-img--top img { object-position: center top; }
+.extra-img--checker { background: repeating-conic-gradient(var(--line) 0 25%, var(--surface) 0 50%) 0 0 / 22px 22px; }
+.extra-img--checker img { object-fit: contain; padding: 8%; }
+.extra-body { padding: clamp(20px, 3vw, 32px); display: grid; gap: 10px; align-content: center; min-width: 0; }
+.extra-body .tag { color: var(--magenta); }
+.extra h3 { font-weight: 720; font-stretch: 106%; font-size: 1.4rem; line-height: 1.15; }
+.extra-body > p:not(.tag) { color: var(--ink-soft); max-width: 34em; }
+.extra-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; margin-top: 8px; padding-top: 14px; border-top: 1px solid var(--line); }
+.extra-foot .mono { font-size: .74rem; color: var(--ink-soft); }
+.badge {
+  font-family: var(--f-mono); font-size: .72rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: var(--r);
+  background: color-mix(in srgb, var(--cyan) 14%, transparent); color: var(--cyan);
+}
+@media (max-width: 760px) {
+  .extra { grid-template-columns: minmax(0, 1fr); }
+  .extra-img { aspect-ratio: 16 / 9; min-height: 0; }
+}
+
+/* ---------- para quem é ---------- */
+.who { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.who .sec-head div { margin-top: 8px; }
+.who-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.who-list li { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--surface); border-radius: 6px; font-weight: 500; }
+.who-list li::before, .checks li::before {
+  content: ""; flex: none; width: 22px; height: 22px;
+  background: var(--magenta);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+@media (max-width: 860px) { .who { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- oferta ---------- */
+.final .tag { color: inherit; opacity: .72; }
+.offer { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); }
+.offer-get { padding: clamp(28px, 5vw, 60px); display: grid; gap: 20px; align-content: start; }
+.checks { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.checks li { display: flex; align-items: flex-start; gap: 12px; }
+.checks li::before { background: currentColor; margin-top: 1px; }
+.offer-buy {
+  padding: clamp(28px, 5vw, 60px);
+  border-left: 1px solid color-mix(in srgb, var(--paper) 18%, transparent);
+  display: grid; align-content: center; justify-items: start; gap: 18px;
+}
+.price { display: grid; gap: 4px; }
+.price-from { opacity: .7; }
+.price-now { font-family: var(--f-display); font-weight: 820; font-stretch: 112%; font-size: clamp(2.4rem, 1.6rem + 2.4vw, 3.4rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.price-split { opacity: .82; }
+.offer-buy .mono { font-size: .8rem; opacity: .72; }
+@media (max-width: 860px) {
+  .offer { grid-template-columns: minmax(0, 1fr); }
+  .offer-buy { border-left: 0; border-top: 1px solid color-mix(in srgb, var(--paper) 18%, transparent); }
+}
+
+/* ---------- ajuda no FAQ ---------- */
+.faq-help { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; margin-top: 24px; padding: 20px; background: var(--surface); border-radius: 6px; }
+
+/* ---------- rodapé ---------- */
+.footer { border-top: 1px solid var(--line); }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(2, minmax(0, .8fr)); gap: 32px; padding-block: 48px 36px; }
+.foot-brand { display: grid; gap: 12px; align-content: start; }
+.foot-brand p { color: var(--ink-soft); max-width: 28em; }
+.foot-col { display: grid; gap: 8px; align-content: start; }
+.foot-col .tag { margin: 0 0 4px; }
+.foot-col a { color: var(--ink-soft); text-decoration: none; width: fit-content; }
+.foot-col a:hover { color: var(--ink); }
+.foot-base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; padding-block: 20px 44px; border-top: 1px solid var(--line); font-size: .86rem; color: var(--ink-soft); }
+@media (max-width: 640px) { .foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .foot-brand { grid-column: 1 / -1; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -583,6 +692,47 @@ footer { padding-block: 40px 56px; }
       <div><b>73,6 GB</b><span>no total</span></div>
     </div>
   </div>
+
+  <section class="sec" id="vantagens">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">O que tem dentro</p>
+        <h2>Tudo separado por tema, do jeito que você produz.</h2>
+      </div>
+      <div class="perks">
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M3 10h18"/></svg>
+          <h3>33 pastas por tema</h3>
+          <p>E subpastas dentro delas: Mar, Cachoeiras, Café, Cerveja, Vinho, Sem Fundo. Você abre direto o nicho do pedido.</p>
+        </article>
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/></svg>
+          <h3>3.886 PNG</h3>
+          <p>Muitos sem fundo, prontos para colocar sobre qualquer cor, textura ou foto.</p>
+        </article>
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19l7-7 3 3-7 7z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><circle cx="11" cy="11" r="2"/></svg>
+          <h3>148 vetores editáveis</h3>
+          <p>Arquivos AI, EPS e SVG nas artes editáveis de Dia das Mães, para trocar nome, frase e cores.</p>
+        </article>
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="2"/><path d="m21 16-5-5-8 9"/></svg>
+          <h3>Fotos em alta</h3>
+          <p>Um arquivo típico de Paisagens tem 5,5 MB, e muitos passam de 20 MB.</p>
+        </article>
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          <h3>Datas comemorativas</h3>
+          <p>716 artes de Dia das Mães, 89 de Dia dos Namorados e 21 de Dia dos Pais.</p>
+        </article>
+        <article class="perk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5"/><path d="M4 18v2h16v-2"/></svg>
+          <h3>Baixe por pasta</h3>
+          <p>São 73,6 GB no total. Você baixa só os temas que for usar.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <section class="sec" id="temas">
     <div class="wrap">
@@ -1100,6 +1250,12 @@ footer { padding-block: 40px 56px; }
           <figcaption><span>Ilustração de casa nas colinas verdes</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
         </figure>
       </div>
+      <div class="g-more-wrap"><button class="btn btn--ghost" type="button" id="g-more" hidden>Ver todas as 66 amostras</button></div>
+      <div class="strip">
+        <h3>Gostou das amostras?</h3>
+        <p>São 13.978 arquivos como esses, separados em 33 pastas por tema.</p>
+        <a class="btn btn--primary btn--pill" href="#garantir" data-compra>Quero o acervo <span class="pill-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
     </div>
   </section>
 
@@ -1144,6 +1300,62 @@ footer { padding-block: 40px 56px; }
         </dl>
         <div><button class="btn btn--ghost" type="button" id="spin-toggle" aria-pressed="false">Pausar o giro</button></div>
       </div>
+    </div>
+  </section>
+
+  <section class="sec" id="incluso">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">Já vem no acervo</p>
+        <h2>Três pastas especiais que já vêm junto.</h2>
+      </div>
+      <div class="extras">
+        <article class="extra">
+          <div class="extra-img extra-img--top"><img src="img/sm/maes-abraco.webp" width="720" height="720" alt="Ilustração de mãe e filha abraçadas" loading="lazy" decoding="async"></div>
+          <div class="extra-body">
+            <p class="tag">#incluso 1</p>
+            <h3>Artes editáveis de Dia das Mães</h3>
+            <p>71 artes com os arquivos abertos em AI, EPS, SVG e PSD, para trocar nome, frase e cores antes de imprimir.</p>
+            <div class="extra-foot"><span class="mono">245 arquivos · Dia das Mães / Brinde Artes Editáveis</span><span class="badge">Incluso</span></div>
+          </div>
+        </article>
+        <article class="extra">
+          <div class="extra-img extra-img--checker"><img src="img/sm/maes-png-coracao.webp" width="720" height="607" alt="Coração de rosas em PNG sem fundo" loading="lazy" decoding="async"></div>
+          <div class="extra-body">
+            <p class="tag">#incluso 2</p>
+            <h3>PNG sem fundo de Dia das Mães</h3>
+            <p>115 elementos já recortados, como corações, flores, molduras e frases, para montar a arte sobre qualquer fundo.</p>
+            <div class="extra-foot"><span class="mono">116 arquivos · Dia das Mães / Sem Fundo</span><span class="badge">Incluso</span></div>
+          </div>
+        </article>
+        <article class="extra">
+          <div class="extra-img"><img src="img/sm/kit-paisagem.webp" width="720" height="324" alt="Kit com três paisagens ilustradas no mesmo estilo" loading="lazy" decoding="async"></div>
+          <div class="extra-body">
+            <p class="tag">#incluso 3</p>
+            <h3>Kits de paisagem ilustrada</h3>
+            <p>51 kits com várias paisagens no mesmo estilo, bons para coleções e conjuntos de produtos.</p>
+            <div class="extra-foot"><span class="mono">52 arquivos · Paisagens / Artes Digitais - Kits</span><span class="badge">Incluso</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="para-quem">
+    <div class="wrap who">
+      <div class="sec-head" style="margin-bottom:0">
+        <p class="tag">Para quem é</p>
+        <h2>Feito para quem vende personalizado.</h2>
+        <p>Se você transforma arte em produto, o acervo encurta a parte de procurar e montar.</p>
+        <div><a class="btn btn--primary" href="#garantir" data-compra>Quero o acervo</a></div>
+      </div>
+      <ul class="who-list">
+        <li>Ateliês de sublimação e personalizados</li>
+        <li>Quem está começando com canecas e camisetas</li>
+        <li>Lojas de presentes e papelarias</li>
+        <li>Social media que precisa de fundos e artes prontas</li>
+        <li>Quem monta kits para datas comemorativas</li>
+      </ul>
     </div>
   </section>
 
@@ -1201,6 +1413,47 @@ footer { padding-block: 40px 56px; }
     </div>
   </section>
 
+  <section class="sec" id="garantir">
+    <div class="wrap">
+      <!-- Preço, link de compra e contatos ficam no objeto CONFIG, no script no fim da página. -->
+      <div class="final">
+        <div class="final-strip" aria-hidden="true">
+          <img src="img/sm/mar-ilha.webp" width="720" height="405" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/flor-crisantemo.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/animal-pavao.webp" width="720" height="720" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/textura-dourada.webp" width="720" height="540" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/retro-pizza.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/frase-sorrir.webp" width="635" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/cachoeira-montanhas.webp" width="720" height="417" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/animal-tucano.webp" width="720" height="450" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="offer">
+          <div class="offer-get">
+            <p class="tag">O que você recebe</p>
+            <h2>Seu próximo produto já está numa dessas pastas.</h2>
+            <ul class="checks">
+              <li>13.978 arquivos em 33 pastas por tema</li>
+              <li>9.901 JPG, 3.886 PNG e 148 vetores editáveis</li>
+              <li>Artes de Dia das Mães, Dia dos Namorados e Dia dos Pais</li>
+              <li>Paisagens, flores, animais, texturas, frases e nichos</li>
+              <li>Acesso por pasta na nuvem, com download por tema</li>
+            </ul>
+          </div>
+          <div class="offer-buy">
+            <p class="tag" id="offer-label">Acesso completo</p>
+            <div class="price" id="price" hidden>
+              <p class="price-from" id="price-from" hidden>De <s></s></p>
+              <p class="price-now" id="price-now"></p>
+              <p class="price-split" id="price-split" hidden></p>
+            </div>
+            <a class="btn btn--primary btn--pill btn--big" href="#garantir" data-compra>Quero o acervo <span class="pill-arrow" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+            <p class="mono">13.978 arquivos · 33 pastas · 73,6 GB</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="sec" id="duvidas">
     <div class="wrap faq-grid">
       <div class="sec-head">
@@ -1214,7 +1467,7 @@ footer { padding-block: 40px 56px; }
         </details>
         <details>
           <summary>Em que formatos estão os arquivos?</summary>
-          <p>9.901 fotos e artes em JPG, 3.886 PNG (muitos sem fundo, prontos para aplicar), 148 vetores em AI, EPS e SVG e alguns PSD editáveis.</p>
+          <p>9.901 fotos e artes em JPG e 3.886 PNG, muitos sem fundo. As artes editáveis de Dia das Mães trazem ainda 148 vetores em AI, EPS e SVG e 4 arquivos PSD.</p>
         </details>
         <details>
           <summary>A resolução serve para impressão?</summary>
@@ -1228,40 +1481,48 @@ footer { padding-block: 40px 56px; }
           <summary>Posso vender produtos com essas artes?</summary>
           <p>Antes de vender, confira se a arte não traz marca registrada, personagem ou foto com direitos reservados. Temas como paisagens, flores, texturas e frases costumam ser os mais seguros para começar.</p>
         </details>
-      </div>
-    </div>
-  </section>
-
-  <section class="sec" id="garantir" style="padding-top:0">
-    <div class="wrap">
-      <div class="final">
-        <div class="final-strip" aria-hidden="true">
-          <img src="img/sm/mar-ilha.webp" width="720" height="405" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/flor-crisantemo.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/animal-pavao.webp" width="720" height="720" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/textura-dourada.webp" width="720" height="540" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/retro-pizza.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/frase-sorrir.webp" width="635" height="900" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/cachoeira-montanhas.webp" width="720" height="417" alt="" loading="lazy" decoding="async">
-          <img src="img/sm/animal-tucano.webp" width="720" height="450" alt="" loading="lazy" decoding="async">
-        </div>
-        <div class="final-body">
-          <h2>Seu próximo produto já está numa dessas pastas.</h2>
-          <!-- Troque o link de compra na constante LINK_COMPRA, no script no fim da página. -->
-          <a class="btn btn--primary" href="#garantir" data-compra>
-            Quero o acervo
-            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="faq-help" id="faq-help" hidden>
+          <p>Ainda ficou com dúvida? Fale com a gente pelo WhatsApp.</p>
+          <a class="btn btn--ghost" id="faq-wa" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 .8a4 4 0 0 1-1.8-1.8l.8-1-1-2z" fill="currentColor"/></svg>
+            Chamar no WhatsApp
           </a>
-          <p class="mono">13.978 arquivos · 33 pastas · 73,6 GB</p>
         </div>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap foot">
-    <span>+10 Mil Imagens · acervo digital para personalização</span>
+<footer class="footer">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="logo" href="#topo" aria-label="+10 Mil Imagens, início">
+        <svg viewBox="0 0 30 22" aria-hidden="true">
+          <circle cx="9" cy="11" r="8" fill="var(--cyan)"></circle>
+          <circle cx="15" cy="11" r="8" fill="var(--magenta)"></circle>
+          <circle cx="21" cy="11" r="8" fill="var(--yellow)"></circle>
+        </svg>
+        <b>+10 MIL IMAGENS</b>
+      </a>
+      <p>Acervo digital para sublimação e personalizados.</p>
+    </div>
+    <nav class="foot-col" aria-label="Rodapé">
+      <h3 class="tag">Navegação</h3>
+      <a href="#temas">Temas</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#datas">Datas</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <div class="foot-col" id="foot-contact" hidden>
+      <h3 class="tag">Contato</h3>
+      <a id="foot-wa" href="#" target="_blank" rel="noopener" hidden></a>
+      <a id="foot-ig" href="#" target="_blank" rel="noopener" hidden></a>
+      <a id="foot-mail" href="#" hidden></a>
+    </div>
+  </div>
+  <div class="wrap foot-base">
+    <span>© <span id="year">2026</span> +10 Mil Imagens</span>
     <span>As imagens desta página são amostras do acervo.</span>
   </div>
 </footer>
@@ -1286,16 +1547,58 @@ footer { padding-block: 40px 56px; }
 
 <script>
 (function () {
-  // Cole aqui o link de compra (checkout, WhatsApp etc.). Vazio = os botões levam à chamada final.
-  var LINK_COMPRA = '';
+  // Configure aqui. Campos vazios ficam escondidos na página.
+  var CONFIG = {
+    linkCompra: '',   // link do checkout ou pagamento
+    preco: '',        // ex.: 'R$ 19,90'
+    precoDe: '',      // preço riscado, opcional. ex.: 'R$ 97,00'
+    parcelas: '',     // opcional. ex.: 'ou 3x de R$ 6,97'
+    whatsapp: '',     // só números, com DDI e DDD. ex.: '5511999999999'
+    instagram: '',    // perfil sem @
+    email: ''
+  };
 
-  if (LINK_COMPRA) {
+  if (CONFIG.linkCompra) {
     document.querySelectorAll('[data-compra]').forEach(function (a) {
-      a.href = LINK_COMPRA;
+      a.href = CONFIG.linkCompra;
       a.target = '_blank';
       a.rel = 'noopener';
     });
   }
+  if (CONFIG.preco) {
+    document.getElementById('offer-label').textContent = 'Investimento';
+    document.getElementById('price').hidden = false;
+    document.getElementById('price-now').textContent = CONFIG.preco;
+    if (CONFIG.precoDe) {
+      var from = document.getElementById('price-from');
+      from.querySelector('s').textContent = CONFIG.precoDe;
+      from.hidden = false;
+    }
+    if (CONFIG.parcelas) {
+      var split = document.getElementById('price-split');
+      split.textContent = CONFIG.parcelas;
+      split.hidden = false;
+    }
+  }
+  var hasContact = false;
+  if (CONFIG.whatsapp) {
+    var wa = 'https://wa.me/' + CONFIG.whatsapp.replace(/\D/g, '') + '?text=' + encodeURIComponent('Olá! Tenho uma dúvida sobre o acervo +10 Mil Imagens.');
+    document.getElementById('faq-wa').href = wa;
+    document.getElementById('faq-help').hidden = false;
+    var fw = document.getElementById('foot-wa');
+    fw.href = wa; fw.textContent = 'WhatsApp'; fw.hidden = false; hasContact = true;
+  }
+  if (CONFIG.instagram) {
+    var ig = document.getElementById('foot-ig');
+    ig.href = 'https://instagram.com/' + CONFIG.instagram.replace(/^@/, '');
+    ig.textContent = '@' + CONFIG.instagram.replace(/^@/, ''); ig.hidden = false; hasContact = true;
+  }
+  if (CONFIG.email) {
+    var em = document.getElementById('foot-mail');
+    em.href = 'mailto:' + CONFIG.email; em.textContent = CONFIG.email; em.hidden = false; hasContact = true;
+  }
+  document.getElementById('foot-contact').hidden = !hasContact;
+  document.getElementById('year').textContent = new Date().getFullYear();
 
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -1315,16 +1618,23 @@ footer { padding-block: 40px 56px; }
   var items = Array.prototype.slice.call(document.querySelectorAll('.g-item'));
   var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
   var countEl = document.getElementById('g-count');
+  var LIMIT = 24, expanded = false;
+  var moreBtn = document.getElementById('g-more');
   function applyFilter(f) {
-    var n = 0;
+    var n = 0, shown = 0;
     items.forEach(function (it) {
-      var show = f === 'todos' || it.dataset.group === f;
+      var match = f === 'todos' || it.dataset.group === f;
+      if (match) n++;
+      var show = match && (f !== 'todos' || expanded || n <= LIMIT);
       it.hidden = !show;
-      if (show) n++;
+      if (show) shown++;
     });
     chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.filter === f)); });
-    countEl.textContent = n + (n === 1 ? ' imagem' : ' imagens');
+    moreBtn.hidden = !(f === 'todos' && !expanded && n > LIMIT);
+    countEl.textContent = shown === n ? n + (n === 1 ? ' imagem' : ' imagens') : shown + ' de ' + n + ' imagens';
   }
+  moreBtn.addEventListener('click', function () { expanded = true; applyFilter('todos'); });
+  applyFilter('todos');
   chips.forEach(function (c) {
     c.addEventListener('click', function () { applyFilter(c.dataset.filter); });
   });
