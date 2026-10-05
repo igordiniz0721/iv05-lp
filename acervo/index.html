@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F3F4F6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0C0E13" media="(prefers-color-scheme: dark)">
+<title>+10 Mil Imagens</title>
+<meta name="description" content="Acervo digital com 13.978 arquivos em 33 pastas por tema: paisagens, flores, animais, texturas, frases e datas comemorativas para sublimação e personalizados.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400..700&display=swap">
+<style>
+/* Layout: folha de prova de gráfica. Manchete à esquerda e colunas de imagens correndo à direita;
+   cada seção abre com uma etiqueta técnica em mono; o magenta de processo marca só a ação. */
+:root {
+  --paper: #F3F4F6;
+  --surface: #FFFFFF;
+  --ink: #12151C;
+  --ink-soft: #4A5162;
+  --line: #D9DCE3;
+  --magenta: #C40F68;
+  --cyan: #0085B5;
+  --yellow: #E9AE00;
+  --on-accent: #FFFFFF;
+  --mis-a: rgba(0, 160, 220, .55);
+  --mis-b: rgba(245, 190, 0, .7);
+  --blend: multiply;
+  --ceramic: #F7F7F4;
+  --shade: rgba(10, 12, 18, .5);
+  --over-img: rgba(8, 10, 14, .78);
+  --over-img-fg: #FFFFFF;
+  --backdrop: rgba(8, 10, 14, .84);
+
+  --f-display: "Archivo", "Arial Narrow", Arial, sans-serif;
+  --f-body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  --wrap: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --r: 4px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0C0E13;
+    --surface: #161920;
+    --ink: #ECEEF2;
+    --ink-soft: #A1A7B4;
+    --line: #272B35;
+    --magenta: #FF4D9D;
+    --cyan: #40C4F0;
+    --yellow: #FFD040;
+    --on-accent: #0C0E13;
+    --mis-a: rgba(64, 196, 240, .5);
+    --mis-b: rgba(255, 208, 64, .45);
+    --blend: screen;
+    --shade: rgba(0, 0, 0, .7);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0C0E13;
+  --surface: #161920;
+  --ink: #ECEEF2;
+  --ink-soft: #A1A7B4;
+  --line: #272B35;
+  --magenta: #FF4D9D;
+  --cyan: #40C4F0;
+  --yellow: #FFD040;
+  --on-accent: #0C0E13;
+  --mis-a: rgba(64, 196, 240, .5);
+  --mis-b: rgba(255, 208, 64, .45);
+  --blend: screen;
+  --shade: rgba(0, 0, 0, .7);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+h1, h2, h3 { margin: 0; font-family: var(--f-display); text-wrap: balance; }
+p { margin: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
+section[id] { scroll-margin-top: 72px; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.tag {
+  font-family: var(--f-mono);
+  font-size: .75rem;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.mono { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+
+/* ---------- botões ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.2;
+  padding: 14px 22px;
+  border-radius: var(--r);
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .15s ease, background-color .15s ease;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--primary { background: var(--magenta); color: var(--on-accent); }
+.btn--ghost { border-color: var(--ink); color: var(--ink); background: transparent; }
+.btn--ghost:hover { background: var(--surface); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ---------- topo ---------- */
+.top {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.top-in { display: flex; align-items: center; gap: 24px; min-height: 64px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo svg { width: 30px; height: 22px; flex: none; }
+.logo svg circle { mix-blend-mode: var(--blend); }
+.logo b {
+  font-family: var(--f-display);
+  font-weight: 850;
+  font-stretch: 118%;
+  font-size: 1.02rem;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+}
+.nav { display: flex; gap: 22px; margin-left: auto; }
+.nav a { text-decoration: none; font-size: .94rem; color: var(--ink-soft); }
+.nav a:hover { color: var(--ink); }
+.top .btn { padding: 10px 16px; font-size: .92rem; white-space: nowrap; }
+@media (max-width: 860px) {
+  .nav { display: none; }
+  .top .btn { margin-left: auto; }
+}
+@media (max-width: 420px) {
+  .top-in { gap: 12px; }
+  .logo b { font-size: .92rem; }
+  .top .btn { padding: 9px 12px; font-size: .86rem; }
+}
+
+/* ---------- hero ---------- */
+.hero { padding-block: clamp(36px, 6vw, 80px) clamp(40px, 6vw, 88px); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr);
+  gap: clamp(32px, 5vw, 64px);
+  align-items: center;
+}
+.hero-copy { display: grid; gap: 24px; min-width: 0; }
+.hero h1 {
+  font-weight: 820;
+  font-stretch: 112%;
+  font-size: clamp(2.45rem, 1.2rem + 4.2vw, 4.6rem);
+  line-height: .98;
+  letter-spacing: -.025em;
+}
+.mis {
+  font-style: normal;
+  color: var(--magenta);
+  text-shadow: .045em .03em 0 var(--mis-a), -.035em -.02em 0 var(--mis-b);
+}
+.lede { font-size: clamp(1.05rem, 1rem + .3vw, 1.2rem); color: var(--ink-soft); max-width: 36em; }
+.lede strong { color: var(--ink); font-weight: 600; }
+.hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+.uses { font-size: .92rem; color: var(--ink-soft); }
+.uses span { color: var(--ink); }
+
+.mosaic {
+  position: relative;
+  height: clamp(420px, 50vw, 640px);
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+}
+.mcol { display: flex; flex-direction: column; gap: 12px; will-change: transform; }
+.mcol:nth-child(2) { margin-top: -90px; }
+.mcol:nth-child(3) { margin-top: -30px; }
+.mcol img { width: 100%; height: auto; border-radius: var(--r); background: var(--surface); }
+.mcol.run { animation: rise 70s linear infinite; }
+.mcol.run:nth-child(2) { animation-duration: 84s; animation-direction: reverse; }
+.mcol.run:nth-child(3) { animation-duration: 76s; }
+.mosaic:hover .mcol.run { animation-play-state: paused; }
+@keyframes rise { to { transform: translateY(calc(-50% - 6px)); } }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .mosaic { height: 360px; }
+}
+
+/* ---------- ficha técnica ---------- */
+.ficha {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--line);
+  border-block: 1px solid var(--line);
+}
+.ficha div { background: var(--paper); padding: 22px 18px; display: grid; gap: 4px; align-content: start; }
+.ficha b {
+  font-family: var(--f-display);
+  font-weight: 760;
+  font-stretch: 108%;
+  font-size: clamp(1.5rem, 1rem + 1.5vw, 2.2rem);
+  line-height: 1.05;
+  font-variant-numeric: tabular-nums;
+}
+.ficha span { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .04em; color: var(--ink-soft); text-transform: uppercase; }
+@media (max-width: 900px) { .ficha { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .ficha { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- seções ---------- */
+.sec { padding-block: clamp(64px, 9vw, 120px); }
+.sec-head { display: grid; gap: 14px; max-width: 46rem; margin-bottom: clamp(28px, 4vw, 48px); }
+.sec-head h2 {
+  font-weight: 780;
+  font-stretch: 110%;
+  font-size: clamp(1.9rem, 1.1rem + 2.6vw, 3.2rem);
+  line-height: 1.02;
+  letter-spacing: -.02em;
+}
+.sec-head p { color: var(--ink-soft); font-size: 1.05rem; max-width: 38em; }
+
+/* ---------- temas ---------- */
+.cats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 26px 18px; }
+.cat { display: flex; flex-direction: column; gap: 10px; text-decoration: none; min-width: 0; }
+.cat-img { aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--r); background: var(--surface); }
+.cat-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.cat:hover .cat-img img { transform: scale(1.045); }
+.cat-meta { display: flex; align-items: baseline; gap: 12px; }
+.cat h3 { font-weight: 680; font-stretch: 104%; font-size: 1.08rem; line-height: 1.2; }
+.cat-count { margin-left: auto; font-family: var(--f-mono); font-size: .8rem; color: var(--ink-soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.cat-sub { font-size: .88rem; color: var(--ink-soft); line-height: 1.45; }
+.cat--feature { grid-column: span 2; grid-row: span 2; }
+.cat--feature .cat-img { aspect-ratio: auto; flex: 1; min-height: 260px; }
+.cat--feature h3 { font-size: 1.7rem; font-weight: 780; font-stretch: 110%; }
+.cat--feature .cat-count { font-size: .9rem; }
+.cat--feature .cat-sub { font-size: .98rem; }
+@media (max-width: 980px) {
+  .cats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cat--feature { grid-row: auto; }
+  .cat--feature .cat-img { aspect-ratio: 16 / 9; flex: none; min-height: 0; }
+}
+@media (max-width: 520px) {
+  .cats { gap: 22px 12px; }
+  .cat h3 { font-size: .98rem; }
+  .cat-sub { display: none; }
+  .cat--feature .cat-sub { display: block; }
+  .cat-meta { flex-wrap: wrap; gap: 2px 8px; }
+  .cat-count { margin-left: 0; width: 100%; }
+  .cat--feature .cat-count { width: auto; margin-left: auto; }
+}
+
+/* ---------- galeria ---------- */
+.g-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; margin-bottom: 24px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  font-size: .92rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+.chip small { font-family: var(--f-mono); font-size: .72rem; color: var(--ink-soft); }
+.chip:hover { border-color: var(--ink-soft); }
+.chip[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.chip[aria-pressed="true"] small { color: inherit; opacity: .7; }
+.g-count { margin-left: auto; font-family: var(--f-mono); font-size: .8rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+.masonry { columns: 4 220px; column-gap: 14px; }
+.g-item { break-inside: avoid; margin: 0 0 14px; position: relative; }
+.g-open {
+  display: block; width: 100%; padding: 0; border: 0;
+  background: var(--surface);
+  border-radius: var(--r);
+  overflow: hidden;
+  cursor: zoom-in;
+}
+.g-open img { width: 100%; height: auto; transition: transform .5s ease; }
+.g-open:hover img { transform: scale(1.03); }
+.g-item figcaption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  display: grid; gap: 2px;
+  padding: 36px 12px 10px;
+  border-radius: 0 0 var(--r) var(--r);
+  background: linear-gradient(to top, var(--over-img), transparent);
+  color: var(--over-img-fg);
+  font-size: .86rem;
+  line-height: 1.3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s ease;
+}
+.g-item figcaption .mono { font-size: .7rem; opacity: .8; }
+.g-item:hover figcaption, .g-item:focus-within figcaption { opacity: 1; }
+@media (hover: none) { .g-item figcaption { display: none; } }
+@media (max-width: 560px) { .masonry { columns: 2; column-gap: 10px; } .g-item { margin-bottom: 10px; } }
+
+/* lightbox */
+.lb {
+  width: min(1180px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--ink);
+  overflow: hidden;
+}
+.lb::backdrop { background: var(--backdrop); }
+.lb-fig { margin: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; max-height: calc(100dvh - 24px); }
+.lb-img { width: 100%; height: auto; max-height: calc(100dvh - 140px); object-fit: contain; background: var(--paper); }
+.lb-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding: 14px 16px; }
+.lb-txt { display: grid; gap: 2px; min-width: 0; flex: 1 1 260px; }
+.lb-txt strong { font-weight: 600; }
+.lb-txt .mono { font-size: .76rem; color: var(--ink-soft); overflow-wrap: anywhere; }
+.lb-nav { display: flex; gap: 8px; align-items: center; }
+.lb-nav .mono { font-size: .78rem; color: var(--ink-soft); margin-right: 4px; }
+.icon-btn {
+  display: inline-grid; place-items: center;
+  width: 40px; height: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  background: transparent;
+  cursor: pointer;
+}
+.icon-btn:hover { border-color: var(--ink-soft); }
+.icon-btn svg { width: 18px; height: 18px; }
+
+/* ---------- simulador de caneca ---------- */
+.sim { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.stage {
+  background: var(--surface);
+  border-radius: 6px;
+  padding: clamp(24px, 4vw, 44px) clamp(20px, 4vw, 44px) clamp(36px, 5vw, 56px);
+  display: grid;
+  gap: clamp(36px, 5vw, 52px);
+  justify-items: center;
+  min-width: 0;
+}
+.print-wrap { width: 100%; max-width: 440px; display: grid; gap: 30px; }
+.print-label { display: flex; justify-content: space-between; font-family: var(--f-mono); font-size: .72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .06em; }
+.print {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 20 / 9.5;
+  background-image: var(--art);
+  background-size: cover;
+  background-position: center;
+  outline: 1px dashed var(--ink-soft);
+  outline-offset: 7px;
+}
+.print .crop { position: absolute; inset: -18px; width: calc(100% + 36px); height: calc(100% + 36px); pointer-events: none; overflow: visible; }
+.print .crop path { stroke: var(--ink); stroke-width: 1; fill: none; }
+
+.mug { position: relative; width: min(290px, 74%); aspect-ratio: 1.12 / 1; isolation: isolate; }
+.mug::before {
+  content: ""; position: absolute; z-index: -2;
+  left: -6%; bottom: -7%; width: 90%; height: 14%;
+  background: radial-gradient(closest-side, var(--shade), transparent);
+}
+.mug::after {
+  content: ""; position: absolute; z-index: -1;
+  right: 0; top: 20%; width: 32%; height: 52%;
+  border: 17px solid var(--ceramic);
+  border-left: 0;
+  border-radius: 0 50% 50% 0 / 0 50% 50% 0;
+  box-shadow: inset -5px 0 8px rgba(0, 0, 0, .14), 3px 6px 12px rgba(0, 0, 0, .16);
+}
+.mug-body {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 78%;
+  border-radius: 5% 5% 12% 12% / 3% 3% 7% 7%;
+  overflow: hidden;
+  background: var(--ceramic);
+}
+.mug-art {
+  position: absolute; left: 0; top: 6%; bottom: 6%;
+  width: 500%;
+  display: flex;
+  animation: spin 16s linear infinite;
+}
+.mug-art span { flex: 0 0 50%; background-image: var(--art); background-size: cover; background-position: center; }
+.mug-art.paused { animation-play-state: paused; }
+@keyframes spin { to { transform: translateX(-50%); } }
+.mug-body::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg,
+    rgba(0, 0, 0, .34) 0%, rgba(0, 0, 0, .06) 15%,
+    rgba(255, 255, 255, .32) 29%, rgba(255, 255, 255, 0) 43%,
+    rgba(0, 0, 0, .04) 68%, rgba(0, 0, 0, .40) 100%);
+}
+.mug-body::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 0; height: 5%; z-index: 1;
+  background: linear-gradient(rgba(0, 0, 0, .10), rgba(0, 0, 0, 0));
+}
+
+.sim-side { display: grid; gap: 26px; min-width: 0; }
+.swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.sw {
+  aspect-ratio: 1; padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--surface);
+  cursor: pointer;
+}
+.sw img { width: 100%; height: 100%; object-fit: cover; }
+.sw[aria-pressed="true"] { border-color: var(--magenta); box-shadow: inset 0 0 0 2px var(--paper); }
+.sw-name { font-size: .95rem; color: var(--ink-soft); min-height: 1.5em; }
+.sw-name strong { color: var(--ink); font-weight: 600; }
+.specs { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 20px; margin: 0; padding-top: 22px; border-top: 1px solid var(--line); }
+.specs dt { font-family: var(--f-mono); font-size: .74rem; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-soft); padding-top: 2px; }
+.specs dd { margin: 0; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) { .sim { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- datas ---------- */
+.datas { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.data { background: var(--surface); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.data img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; }
+.data-body { padding: 20px 20px 22px; display: grid; gap: 8px; }
+.data h3 { font-weight: 720; font-stretch: 106%; font-size: 1.3rem; }
+.data-when { font-family: var(--f-mono); font-size: .8rem; color: var(--ink-soft); }
+.data-left { display: flex; align-items: baseline; gap: 8px; margin-top: 6px; }
+.data-left b { font-family: var(--f-display); font-weight: 800; font-stretch: 112%; font-size: 2.6rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.data-left span { color: var(--ink-soft); }
+.data-count { font-size: .92rem; padding-top: 12px; margin-top: 6px; border-top: 1px solid var(--line); }
+.data-count strong { font-variant-numeric: tabular-nums; }
+@media (max-width: 860px) { .datas { grid-template-columns: minmax(0, 1fr); } .data { flex-direction: row; } .data img { width: 38%; aspect-ratio: auto; } }
+@media (max-width: 480px) { .data { flex-direction: column; } .data img { width: 100%; aspect-ratio: 16 / 9; } }
+
+/* ---------- passos ---------- */
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 32px 24px; margin: 0; padding: 0; list-style: none; }
+.steps li { border-top: 2px solid var(--ink); padding-top: 16px; display: grid; gap: 8px; align-content: start; }
+.steps .tag { color: var(--magenta); }
+.steps h3 { font-weight: 700; font-stretch: 106%; font-size: 1.2rem; }
+.steps p { color: var(--ink-soft); font-size: .96rem; }
+@media (max-width: 900px) { .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- dúvidas ---------- */
+.faq-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(24px, 5vw, 72px); align-items: start; }
+.faq details { border-bottom: 1px solid var(--line); }
+.faq details:first-child { border-top: 1px solid var(--line); }
+.faq summary {
+  list-style: none;
+  display: flex; justify-content: space-between; gap: 16px;
+  padding: 20px 0;
+  cursor: pointer;
+  font-family: var(--f-display);
+  font-weight: 650;
+  font-stretch: 104%;
+  font-size: 1.12rem;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after { content: "+"; font-family: var(--f-mono); font-weight: 400; color: var(--ink-soft); }
+.faq details[open] summary::after { content: "−"; }
+.faq details p { padding: 0 0 22px; color: var(--ink-soft); max-width: 40em; }
+@media (max-width: 860px) { .faq-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- chamada final ---------- */
+.final { background: var(--ink); color: var(--paper); border-radius: 6px; overflow: hidden; display: grid; }
+.final-strip { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 0; }
+.final-strip img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; }
+.final-body { padding: clamp(32px, 6vw, 72px) clamp(20px, 5vw, 64px); display: grid; gap: 22px; justify-items: start; }
+.final h2 { font-weight: 820; font-stretch: 112%; font-size: clamp(2rem, 1rem + 3.4vw, 3.8rem); line-height: 1; letter-spacing: -.02em; max-width: 16em; }
+.final .mono { font-size: .82rem; opacity: .75; }
+@media (max-width: 640px) { .final-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); } .final-strip img:nth-child(n+5) { display: none; } }
+
+footer { padding-block: 40px 56px; }
+.foot { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; font-size: .88rem; color: var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-in">
+    <a class="logo" href="#topo" aria-label="+10 Mil Imagens, início">
+      <svg viewBox="0 0 30 22" aria-hidden="true">
+        <circle cx="9" cy="11" r="8" fill="var(--cyan)"></circle>
+        <circle cx="15" cy="11" r="8" fill="var(--magenta)"></circle>
+        <circle cx="21" cy="11" r="8" fill="var(--yellow)"></circle>
+      </svg>
+      <b>+10 MIL IMAGENS</b>
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#temas">Temas</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#simulador">Simulador</a>
+      <a href="#datas">Datas</a>
+      <a href="#duvidas">Dúvidas</a>
+    </nav>
+    <a class="btn btn--primary" href="#garantir" data-compra>Quero o acervo</a>
+  </div>
+</header>
+
+<main id="topo">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="tag">Acervo digital para sublimação e personalizados</p>
+        <h1>Arte pronta para <em class="mis">estampar</em> o que você vende.</h1>
+        <p class="lede"><strong>13.978 arquivos em 33 pastas por tema.</strong> Paisagens, flores, animais, texturas, frases, datas comemorativas e nichos como barbearia e churrasco. Escolha a arte, imprima e prense.</p>
+        <div class="hero-cta">
+          <a class="btn btn--primary" href="#garantir" data-compra>
+            Quero o acervo
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn btn--ghost" href="#galeria">Ver a galeria</a>
+        </div>
+        <p class="uses">Para <span>canecas</span>, <span>camisetas</span>, <span>azulejos</span>, <span>almofadas</span>, <span>quadros</span> e <span>posts</span>.</p>
+      </div>
+      <div class="mosaic" aria-hidden="true">
+        <div class="mcol">
+          <img src="img/sm/mar-bangalos.webp" width="720" height="480" alt="Bangalôs sobre o mar azul-turquesa" decoding="async">
+          <img src="img/sm/flor-rosa-gotas.webp" width="720" height="450" alt="Rosa cor-de-rosa com gotas de orvalho" decoding="async">
+          <img src="img/sm/frase-insista.webp" width="637" height="900" alt="Frase “Insista, persista e nunca desista”" decoding="async">
+          <img src="img/sm/arte-monte-fuji.webp" width="720" height="510" alt="Ilustração do monte Fuji com cerejeiras" decoding="async">
+          <img src="img/sm/animal-tigre.webp" width="720" height="542" alt="Tigre olhando para a câmera" decoding="async">
+          <img src="img/sm/textura-azulejo.webp" width="720" height="720" alt="Padrão de azulejo" decoding="async">
+        </div>
+        <div class="mcol">
+          <img src="img/sm/arte-montanha-lanternas.webp" width="720" height="405" alt="Ilustração de montanha refletida no lago" decoding="async">
+          <img src="img/sm/animal-arara.webp" width="720" height="405" alt="Arara de asas abertas" decoding="async">
+          <img src="img/sm/retro-bolos.webp" width="600" height="900" alt="Pôster retrô de bolos" decoding="async">
+          <img src="img/sm/cachoeira-turquesa.webp" width="720" height="478" alt="Cachoeiras em degraus com água turquesa" decoding="async">
+          <img src="img/sm/namorados-coracao-margaridas.webp" width="720" height="531" alt="Coração de margaridas sobre madeira" decoding="async">
+          <img src="img/sm/flor-girassois.webp" width="720" height="480" alt="Campo de girassóis" decoding="async">
+        </div>
+        <div class="mcol">
+          <img src="img/sm/cidade-canal-colorido.webp" width="720" height="480" alt="Canal com casas coloridas" decoding="async">
+          <img src="img/sm/infantil-balao.webp" width="635" height="900" alt="Balão de ar quente ilustrado" decoding="async">
+          <img src="img/sm/flor-rosa-azul.webp" width="720" height="450" alt="Rosa azul em close" decoding="async">
+          <img src="img/sm/arte-sol-neon.webp" width="720" height="480" alt="Sol neon sobre montanhas, estilo anos 80" decoding="async">
+          <img src="img/sm/textura-mandalas.webp" width="720" height="480" alt="Mandalas coloridas" decoding="async">
+          <img src="img/sm/natureza-rio-montanhas.webp" width="720" height="480" alt="Rio entre montanhas de pedra" decoding="async">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="ficha" aria-label="Ficha técnica do acervo">
+      <div><b>13.978</b><span>arquivos</span></div>
+      <div><b>33</b><span>pastas por tema</span></div>
+      <div><b>9.901</b><span>fotos e artes JPG</span></div>
+      <div><b>3.886</b><span>PNG, muitos sem fundo</span></div>
+      <div><b>148</b><span>vetores AI, EPS e SVG</span></div>
+      <div><b>73,6 GB</b><span>no total</span></div>
+    </div>
+  </div>
+
+  <section class="sec" id="temas">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">Temas em destaque · 17 pastas</p>
+        <h2>Cada pasta é uma linha de produtos.</h2>
+        <p>Os 17 temas abaixo reúnem 4.797 arquivos. Toque em um tema para ver amostras dele na galeria.</p>
+      </div>
+      <div class="cats">
+        <a class="cat cat--feature" href="#galeria" data-filter-link="paisagens">
+          <div class="cat-img"><img src="img/sm/natureza-lago-montanhas.webp" width="720" height="485" alt="Lago espelhado ao pé das montanhas" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Paisagens</h3><span class="cat-count">1.161 arq.</span></div>
+          <p class="cat-sub">Mar, cachoeiras, cidades, deserto, neve, céu, noite, primavera, 7 maravilhas do mundo e artes digitais</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="datas">
+          <div class="cat-img"><img src="img/sm/maes-floral.webp" width="720" height="480" alt="Arte floral de Dia das Mães" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Dia das Mães</h3><span class="cat-count">716 arq.</span></div>
+          <p class="cat-sub">Artes prontas, PNG sem fundo e artes editáveis</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="frases">
+          <div class="cat-img"><img src="img/sm/cristao-igreja.webp" width="720" height="502" alt="Igreja branca na colina" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Cristão</h3><span class="cat-count">569 arq.</span></div>
+          <p class="cat-sub">Fé, gratidão, cruzes e mosaicos</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="animais">
+          <div class="cat-img"><img src="img/sm/animal-araras.webp" width="720" height="480" alt="Casal de araras-vermelhas" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Animais</h3><span class="cat-count">481 arq.</span></div>
+          <p class="cat-sub">Fotos de bichos e arte geométrica</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/cafe-geometrico.webp" width="720" height="510" alt="Xícara de café em arte geométrica" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Bebidas</h3><span class="cat-count">377 arq.</span></div>
+          <p class="cat-sub">Café, cerveja, vinho e frases de boteco</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="frases">
+          <div class="cat-img"><img src="img/sm/frase-faca-hoje.webp" width="637" height="900" alt="Frase “Faça hoje, não amanhã”" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Frases</h3><span class="cat-count">344 arq.</span></div>
+          <p class="cat-sub">Motivação, humor e frases para o lar</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="retro">
+          <div class="cat-img"><img src="img/sm/retro-donuts.webp" width="600" height="900" alt="Pôster retrô de donuts" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Retrô</h3><span class="cat-count">272 arq.</span></div>
+          <p class="cat-sub">Pôsteres vintage de comida, música e garagem</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="texturas">
+          <div class="cat-img"><img src="img/sm/textura-mosaico.webp" width="720" height="720" alt="Mosaico geométrico colorido" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Texturas e fundos</h3><span class="cat-count">228 arq.</span></div>
+          <p class="cat-sub">Padrões, madeira, papel, dourado e degradês</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/carro-classico-pb.webp" width="720" height="540" alt="Carro clássico em preto e branco" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Carros</h3><span class="cat-count">142 arq.</span></div>
+          <p class="cat-sub">Clássicos, esportivos e arte aquarelada</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="flores">
+          <div class="cat-img"><img src="img/sm/flor-tulipas.webp" width="720" height="463" alt="Tulipas cor-de-rosa" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Flores</h3><span class="cat-count">112 arq.</span></div>
+          <p class="cat-sub">Close-ups, buquês e campos floridos</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="datas">
+          <div class="cat-img"><img src="img/sm/namorados-coracoes.webp" width="720" height="508" alt="Corações coloridos" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Dia dos Namorados</h3><span class="cat-count">89 arq.</span></div>
+          <p class="cat-sub">Corações, ursinhos e frases de amor</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/moto-custom.webp" width="720" height="379" alt="Moto custom" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Motos</h3><span class="cat-count">86 arq.</span></div>
+          <p class="cat-sub">Custom, esportivas, motocross e vintage</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/churrasco-cantinho.webp" width="720" height="510" alt="Placa Cantinho do Churrasco" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Churrasco</h3><span class="cat-count">67 arq.</span></div>
+          <p class="cat-sub">Placas, selos e cardápios</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="frases">
+          <div class="cat-img"><img src="img/sm/infantil-arco-iris.webp" width="720" height="509" alt="Arco-íris ilustrado" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Infantil</h3><span class="cat-count">62 arq.</span></div>
+          <p class="cat-sub">Quarto de bebê, bichinhos e frases</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/barbearia-poste.webp" width="720" height="720" alt="Poste de barbearia" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Barbearia</h3><span class="cat-count">53 arq.</span></div>
+          <p class="cat-sub">Ícones, placas e ilustrações</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="datas">
+          <div class="cat-img"><img src="img/sm/pais-amor.webp" width="633" height="900" alt="Frase “Pai, como é grande o meu amor por você”" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Dia dos Pais</h3><span class="cat-count">21 arq.</span></div>
+          <p class="cat-sub">Frases tipográficas</p>
+        </a>
+        <a class="cat" href="#galeria" data-filter-link="nichos">
+          <div class="cat-img"><img src="img/sm/comida-sucos.webp" width="720" height="469" alt="Sucos coloridos" loading="lazy" decoding="async"></div>
+          <div class="cat-meta"><h3>Comida</h3><span class="cat-count">17 arq.</span></div>
+          <p class="cat-sub">Frutas, saladas e café da manhã</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="galeria">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">Galeria · 66 amostras</p>
+        <h2>Veja a qualidade antes de imprimir.</h2>
+        <p>Amostras reais do acervo. Clique numa imagem para ampliar e ver em qual pasta ela está e o tamanho do arquivo original.</p>
+      </div>
+      <div class="g-bar">
+        <div class="chips" role="group" aria-label="Filtrar a galeria por tema">
+          <button class="chip" type="button" data-filter="todos" aria-pressed="true">Todos <small>66</small></button>
+          <button class="chip" type="button" data-filter="paisagens" aria-pressed="false">Paisagens <small>15</small></button>
+          <button class="chip" type="button" data-filter="flores" aria-pressed="false">Flores <small>7</small></button>
+          <button class="chip" type="button" data-filter="animais" aria-pressed="false">Animais <small>7</small></button>
+          <button class="chip" type="button" data-filter="texturas" aria-pressed="false">Texturas <small>6</small></button>
+          <button class="chip" type="button" data-filter="datas" aria-pressed="false">Datas <small>8</small></button>
+          <button class="chip" type="button" data-filter="frases" aria-pressed="false">Frases <small>8</small></button>
+          <button class="chip" type="button" data-filter="retro" aria-pressed="false">Retrô <small>5</small></button>
+          <button class="chip" type="button" data-filter="nichos" aria-pressed="false">Nichos <small>10</small></button>
+        </div>
+        <p class="g-count" id="g-count" aria-live="polite">66 imagens</p>
+      </div>
+      <div class="masonry" id="masonry">
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/mar-bangalos.webp" data-w="1400" data-h="933" data-title="Bangalôs sobre o mar azul-turquesa" data-path="Paisagens / Mar / Mar80.jpg" data-size="25,7 MB" aria-label="Ampliar: Bangalôs sobre o mar azul-turquesa">
+            <img src="img/sm/mar-bangalos.webp" width="720" height="480" alt="Bangalôs sobre o mar azul-turquesa" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Bangalôs sobre o mar azul-turquesa</span><span class="mono">Paisagens / Mar</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-rosa-gotas.webp" data-w="1400" data-h="875" data-title="Rosa cor-de-rosa com gotas de orvalho" data-path="Flores / Flores (10).jpg" data-size="0,6 MB" aria-label="Ampliar: Rosa cor-de-rosa com gotas de orvalho">
+            <img src="img/sm/flor-rosa-gotas.webp" width="720" height="450" alt="Rosa cor-de-rosa com gotas de orvalho" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Rosa cor-de-rosa com gotas de orvalho</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-arara.webp" data-w="1400" data-h="788" data-title="Arara de asas abertas" data-path="Animais / 1 (146).jpg" data-size="2,2 MB" aria-label="Ampliar: Arara de asas abertas">
+            <img src="img/sm/animal-arara.webp" width="720" height="405" alt="Arara de asas abertas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Arara de asas abertas</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-dourada.webp" data-w="1400" data-h="1050" data-title="Textura dourada geométrica" data-path="Backgrounds / 1 (112).jpg" data-size="1,2 MB" aria-label="Ampliar: Textura dourada geométrica">
+            <img src="img/sm/textura-dourada.webp" width="720" height="540" alt="Textura dourada geométrica" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Textura dourada geométrica</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/maes-floral.webp" data-w="1400" data-h="933" data-title="Arte floral de Dia das Mães" data-path="Dia das Mães / Brinde Artes Editáveis / 14.jpg" data-size="0,6 MB" aria-label="Ampliar: Arte floral de Dia das Mães">
+            <img src="img/sm/maes-floral.webp" width="720" height="480" alt="Arte floral de Dia das Mães" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Arte floral de Dia das Mães</span><span class="mono">Dia das Mães / Brinde Artes Editáveis</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/cafe-frase.webp" data-w="764" data-h="1080" data-title="Frase “A vida só começa depois do café”" data-path="Bebidas / Café / Café (41).png" data-size="0,5 MB" aria-label="Ampliar: Frase “A vida só começa depois do café”">
+            <img src="img/sm/cafe-frase.webp" width="637" height="900" alt="Frase “A vida só começa depois do café”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “A vida só começa depois do café”</span><span class="mono">Bebidas / Café</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="retro">
+          <button class="g-open" type="button" data-lg="img/lg/retro-posto.webp" data-w="738" data-h="1080" data-title="Placa retrô de posto e lanchonete" data-path="Retrô / Retrô (162).jpg" data-size="5,7 MB" aria-label="Ampliar: Placa retrô de posto e lanchonete">
+            <img src="img/sm/retro-posto.webp" width="615" height="900" alt="Placa retrô de posto e lanchonete" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Placa retrô de posto e lanchonete</span><span class="mono">Retrô</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/churrasco-cortes.webp" data-w="764" data-h="1080" data-title="Pôster de cortes de carne" data-path="Churrasco / 1 (16).jpg" data-size="4,9 MB" aria-label="Ampliar: Pôster de cortes de carne">
+            <img src="img/sm/churrasco-cortes.webp" width="637" height="900" alt="Pôster de cortes de carne" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pôster de cortes de carne</span><span class="mono">Churrasco</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/mar-coqueiro-por-do-sol.webp" data-w="1400" data-h="788" data-title="Coqueiro inclinado num pôr do sol laranja" data-path="Paisagens / Mar / Mar52.jpg" data-size="5,3 MB" aria-label="Ampliar: Coqueiro inclinado num pôr do sol laranja">
+            <img src="img/sm/mar-coqueiro-por-do-sol.webp" width="720" height="405" alt="Coqueiro inclinado num pôr do sol laranja" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Coqueiro inclinado num pôr do sol laranja</span><span class="mono">Paisagens / Mar</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-rosa-azul.webp" data-w="1400" data-h="875" data-title="Rosa azul em close" data-path="Flores / Flores (12).jpg" data-size="0,6 MB" aria-label="Ampliar: Rosa azul em close">
+            <img src="img/sm/flor-rosa-azul.webp" width="720" height="450" alt="Rosa azul em close" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Rosa azul em close</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-pavao.webp" data-w="1080" data-h="1080" data-title="Pavão com a cauda aberta" data-path="Animais / 1 (137).jpg" data-size="2,2 MB" aria-label="Ampliar: Pavão com a cauda aberta">
+            <img src="img/sm/animal-pavao.webp" width="720" height="720" alt="Pavão com a cauda aberta" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pavão com a cauda aberta</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-mandalas.webp" data-w="1400" data-h="933" data-title="Mandalas coloridas" data-path="Backgrounds / 1 (177).jpg" data-size="2,1 MB" aria-label="Ampliar: Mandalas coloridas">
+            <img src="img/sm/textura-mandalas.webp" width="720" height="480" alt="Mandalas coloridas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Mandalas coloridas</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/maes-guirlanda.webp" data-w="1080" data-h="1080" data-title="Guirlanda de flores de Dia das Mães" data-path="Dia das Mães / Brinde Artes Editáveis / 98.jpg" data-size="4,9 MB" aria-label="Ampliar: Guirlanda de flores de Dia das Mães">
+            <img src="img/sm/maes-guirlanda.webp" width="720" height="720" alt="Guirlanda de flores de Dia das Mães" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Guirlanda de flores de Dia das Mães</span><span class="mono">Dia das Mães / Brinde Artes Editáveis</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/cristao-cruz.webp" data-w="1400" data-h="991" data-title="Cruz ao pôr do sol em ilustração" data-path="Cristão / Cristão (141).jpg" data-size="2,0 MB" aria-label="Ampliar: Cruz ao pôr do sol em ilustração">
+            <img src="img/sm/cristao-cruz.webp" width="720" height="510" alt="Cruz ao pôr do sol em ilustração" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Cruz ao pôr do sol em ilustração</span><span class="mono">Cristão</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="retro">
+          <button class="g-open" type="button" data-lg="img/lg/retro-garagem.webp" data-w="762" data-h="1080" data-title="Pôster retrô de garagem" data-path="Retrô / Retrô (164).jpg" data-size="0,8 MB" aria-label="Ampliar: Pôster retrô de garagem">
+            <img src="img/sm/retro-garagem.webp" width="635" height="900" alt="Pôster retrô de garagem" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pôster retrô de garagem</span><span class="mono">Retrô</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/churrasco-mestre.webp" data-w="1400" data-h="991" data-title="Selo Mestre Churrasqueiro" data-path="Churrasco / 1 (33).png" data-size="0,8 MB" aria-label="Ampliar: Selo Mestre Churrasqueiro">
+            <img src="img/sm/churrasco-mestre.webp" width="720" height="510" alt="Selo Mestre Churrasqueiro" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Selo Mestre Churrasqueiro</span><span class="mono">Churrasco</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/cachoeira-turquesa.webp" data-w="1400" data-h="929" data-title="Cachoeiras em degraus com água turquesa" data-path="Paisagens / Cachoeiras / Cachoeira20.jpg" data-size="6,6 MB" aria-label="Ampliar: Cachoeiras em degraus com água turquesa">
+            <img src="img/sm/cachoeira-turquesa.webp" width="720" height="478" alt="Cachoeiras em degraus com água turquesa" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Cachoeiras em degraus com água turquesa</span><span class="mono">Paisagens / Cachoeiras</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-dalia.webp" data-w="736" data-h="1080" data-title="Dália amarela e rosa" data-path="Flores / Flores (34).jpg" data-size="0,6 MB" aria-label="Ampliar: Dália amarela e rosa">
+            <img src="img/sm/flor-dalia.webp" width="613" height="900" alt="Dália amarela e rosa" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Dália amarela e rosa</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-tigre.webp" data-w="1400" data-h="1054" data-title="Tigre olhando para a câmera" data-path="Animais / 1 (168).jpg" data-size="1,7 MB" aria-label="Ampliar: Tigre olhando para a câmera">
+            <img src="img/sm/animal-tigre.webp" width="720" height="542" alt="Tigre olhando para a câmera" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Tigre olhando para a câmera</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-azulejo.webp" data-w="1080" data-h="1080" data-title="Padrão de azulejo" data-path="Backgrounds / 1 (61).jpg" data-size="2,0 MB" aria-label="Ampliar: Padrão de azulejo">
+            <img src="img/sm/textura-azulejo.webp" width="720" height="720" alt="Padrão de azulejo" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Padrão de azulejo</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/maes-te-amo.webp" data-w="764" data-h="1080" data-title="Frase “Mãe, eu te amo todos os dias”" data-path="Dia das Mães / Mães (109).png" data-size="0,4 MB" aria-label="Ampliar: Frase “Mãe, eu te amo todos os dias”">
+            <img src="img/sm/maes-te-amo.webp" width="637" height="900" alt="Frase “Mãe, eu te amo todos os dias”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Mãe, eu te amo todos os dias”</span><span class="mono">Dia das Mães</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/frase-venca-medos.webp" data-w="764" data-h="1080" data-title="Frase “Vença seus medos”" data-path="Frases / Frases (120).jpg" data-size="3,9 MB" aria-label="Ampliar: Frase “Vença seus medos”">
+            <img src="img/sm/frase-venca-medos.webp" width="637" height="900" alt="Frase “Vença seus medos”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Vença seus medos”</span><span class="mono">Frases</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="retro">
+          <button class="g-open" type="button" data-lg="img/lg/retro-bolos.webp" data-w="720" data-h="1080" data-title="Pôster retrô de bolos" data-path="Retrô / Retrô (142).jpg" data-size="4,7 MB" aria-label="Ampliar: Pôster retrô de bolos">
+            <img src="img/sm/retro-bolos.webp" width="600" height="900" alt="Pôster retrô de bolos" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pôster retrô de bolos</span><span class="mono">Retrô</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/barbearia-vintage.webp" data-w="764" data-h="1080" data-title="Ilustração vintage de barbearia" data-path="Barbearia / 1 (2).jpg" data-size="2,3 MB" aria-label="Ampliar: Ilustração vintage de barbearia">
+            <img src="img/sm/barbearia-vintage.webp" width="637" height="900" alt="Ilustração vintage de barbearia" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ilustração vintage de barbearia</span><span class="mono">Barbearia</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/natureza-rio-montanhas.webp" data-w="1400" data-h="933" data-title="Rio entre montanhas de pedra" data-path="Paisagens / Natureza / Natureza44.jpg" data-size="19,4 MB" aria-label="Ampliar: Rio entre montanhas de pedra">
+            <img src="img/sm/natureza-rio-montanhas.webp" width="720" height="480" alt="Rio entre montanhas de pedra" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Rio entre montanhas de pedra</span><span class="mono">Paisagens / Natureza</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-dente-de-leao.webp" data-w="1400" data-h="933" data-title="Dente-de-leão contra o céu azul" data-path="Flores / Flores (77).jpg" data-size="1,8 MB" aria-label="Ampliar: Dente-de-leão contra o céu azul">
+            <img src="img/sm/flor-dente-de-leao.webp" width="720" height="480" alt="Dente-de-leão contra o céu azul" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Dente-de-leão contra o céu azul</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-gatinho.webp" data-w="1400" data-h="931" data-title="Gatinho brincando com uma flor" data-path="Animais / 1 (100).jpg" data-size="3,2 MB" aria-label="Ampliar: Gatinho brincando com uma flor">
+            <img src="img/sm/animal-gatinho.webp" width="720" height="479" alt="Gatinho brincando com uma flor" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Gatinho brincando com uma flor</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-xadrez.webp" data-w="1080" data-h="1080" data-title="Xadrez escocês colorido" data-path="Backgrounds / 1 (34).jpg" data-size="13,4 MB" aria-label="Ampliar: Xadrez escocês colorido">
+            <img src="img/sm/textura-xadrez.webp" width="720" height="720" alt="Xadrez escocês colorido" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Xadrez escocês colorido</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/namorados-coracao-margaridas.webp" data-w="1400" data-h="1033" data-title="Coração de margaridas sobre madeira" data-path="Dia dos Namorados / Amor (21).jpg" data-size="3,1 MB" aria-label="Ampliar: Coração de margaridas sobre madeira">
+            <img src="img/sm/namorados-coracao-margaridas.webp" width="720" height="531" alt="Coração de margaridas sobre madeira" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Coração de margaridas sobre madeira</span><span class="mono">Dia dos Namorados</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/frase-insista.webp" data-w="764" data-h="1080" data-title="Frase “Insista, persista e nunca desista”" data-path="Frases / Frases (122).jpg" data-size="4,7 MB" aria-label="Ampliar: Frase “Insista, persista e nunca desista”">
+            <img src="img/sm/frase-insista.webp" width="637" height="900" alt="Frase “Insista, persista e nunca desista”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Insista, persista e nunca desista”</span><span class="mono">Frases</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="retro">
+          <button class="g-open" type="button" data-lg="img/lg/retro-pizza.webp" data-w="720" data-h="1080" data-title="Pôster retrô de pizza" data-path="Retrô / Retrô (145).jpg" data-size="4,6 MB" aria-label="Ampliar: Pôster retrô de pizza">
+            <img src="img/sm/retro-pizza.webp" width="600" height="900" alt="Pôster retrô de pizza" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pôster retrô de pizza</span><span class="mono">Retrô</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/barbearia-poste-foto.webp" data-w="720" data-h="1080" data-title="Poste de barbearia na fachada" data-path="Barbearia / 1 (7).jpg" data-size="2,2 MB" aria-label="Ampliar: Poste de barbearia na fachada">
+            <img src="img/sm/barbearia-poste-foto.webp" width="600" height="900" alt="Poste de barbearia na fachada" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Poste de barbearia na fachada</span><span class="mono">Barbearia</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/natureza-lago-montanhas.webp" data-w="1400" data-h="943" data-title="Lago espelhado ao pé das montanhas" data-path="Paisagens / Natureza / Natureza47.jpg" data-size="3,7 MB" aria-label="Ampliar: Lago espelhado ao pé das montanhas">
+            <img src="img/sm/natureza-lago-montanhas.webp" width="720" height="485" alt="Lago espelhado ao pé das montanhas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Lago espelhado ao pé das montanhas</span><span class="mono">Paisagens / Natureza</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-girassois.webp" data-w="1400" data-h="933" data-title="Campo de girassóis" data-path="Flores / Flores (98).jpg" data-size="5,4 MB" aria-label="Ampliar: Campo de girassóis">
+            <img src="img/sm/flor-girassois.webp" width="720" height="480" alt="Campo de girassóis" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Campo de girassóis</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-tubarao-baleia.webp" data-w="1400" data-h="1050" data-title="Tubarão-baleia no mar" data-path="Animais / 1 (128).jpg" data-size="2,7 MB" aria-label="Ampliar: Tubarão-baleia no mar">
+            <img src="img/sm/animal-tubarao-baleia.webp" width="720" height="540" alt="Tubarão-baleia no mar" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Tubarão-baleia no mar</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-madeira.webp" data-w="1400" data-h="933" data-title="Anéis de tronco de madeira" data-path="Backgrounds / 1 (196).jpg" data-size="3,8 MB" aria-label="Ampliar: Anéis de tronco de madeira">
+            <img src="img/sm/textura-madeira.webp" width="720" height="480" alt="Anéis de tronco de madeira" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Anéis de tronco de madeira</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/namorados-cafe-rosas.webp" data-w="1400" data-h="933" data-title="Café com coração e rosas vermelhas" data-path="Dia dos Namorados / Amor (14).jpg" data-size="2,3 MB" aria-label="Ampliar: Café com coração e rosas vermelhas">
+            <img src="img/sm/namorados-cafe-rosas.webp" width="720" height="480" alt="Café com coração e rosas vermelhas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Café com coração e rosas vermelhas</span><span class="mono">Dia dos Namorados</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/frase-sorrir.webp" data-w="762" data-h="1080" data-title="Frase “Sorrir é o melhor remédio”" data-path="Frases / Frases (124).jpg" data-size="2,4 MB" aria-label="Ampliar: Frase “Sorrir é o melhor remédio”">
+            <img src="img/sm/frase-sorrir.webp" width="635" height="900" alt="Frase “Sorrir é o melhor remédio”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Sorrir é o melhor remédio”</span><span class="mono">Frases</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="retro">
+          <button class="g-open" type="button" data-lg="img/lg/retro-cafe.webp" data-w="890" data-h="1080" data-title="Pôster retrô de café" data-path="Retrô / Retrô (18).jpg" data-size="4,5 MB" aria-label="Ampliar: Pôster retrô de café">
+            <img src="img/sm/retro-cafe.webp" width="720" height="874" alt="Pôster retrô de café" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Pôster retrô de café</span><span class="mono">Retrô</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/cafe-xicara.webp" data-w="1400" data-h="907" data-title="Xícara de café em preto e branco" data-path="Bebidas / Café / Café (43).png" data-size="2,5 MB" aria-label="Ampliar: Xícara de café em preto e branco">
+            <img src="img/sm/cafe-xicara.webp" width="720" height="466" alt="Xícara de café em preto e branco" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Xícara de café em preto e branco</span><span class="mono">Bebidas / Café</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/cidade-canal-colorido.webp" data-w="1400" data-h="933" data-title="Canal com casas coloridas" data-path="Paisagens / Cidades / Cidade20.jpg" data-size="8,6 MB" aria-label="Ampliar: Canal com casas coloridas">
+            <img src="img/sm/cidade-canal-colorido.webp" width="720" height="480" alt="Canal com casas coloridas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Canal com casas coloridas</span><span class="mono">Paisagens / Cidades</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-rosas-arco-iris.webp" data-w="1400" data-h="929" data-title="Buquê de rosas arco-íris" data-path="Flores / Flores (90).jpg" data-size="2,5 MB" aria-label="Ampliar: Buquê de rosas arco-íris">
+            <img src="img/sm/flor-rosas-arco-iris.webp" width="720" height="478" alt="Buquê de rosas arco-íris" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Buquê de rosas arco-íris</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-tucano.webp" data-w="1400" data-h="875" data-title="Tucano no galho sob a chuva" data-path="Animais / 1 (185).jpg" data-size="2,3 MB" aria-label="Ampliar: Tucano no galho sob a chuva">
+            <img src="img/sm/animal-tucano.webp" width="720" height="450" alt="Tucano no galho sob a chuva" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Tucano no galho sob a chuva</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="texturas">
+          <button class="g-open" type="button" data-lg="img/lg/textura-paisley.webp" data-w="1080" data-h="1080" data-title="Estampa paisley" data-path="Backgrounds / 1 (74).jpg" data-size="16,3 MB" aria-label="Ampliar: Estampa paisley">
+            <img src="img/sm/textura-paisley.webp" width="720" height="720" alt="Estampa paisley" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Estampa paisley</span><span class="mono">Backgrounds</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/namorados-flamingos.webp" data-w="760" data-h="1080" data-title="Flamingos apaixonados" data-path="Dia dos Namorados / Amor (86).jpg" data-size="4,6 MB" aria-label="Ampliar: Flamingos apaixonados">
+            <img src="img/sm/namorados-flamingos.webp" width="633" height="900" alt="Flamingos apaixonados" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Flamingos apaixonados</span><span class="mono">Dia dos Namorados</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/frase-coragem.webp" data-w="764" data-h="1080" data-title="Frase “Tenha coragem e seja gentil”" data-path="Frases / Frases (118).jpg" data-size="4,7 MB" aria-label="Ampliar: Frase “Tenha coragem e seja gentil”">
+            <img src="img/sm/frase-coragem.webp" width="637" height="900" alt="Frase “Tenha coragem e seja gentil”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Tenha coragem e seja gentil”</span><span class="mono">Frases</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/cerveja-barril.webp" data-w="1400" data-h="854" data-title="Canecas de chope e barril" data-path="Bebidas / Cerveja / Cerveja (45).jpg" data-size="12,8 MB" aria-label="Ampliar: Canecas de chope e barril">
+            <img src="img/sm/cerveja-barril.webp" width="720" height="439" alt="Canecas de chope e barril" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Canecas de chope e barril</span><span class="mono">Bebidas / Cerveja</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/cidade-rua-colorida.webp" data-w="1400" data-h="800" data-title="Rua de casas coloridas" data-path="Paisagens / Cidades / Cidade93.jpg" data-size="2,0 MB" aria-label="Ampliar: Rua de casas coloridas">
+            <img src="img/sm/cidade-rua-colorida.webp" width="720" height="411" alt="Rua de casas coloridas" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Rua de casas coloridas</span><span class="mono">Paisagens / Cidades</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="flores">
+          <button class="g-open" type="button" data-lg="img/lg/flor-crisantemo.webp" data-w="720" data-h="1080" data-title="Crisântemo roxo em close" data-path="Flores / Flores (20).jpg" data-size="0,7 MB" aria-label="Ampliar: Crisântemo roxo em close">
+            <img src="img/sm/flor-crisantemo.webp" width="600" height="900" alt="Crisântemo roxo em close" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Crisântemo roxo em close</span><span class="mono">Flores</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="animais">
+          <button class="g-open" type="button" data-lg="img/lg/animal-papagaio-geometrico.webp" data-w="1400" data-h="933" data-title="Papagaio em arte geométrica" data-path="Animais / 1 (19).jpg" data-size="0,5 MB" aria-label="Ampliar: Papagaio em arte geométrica">
+            <img src="img/sm/animal-papagaio-geometrico.webp" width="720" height="480" alt="Papagaio em arte geométrica" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Papagaio em arte geométrica</span><span class="mono">Animais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/pais-amigo.webp" data-w="720" data-h="1080" data-title="Frase “O meu pai é meu melhor amigo”" data-path="Dia dos pais / Pais (17).jpg" data-size="0,5 MB" aria-label="Ampliar: Frase “O meu pai é meu melhor amigo”">
+            <img src="img/sm/pais-amigo.webp" width="600" height="900" alt="Frase “O meu pai é meu melhor amigo”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “O meu pai é meu melhor amigo”</span><span class="mono">Dia dos pais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/infantil-sonhe-alto.webp" data-w="764" data-h="1080" data-title="Arte infantil “Sonhe alto”" data-path="Infantil / Infantil (14).png" data-size="1,0 MB" aria-label="Ampliar: Arte infantil “Sonhe alto”">
+            <img src="img/sm/infantil-sonhe-alto.webp" width="637" height="900" alt="Arte infantil “Sonhe alto”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Arte infantil “Sonhe alto”</span><span class="mono">Infantil</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/carro-classico-vermelho.webp" data-w="1400" data-h="933" data-title="Carro clássico vermelho na estrada de terra" data-path="Carros / Carro (78).jpg" data-size="10,1 MB" aria-label="Ampliar: Carro clássico vermelho na estrada de terra">
+            <img src="img/sm/carro-classico-vermelho.webp" width="720" height="480" alt="Carro clássico vermelho na estrada de terra" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Carro clássico vermelho na estrada de terra</span><span class="mono">Carros</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/deserto-dunas.webp" data-w="1400" data-h="933" data-title="Dunas de areia sob céu azul" data-path="Paisagens / Deserto / Deserto15.jpg" data-size="31,8 MB" aria-label="Ampliar: Dunas de areia sob céu azul">
+            <img src="img/sm/deserto-dunas.webp" width="720" height="480" alt="Dunas de areia sob céu azul" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Dunas de areia sob céu azul</span><span class="mono">Paisagens / Deserto</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="datas">
+          <button class="g-open" type="button" data-lg="img/lg/pais-heroi.webp" data-w="760" data-h="1080" data-title="Frase “Meu pai é meu herói”" data-path="Dia dos pais / Pais (6).jpg" data-size="3,5 MB" aria-label="Ampliar: Frase “Meu pai é meu herói”">
+            <img src="img/sm/pais-heroi.webp" width="633" height="900" alt="Frase “Meu pai é meu herói”" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frase “Meu pai é meu herói”</span><span class="mono">Dia dos pais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="frases">
+          <button class="g-open" type="button" data-lg="img/lg/infantil-urso.webp" data-w="764" data-h="1080" data-title="Ursinho polar ilustrado" data-path="Infantil / Infantil (22).png" data-size="1,1 MB" aria-label="Ampliar: Ursinho polar ilustrado">
+            <img src="img/sm/infantil-urso.webp" width="637" height="900" alt="Ursinho polar ilustrado" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ursinho polar ilustrado</span><span class="mono">Infantil</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/carro-antigo.webp" data-w="1400" data-h="933" data-title="Carro antigo vermelho" data-path="Carros / Carro (118).jpg" data-size="0,9 MB" aria-label="Ampliar: Carro antigo vermelho">
+            <img src="img/sm/carro-antigo.webp" width="720" height="480" alt="Carro antigo vermelho" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Carro antigo vermelho</span><span class="mono">Carros</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/deserto-baloes.webp" data-w="1400" data-h="1013" data-title="Balões sobre o deserto ao amanhecer" data-path="Paisagens / Deserto / Deserto08.jpg" data-size="13,1 MB" aria-label="Ampliar: Balões sobre o deserto ao amanhecer">
+            <img src="img/sm/deserto-baloes.webp" width="720" height="521" alt="Balões sobre o deserto ao amanhecer" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Balões sobre o deserto ao amanhecer</span><span class="mono">Paisagens / Deserto</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/moto-cafe-racer.webp" data-w="1400" data-h="956" data-title="Moto café racer" data-path="Motos / Moto (46).jpg" data-size="2,4 MB" aria-label="Ampliar: Moto café racer">
+            <img src="img/sm/moto-cafe-racer.webp" width="720" height="492" alt="Moto café racer" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Moto café racer</span><span class="mono">Motos</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/ceu-acima-das-nuvens.webp" data-w="1400" data-h="933" data-title="Picos acima de um mar de nuvens" data-path="Paisagens / Céu / Céu09.jpg" data-size="5,6 MB" aria-label="Ampliar: Picos acima de um mar de nuvens">
+            <img src="img/sm/ceu-acima-das-nuvens.webp" width="720" height="480" alt="Picos acima de um mar de nuvens" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Picos acima de um mar de nuvens</span><span class="mono">Paisagens / Céu</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="nichos">
+          <button class="g-open" type="button" data-lg="img/lg/comida-frutas.webp" data-w="1400" data-h="1050" data-title="Frutas vermelhas em corações" data-path="Comida / 1 (6).jpg" data-size="2,4 MB" aria-label="Ampliar: Frutas vermelhas em corações">
+            <img src="img/sm/comida-frutas.webp" width="720" height="540" alt="Frutas vermelhas em corações" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Frutas vermelhas em corações</span><span class="mono">Comida</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/arte-montanha-lanternas.webp" data-w="1400" data-h="788" data-title="Ilustração de montanha refletida no lago" data-path="Paisagens / Artes Digitais / Paisagem61.jpg" data-size="2,8 MB" aria-label="Ampliar: Ilustração de montanha refletida no lago">
+            <img src="img/sm/arte-montanha-lanternas.webp" width="720" height="405" alt="Ilustração de montanha refletida no lago" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ilustração de montanha refletida no lago</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/arte-pagode.webp" data-w="1400" data-h="933" data-title="Ilustração de pagode com cerejeiras" data-path="Paisagens / Artes Digitais / Paisagem62.jpg" data-size="3,6 MB" aria-label="Ampliar: Ilustração de pagode com cerejeiras">
+            <img src="img/sm/arte-pagode.webp" width="720" height="480" alt="Ilustração de pagode com cerejeiras" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ilustração de pagode com cerejeiras</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/arte-sol-neon.webp" data-w="1400" data-h="933" data-title="Sol neon sobre montanhas, estilo anos 80" data-path="Paisagens / Artes Digitais / Paisagem35.jpg" data-size="1,2 MB" aria-label="Ampliar: Sol neon sobre montanhas, estilo anos 80">
+            <img src="img/sm/arte-sol-neon.webp" width="720" height="480" alt="Sol neon sobre montanhas, estilo anos 80" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Sol neon sobre montanhas, estilo anos 80</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/arte-monte-fuji.webp" data-w="1400" data-h="991" data-title="Ilustração do monte Fuji com cerejeiras" data-path="Paisagens / Artes Digitais / Paisagem15.jpg" data-size="10,1 MB" aria-label="Ampliar: Ilustração do monte Fuji com cerejeiras">
+            <img src="img/sm/arte-monte-fuji.webp" width="720" height="510" alt="Ilustração do monte Fuji com cerejeiras" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ilustração do monte Fuji com cerejeiras</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
+        </figure>
+        <figure class="g-item" data-group="paisagens">
+          <button class="g-open" type="button" data-lg="img/lg/arte-colinas.webp" data-w="1400" data-h="933" data-title="Ilustração de casa nas colinas verdes" data-path="Paisagens / Artes Digitais / Paisagem91.jpg" data-size="3,0 MB" aria-label="Ampliar: Ilustração de casa nas colinas verdes">
+            <img src="img/sm/arte-colinas.webp" width="720" height="480" alt="Ilustração de casa nas colinas verdes" loading="lazy" decoding="async">
+          </button>
+          <figcaption><span>Ilustração de casa nas colinas verdes</span><span class="mono">Paisagens / Artes Digitais</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="simulador">
+    <div class="wrap sim">
+      <div class="stage" id="stage" style="--art: url('img/sm/textura-escamas.webp')">
+        <div class="print-wrap">
+          <div class="print-label"><span>Arquivo</span><span>20 × 9,5 cm</span></div>
+          <div class="print" role="img" aria-label="Arte escolhida na área de impressão de 20 por 9,5 centímetros">
+            <svg class="crop" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              <path vector-effect="non-scaling-stroke" d="M0 12V0h7M93 0h7v12M100 88v12h-7M7 100H0V88"/>
+            </svg>
+          </div>
+        </div>
+        <div class="mug" role="img" aria-label="Caneca branca girando com a arte aplicada">
+          <div class="mug-body">
+            <div class="mug-art" id="mug-art"><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+      <div class="sim-side">
+        <div class="sec-head" style="margin-bottom:0">
+          <p class="tag">Simulador</p>
+          <h2>Do arquivo para a caneca.</h2>
+          <p>Escolha uma arte e veja como ela fica na área de impressão padrão de uma caneca de cerâmica.</p>
+        </div>
+        <div class="swatches" role="group" aria-label="Escolher a arte da caneca">
+          <button class="sw" type="button" aria-pressed="true" data-src="img/sm/textura-escamas.webp" data-name="Padrão de escamas coloridas" aria-label="Padrão de escamas coloridas"><img src="img/sm/textura-escamas.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/textura-azulejo.webp" data-name="Padrão de azulejo" aria-label="Padrão de azulejo"><img src="img/sm/textura-azulejo.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/arte-montanha-lanternas.webp" data-name="Ilustração de montanha refletida no lago" aria-label="Ilustração de montanha refletida no lago"><img src="img/sm/arte-montanha-lanternas.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/arte-praia-tropical.webp" data-name="Ilustração de praia tropical" aria-label="Ilustração de praia tropical"><img src="img/sm/arte-praia-tropical.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/flor-girassois.webp" data-name="Campo de girassóis" aria-label="Campo de girassóis"><img src="img/sm/flor-girassois.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/maes-floral.webp" data-name="Arte floral de Dia das Mães" aria-label="Arte floral de Dia das Mães"><img src="img/sm/maes-floral.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/namorados-coracoes.webp" data-name="Corações coloridos" aria-label="Corações coloridos"><img src="img/sm/namorados-coracoes.webp" alt="" loading="lazy" decoding="async"></button>
+          <button class="sw" type="button" aria-pressed="false" data-src="img/sm/arte-sol-neon.webp" data-name="Sol neon sobre montanhas, estilo anos 80" aria-label="Sol neon sobre montanhas, estilo anos 80"><img src="img/sm/arte-sol-neon.webp" alt="" loading="lazy" decoding="async"></button>
+        </div>
+        <p class="sw-name" id="sw-name" aria-live="polite"><strong>Padrão de escamas coloridas</strong></p>
+        <dl class="specs">
+          <dt>Área</dt><dd>20 × 9,5 cm (caneca de 325 ml)</dd>
+          <dt>Resolução</dt><dd>300 dpi, ou 2362 × 1122 px</dd>
+          <dt>Impressão</dt><dd>Espelhada, em papel sublimático</dd>
+        </dl>
+        <div><button class="btn btn--ghost" type="button" id="spin-toggle" aria-pressed="false">Pausar o giro</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="datas">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">Calendário</p>
+        <h2>As datas que mais vendem já têm pasta própria.</h2>
+        <p>Contagem até as próximas datas comemorativas e quantas artes o acervo tem para cada uma.</p>
+      </div>
+      <div class="datas" id="datas-list">
+        <article class="data" data-date="maes">
+          <img src="img/sm/maes-guirlanda.webp" width="720" height="720" alt="Guirlanda de flores de Dia das Mães" loading="lazy" decoding="async">
+          <div class="data-body">
+            <h3>Dia das Mães</h3>
+            <p class="data-when" data-when>domingo, 9 de maio de 2027</p>
+            <p class="data-left"><b data-days>216</b><span data-unit>dias</span></p>
+            <p class="data-count"><strong>716</strong> artes, incluindo PNG sem fundo e artes editáveis</p>
+          </div>
+        </article>
+        <article class="data" data-date="namorados">
+          <img src="img/sm/namorados-cafe-rosas.webp" width="720" height="480" alt="Café com coração e rosas vermelhas" loading="lazy" decoding="async">
+          <div class="data-body">
+            <h3>Dia dos Namorados</h3>
+            <p class="data-when" data-when>sábado, 12 de junho de 2027</p>
+            <p class="data-left"><b data-days>250</b><span data-unit>dias</span></p>
+            <p class="data-count"><strong>89</strong> artes de corações, ursinhos e frases de amor</p>
+          </div>
+        </article>
+        <article class="data" data-date="pais">
+          <img src="img/sm/pais-heroi.webp" width="633" height="900" alt="Frase “Meu pai é meu herói”" loading="lazy" decoding="async" style="object-position: center 30%">
+          <div class="data-body">
+            <h3>Dia dos Pais</h3>
+            <p class="data-when" data-when>domingo, 8 de agosto de 2027</p>
+            <p class="data-left"><b data-days>307</b><span data-unit>dias</span></p>
+            <p class="data-count"><strong>21</strong> frases tipográficas prontas</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="como-usar">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="tag">Como usar</p>
+        <h2>Quatro passos até o produto pronto.</h2>
+      </div>
+      <ol class="steps">
+        <li><span class="tag">Passo 1</span><h3>Escolha o tema</h3><p>Abra a pasta do nicho do seu cliente: Mar, Cachoeiras, Dia das Mães, Barbearia, Café e outras.</p></li>
+        <li><span class="tag">Passo 2</span><h3>Ajuste o tamanho</h3><p>Monte a arte no tamanho do produto. Para caneca, 20 × 9,5 cm a 300 dpi.</p></li>
+        <li><span class="tag">Passo 3</span><h3>Imprima espelhado</h3><p>Use papel sublimático e tinta para sublimação, com a imagem espelhada.</p></li>
+        <li><span class="tag">Passo 4</span><h3>Prense</h3><p>Siga o tempo e a temperatura indicados para a sua prensa e para o produto.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="duvidas">
+    <div class="wrap faq-grid">
+      <div class="sec-head">
+        <p class="tag">Dúvidas</p>
+        <h2>Perguntas frequentes</h2>
+      </div>
+      <div class="faq">
+        <details open>
+          <summary>O que vem no acervo?</summary>
+          <p>São 13.978 arquivos em 33 pastas por tema, quase todas com subpastas. Paisagens, por exemplo, se divide em Mar, Cachoeiras, Cidades, Deserto, Neve, Céu, Noite, Primavera, 7 Maravilhas do Mundo e Artes Digitais.</p>
+        </details>
+        <details>
+          <summary>Em que formatos estão os arquivos?</summary>
+          <p>9.901 fotos e artes em JPG, 3.886 PNG (muitos sem fundo, prontos para aplicar), 148 vetores em AI, EPS e SVG e alguns PSD editáveis.</p>
+        </details>
+        <details>
+          <summary>A resolução serve para impressão?</summary>
+          <p>Varia de pasta para pasta. Um arquivo típico de Paisagens tem 5,5 MB, e muitos passam de 20 MB. Para caneca, prefira arquivos com pelo menos 2362 px de largura, que é o tamanho de 20 cm a 300 dpi.</p>
+        </details>
+        <details>
+          <summary>Como recebo os arquivos?</summary>
+          <p>O acesso é por uma pasta na nuvem. Você baixa só os temas que for usar, sem precisar guardar os 73,6 GB de uma vez.</p>
+        </details>
+        <details>
+          <summary>Posso vender produtos com essas artes?</summary>
+          <p>Antes de vender, confira se a arte não traz marca registrada, personagem ou foto com direitos reservados. Temas como paisagens, flores, texturas e frases costumam ser os mais seguros para começar.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="garantir" style="padding-top:0">
+    <div class="wrap">
+      <div class="final">
+        <div class="final-strip" aria-hidden="true">
+          <img src="img/sm/mar-ilha.webp" width="720" height="405" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/flor-crisantemo.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/animal-pavao.webp" width="720" height="720" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/textura-dourada.webp" width="720" height="540" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/retro-pizza.webp" width="600" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/frase-sorrir.webp" width="635" height="900" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/cachoeira-montanhas.webp" width="720" height="417" alt="" loading="lazy" decoding="async">
+          <img src="img/sm/animal-tucano.webp" width="720" height="450" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="final-body">
+          <h2>Seu próximo produto já está numa dessas pastas.</h2>
+          <!-- Troque o link de compra na constante LINK_COMPRA, no script no fim da página. -->
+          <a class="btn btn--primary" href="#garantir" data-compra>
+            Quero o acervo
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <p class="mono">13.978 arquivos · 33 pastas · 73,6 GB</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span>+10 Mil Imagens · acervo digital para personalização</span>
+    <span>As imagens desta página são amostras do acervo.</span>
+  </div>
+</footer>
+
+<dialog class="lb" id="lb" aria-label="Imagem ampliada">
+  <figure class="lb-fig">
+    <img class="lb-img" id="lb-img" src="data:," alt="">
+    <figcaption class="lb-bar">
+      <div class="lb-txt">
+        <strong id="lb-title"></strong>
+        <span class="mono" id="lb-path"></span>
+      </div>
+      <div class="lb-nav">
+        <span class="mono" id="lb-pos"></span>
+        <button class="icon-btn" type="button" id="lb-prev" aria-label="Imagem anterior"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="icon-btn" type="button" id="lb-next" aria-label="Próxima imagem"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+        <button class="icon-btn" type="button" id="lb-close" aria-label="Fechar"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+      </div>
+    </figcaption>
+  </figure>
+</dialog>
+
+<script>
+(function () {
+  // Cole aqui o link de compra (checkout, WhatsApp etc.). Vazio = os botões levam à chamada final.
+  var LINK_COMPRA = '';
+
+  if (LINK_COMPRA) {
+    document.querySelectorAll('[data-compra]').forEach(function (a) {
+      a.href = LINK_COMPRA;
+      a.target = '_blank';
+      a.rel = 'noopener';
+    });
+  }
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* colunas do topo: duplica o conteúdo para o loop ficar contínuo */
+  if (!reduce) {
+    document.querySelectorAll('.mcol').forEach(function (col) {
+      Array.prototype.slice.call(col.children).forEach(function (img) {
+        var c = img.cloneNode(true);
+        c.alt = '';
+        col.appendChild(c);
+      });
+      col.classList.add('run');
+    });
+  }
+
+  /* galeria: filtros */
+  var items = Array.prototype.slice.call(document.querySelectorAll('.g-item'));
+  var chips = Array.prototype.slice.call(document.querySelectorAll('.chip'));
+  var countEl = document.getElementById('g-count');
+  function applyFilter(f) {
+    var n = 0;
+    items.forEach(function (it) {
+      var show = f === 'todos' || it.dataset.group === f;
+      it.hidden = !show;
+      if (show) n++;
+    });
+    chips.forEach(function (c) { c.setAttribute('aria-pressed', String(c.dataset.filter === f)); });
+    countEl.textContent = n + (n === 1 ? ' imagem' : ' imagens');
+  }
+  chips.forEach(function (c) {
+    c.addEventListener('click', function () { applyFilter(c.dataset.filter); });
+  });
+  document.querySelectorAll('[data-filter-link]').forEach(function (a) {
+    a.addEventListener('click', function () { applyFilter(a.dataset.filterLink); });
+  });
+
+  /* galeria: ampliar */
+  var dlg = document.getElementById('lb');
+  var lbImg = document.getElementById('lb-img');
+  var lbTitle = document.getElementById('lb-title');
+  var lbPath = document.getElementById('lb-path');
+  var lbPos = document.getElementById('lb-pos');
+  var list = [], cur = 0;
+  function show() {
+    var b = list[cur].querySelector('.g-open');
+    lbImg.src = b.dataset.lg;
+    lbImg.width = +b.dataset.w;
+    lbImg.height = +b.dataset.h;
+    lbImg.alt = b.dataset.title;
+    lbTitle.textContent = b.dataset.title;
+    lbPath.textContent = b.dataset.path + ' · ' + b.dataset.size;
+    lbPos.textContent = (cur + 1) + ' / ' + list.length;
+  }
+  function step(d) { cur = (cur + d + list.length) % list.length; show(); }
+  items.forEach(function (it) {
+    it.querySelector('.g-open').addEventListener('click', function () {
+      list = items.filter(function (x) { return !x.hidden; });
+      cur = list.indexOf(it);
+      show();
+      if (typeof dlg.showModal === 'function') dlg.showModal();
+      else window.open(it.querySelector('.g-open').dataset.lg, '_blank');
+    });
+  });
+  document.getElementById('lb-prev').addEventListener('click', function () { step(-1); });
+  document.getElementById('lb-next').addEventListener('click', function () { step(1); });
+  document.getElementById('lb-close').addEventListener('click', function () { dlg.close(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') step(-1);
+    if (e.key === 'ArrowRight') step(1);
+  });
+
+  /* simulador de caneca */
+  var stage = document.getElementById('stage');
+  var swName = document.getElementById('sw-name');
+  var sws = Array.prototype.slice.call(document.querySelectorAll('.sw'));
+  sws.forEach(function (sw) {
+    sw.addEventListener('click', function () {
+      sws.forEach(function (s) { s.setAttribute('aria-pressed', String(s === sw)); });
+      stage.style.setProperty('--art', "url('" + sw.dataset.src + "')");
+      swName.innerHTML = '';
+      var s = document.createElement('strong');
+      s.textContent = sw.dataset.name;
+      swName.appendChild(s);
+    });
+  });
+  var mugArt = document.getElementById('mug-art');
+  var spinBtn = document.getElementById('spin-toggle');
+  if (reduce) {
+    spinBtn.hidden = true;
+  } else {
+    spinBtn.addEventListener('click', function () {
+      var paused = mugArt.classList.toggle('paused');
+      spinBtn.setAttribute('aria-pressed', String(paused));
+      spinBtn.textContent = paused ? 'Girar a caneca' : 'Pausar o giro';
+    });
+  }
+
+  /* datas comemorativas: próxima ocorrência e dias que faltam */
+  function nthSunday(y, m, n) {
+    var first = new Date(y, m, 1);
+    return new Date(y, m, 1 + (7 - first.getDay()) % 7 + 7 * (n - 1));
+  }
+  var rules = {
+    maes: function (y) { return nthSunday(y, 4, 2); },
+    namorados: function (y) { return new Date(y, 5, 12); },
+    pais: function (y) { return nthSunday(y, 7, 2); }
+  };
+  var today = new Date();
+  today.setHours(0, 0, 0, 0);
+  var cards = Array.prototype.slice.call(document.querySelectorAll('[data-date]'));
+  cards.forEach(function (card) {
+    var rule = rules[card.dataset.date];
+    var d = rule(today.getFullYear());
+    if (d < today) d = rule(today.getFullYear() + 1);
+    var days = Math.round((d - today) / 864e5);
+    card._days = days;
+    card.querySelector('[data-when]').textContent =
+      d.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    card.querySelector('[data-days]').textContent = days === 0 ? 'Hoje' : days;
+    card.querySelector('[data-unit]').textContent = days === 0 ? '' : (days === 1 ? 'dia' : 'dias');
+  });
+  var listEl = document.getElementById('datas-list');
+  cards.sort(function (a, b) { return a._days - b._days; }).forEach(function (c) { listEl.appendChild(c); });
+})();
+</script>
+</body>
+</html>
