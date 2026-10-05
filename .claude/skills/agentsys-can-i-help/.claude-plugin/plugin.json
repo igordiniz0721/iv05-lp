@@ -1,0 +1,6 @@
+{
+  "name": "agentsys-can-i-help",
+  "description": "Find where to contribute to any project - matches developer skills to test gaps, stale docs, bugspots, and open issues",
+  "version": "0.2.0",
+  "homepage": "https://github.com/agent-sh/can-i-help"
+}

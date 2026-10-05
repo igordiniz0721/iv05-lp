@@ -1,0 +1,15 @@
+{
+  "agents": [
+    "release-agent"
+  ],
+  "skills": [
+    "release"
+  ],
+  "commands": [
+    "ship-ci-review-loop",
+    "ship-deployment",
+    "ship-error-handling",
+    "ship",
+    "release"
+  ]
+}

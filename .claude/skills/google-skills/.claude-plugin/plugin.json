@@ -1,0 +1,5 @@
+{
+  "name": "google-skills",
+  "description": "Google's official skills: Firebase, Cloud Run, Gemini API, GKE, BigQuery, Spanner, SecOps and more.",
+  "homepage": "https://github.com/google/skills"
+}

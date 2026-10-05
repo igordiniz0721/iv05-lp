@@ -1,0 +1,5 @@
+{
+  "name": "agent-skills",
+  "description": "Anthropic's public Agent Skills: docx, pdf, pptx, xlsx, frontend-design, skill-creator, mcp-builder, webapp-testing and more.",
+  "homepage": "https://github.com/anthropics/skills"
+}

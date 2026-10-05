@@ -1,0 +1,19 @@
+{
+  "agents": [
+    "ci-fixer",
+    "ci-monitor",
+    "exploration-agent",
+    "implementation-agent",
+    "planning-agent",
+    "simple-fixer",
+    "task-discoverer",
+    "worktree-manager"
+  ],
+  "skills": [
+    "discover-tasks"
+  ],
+  "commands": [
+    "delivery-approval",
+    "next-task"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "agentsys-zig-lsp",
+  "description": "Zig language server for Claude Code via ZLS - automatic diagnostics after every edit, jump-to-definition, find-references, and hover. Requires zls in PATH",
+  "version": "0.1.0",
+  "homepage": "https://github.com/agent-sh/zig-lsp"
+}

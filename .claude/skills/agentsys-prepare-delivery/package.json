@@ -1,0 +1,26 @@
+{
+  "name": "@agentsys/prepare-delivery",
+  "version": "0.2.0",
+  "description": "Pre-ship quality gates - deslop, simplify, review loop, delivery validation, docs sync",
+  "author": {
+    "name": "Avi Fenesh",
+    "email": "[email protected]",
+    "url": "https://github.com/avifenesh"
+  },
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agent-sh/prepare-delivery.git"
+  },
+  "homepage": "https://github.com/agent-sh/prepare-delivery",
+  "keywords": [
+    "delivery-pipeline",
+    "code-review",
+    "quality-gates",
+    "deslop",
+    "automation"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "skills": [
+    "repo-intel"
+  ],
+  "commands": [
+    "repo-intel"
+  ],
+  "agents": [
+    "map-validator"
+  ],
+  "lib": [
+    "binary",
+    "repo-intel",
+    "collectors"
+  ]
+}

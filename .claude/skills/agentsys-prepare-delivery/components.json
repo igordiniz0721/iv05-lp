@@ -1,0 +1,16 @@
+{
+  "agents": [
+    "prepare-delivery-agent",
+    "delivery-validator",
+    "test-coverage-checker"
+  ],
+  "skills": [
+    "prepare-delivery",
+    "check-test-coverage",
+    "orchestrate-review",
+    "validate-delivery"
+  ],
+  "commands": [
+    "prepare-delivery"
+  ]
+}

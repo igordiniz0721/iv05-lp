@@ -1,0 +1,65 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp@latest"]
+    },
+    "notebooklm": {
+      "command": "npx",
+      "args": ["-y", "notebooklm-mcp@latest"]
+    },
+    "hig": {
+      "command": "npx",
+      "args": ["-y", "hig-mcp"]
+    },
+    "n8n-mcp": {
+      "command": "npx",
+      "args": ["-y", "n8n-mcp"],
+      "env": {
+        "MCP_MODE": "stdio",
+        "LOG_LEVEL": "error",
+        "DISABLE_CONSOLE_OUTPUT": "true",
+        "N8N_API_URL": "${N8N_API_URL:-}",
+        "N8N_API_KEY": "${N8N_API_KEY:-}"
+      }
+    },
+    "pal": {
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/BeehiveInnovations/pal-mcp-server.git", "pal-mcp-server"],
+      "env": {
+        "GEMINI_API_KEY": "${GEMINI_API_KEY:-}",
+        "OPENAI_API_KEY": "${OPENAI_API_KEY:-}",
+        "OPENROUTER_API_KEY": "${OPENROUTER_API_KEY:-}",
+        "DEFAULT_MODEL": "auto"
+      }
+    },
+    "codebase-memory-mcp": {
+      "command": "codebase-memory-mcp",
+      "args": []
+    },
+    "scrapling": {
+      "command": "scrapling",
+      "args": ["mcp"]
+    },
+    "higgsfield": {
+      "type": "http",
+      "url": "https://mcp.higgsfield.ai/mcp"
+    },
+    "buzzy": {
+      "type": "http",
+      "url": "https://mcp.buzzy.now/mcp"
+    },
+    "glif": {
+      "type": "http",
+      "url": "https://glif.app/api/mcp"
+    },
+    "goodnotes": {
+      "type": "http",
+      "url": "https://claude-mcp-api.ml.goodnotes.com/mcp"
+    },
+    "chrome": {
+      "type": "http",
+      "url": "http://127.0.0.1:12306/mcp"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "skill-curator",
+  "description": "Curate production-grade SKILL.md files for autonomous coding agents",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "Skill Curator",
+    "shortDescription": "Design and review reliable agent skills",
+    "longDescription": "Skill Curator helps agents create, improve, and review SKILL.md files with short trigger descriptions, lean bodies, progressive disclosure into references, trigger evals, and agnix-ready structure.",
+    "developerName": "Avi Fenesh",
+    "category": "developer-tools",
+    "capabilities": [
+      "skill-authoring",
+      "agent-configuration",
+      "prompt-engineering",
+      "linting"
+    ],
+    "websiteUrl": "https://github.com/agent-sh/skill-curator",
+    "defaultPrompt": [
+      "Create a skill for this workflow",
+      "Improve this SKILL.md",
+      "Review this skill for trigger quality"
+    ]
+  }
+}

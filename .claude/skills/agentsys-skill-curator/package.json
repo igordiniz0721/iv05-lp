@@ -1,0 +1,45 @@
+{
+  "name": "@agent-sh/skill-curator",
+  "version": "1.1.0",
+  "description": "Curate production-grade SKILL.md files for autonomous coding agents across Claude Code, Cursor, Codex, OpenCode, Kiro and other tools.",
+  "type": "module",
+  "files": [
+    ".claude-plugin/",
+    ".codex-plugin/",
+    "skills/",
+    "commands/",
+    "README.md",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "CONTRIBUTING.md",
+    "components.json"
+  ],
+  "keywords": [
+    "agentsys",
+    "skill",
+    "SKILL.md",
+    "agent-sh",
+    "claude-code",
+    "cursor",
+    "codex",
+    "opencode",
+    "kiro",
+    "agnix"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Avi Fenesh",
+    "url": "https://github.com/avifenesh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/agent-sh/skill-curator.git"
+  },
+  "homepage": "https://github.com/agent-sh/skill-curator",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

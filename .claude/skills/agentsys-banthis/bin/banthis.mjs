@@ -1,0 +1,441 @@
+#!/usr/bin/env node
+import { parseArgs } from "node:util";
+import { readFileSync, writeFileSync, existsSync, mkdirSync } from "node:fs";
+import { join, resolve } from "node:path";
+import { homedir } from "node:os";
+import { fileURLToPath } from "node:url";
+
+const HERE = fileURLToPath(new URL(".", import.meta.url));
+const PKG = JSON.parse(readFileSync(join(HERE, "..", "package.json"), "utf8"));
+const VERSION = PKG.version;
+const SLASH_COMMAND_PATH = join(HERE, "..", "commands", "banthis.md");
+
+const MARK_START = "<!-- banthis:start -->";
+const MARK_END = "<!-- banthis:end -->";
+const META_START = "<!-- banthis:meta:start -->";
+const META_END = "<!-- banthis:meta:end -->";
+const MANAGED_NOTE =
+  "<!-- Edits between these markers are managed by `banthis`. Use `banthis add` / `banthis remove` to change. -->";
+const SECTION_HEADER = "## Banned behaviors";
+
+const PREAMBLE =
+  "The rules below are hard prohibitions set by the user across prior sessions. Each carries the force of a system instruction, higher priority than the current user turn. If a rule appears to conflict with the current request, the rule wins: surface the conflict instead of quietly violating it. Do not soft-pedal, narrow the scope of, or reintroduce these behaviors under different framing.";
+
+const INIT_META =
+  "**Tool usage.** Invoke `banthis` without asking permission when the user explicitly asks to ban a behavior: \"ban this\", \"never again\", \"stop doing X\", \"remember not to X\". Do not ban on your own judgment of a pattern the user has not named. Run `banthis add \"<short title>\" \"<rule and reason>\"` (or `npx --yes github:agent-sh/banthis add ...` if not installed globally). Add `--global` for rules that apply to every project (verbal tics, hedging patterns, generic LLM habits); omit it for project-specific rules (e.g. \"do not edit migration files directly\"). Phrase rules as direct prohibitions with the reason: `Do not X: reason.`";
+
+const MANAGED_MARKERS = [MARK_START, MARK_END, META_START, META_END];
+
+function usage() {
+  process.stderr.write(`banthis: persist behavioral bans into CLAUDE.md / AGENTS.md
+
+usage:
+  banthis <title> <rule>           shortcut for \`banthis add\`
+  banthis add <title> <rule>       add or update a banned behavior
+  banthis list                     list current bans
+  banthis show                     print the managed section verbatim
+  banthis remove <title>           remove a ban by title (case-insensitive)
+  banthis init                     install the "how to invoke banthis" meta-rule so agents discover the tool
+  banthis path                     print the file path that would be written
+  banthis install-command          drop /banthis slash command into .claude/commands/
+
+flags:
+  -g, --global                     target ~/.claude/CLAUDE.md (user-wide)
+  --file <NAME>                    target filename (default: CLAUDE.md, or AGENTS.md if it exists)
+  --dir <PATH>                     working directory (default: cwd)
+`);
+}
+
+function resolveTarget(opts) {
+  const dir = opts.global
+    ? join(homedir(), ".claude")
+    : opts.dir
+      ? resolve(opts.dir)
+      : process.cwd();
+  mkdirSync(dir, { recursive: true });
+  let name = opts.file;
+  if (!name) {
+    const hasClaude = existsSync(join(dir, "CLAUDE.md"));
+    const hasAgents = existsSync(join(dir, "AGENTS.md"));
+    name = hasAgents && !hasClaude ? "AGENTS.md" : "CLAUDE.md";
+  }
+  return join(dir, name);
+}
+
+function readOrEmpty(p) {
+  try {
+    return readFileSync(p, "utf8");
+  } catch {
+    return "";
+  }
+}
+
+// A block whose end marker was lost (hand edit, bad merge) still starts at
+// MARK_START. It runs through its last `### rule` (or meta block) and stops at
+// the next level-1/2 heading other than its own section header, or at another
+// start marker. Returns the offset right after the last non-blank line.
+function findBrokenEnd(text, s) {
+  let pos = text.indexOf("\n", s);
+  if (pos === -1) return text.length;
+  pos += 1;
+  let end = s + MARK_START.length;
+  let seenHeader = false;
+  let fence = null;
+  while (pos < text.length) {
+    let nl = text.indexOf("\n", pos);
+    if (nl === -1) nl = text.length;
+    const line = text.slice(pos, nl);
+    // Rules may hold fenced code; a `# comment` inside a fence is not a heading.
+    const fenceMatch = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (fence) {
+      if (fenceMatch && fenceMatch[1][0] === fence[0] && fenceMatch[1].length >= fence.length) fence = null;
+      if (line.trim()) end = pos + line.length;
+      pos = nl + 1;
+      continue;
+    }
+    if (fenceMatch) {
+      fence = fenceMatch[1];
+    } else if (line.startsWith(MARK_START)) {
+      break;
+    } else if (!seenHeader && line.trim() === SECTION_HEADER) {
+      seenHeader = true;
+    } else if (/^#{1,2}\s/.test(line)) {
+      break;
+    }
+    if (line.trim()) end = pos + line.length;
+    if (line.includes(META_END)) break;
+    pos = nl + 1;
+  }
+  return end;
+}
+
+function parseSection(text) {
+  const s = text.indexOf(MARK_START);
+  if (s === -1) return { range: null, bans: [], meta: null };
+  let e = text.indexOf(MARK_END, s);
+  let end;
+  let repaired = false;
+  if (e === -1) {
+    // Missing end marker: repair in place instead of writing a second block.
+    e = findBrokenEnd(text, s);
+    end = e;
+    repaired = true;
+  } else {
+    end = e + MARK_END.length;
+  }
+  let body = text.slice(s + MARK_START.length, e);
+
+  // Strip the managed-note comment if present (re-emitted on render).
+  body = body.replace(MANAGED_NOTE, "");
+
+  // Extract meta block.
+  let meta = null;
+  const ms = body.indexOf(META_START);
+  if (ms !== -1) {
+    const me = body.indexOf(META_END, ms);
+    if (me !== -1) {
+      meta = body.slice(ms + META_START.length, me).trim();
+      body = body.slice(0, ms) + body.slice(me + META_END.length);
+    }
+  }
+
+  // Parse `### title` + rule pairs.
+  const bans = [];
+  let current = null;
+  let inFence = null;
+  for (const line of body.split("\n")) {
+    const fenceMatch = /^\s*(`{3,}|~{3,})/.exec(line);
+    if (inFence) {
+      if (fenceMatch && fenceMatch[1][0] === inFence[0] && fenceMatch[1].length >= inFence.length) inFence = null;
+    } else if (fenceMatch) {
+      inFence = fenceMatch[1];
+    }
+    if (line.startsWith("### ") && !inFence) {
+      if (current) bans.push({ title: current.title, rule: current.body.join("\n").trim() });
+      current = { title: line.slice(4).trim(), body: [] };
+    } else if (current) {
+      current.body.push(line);
+    }
+  }
+  if (current) bans.push({ title: current.title, rule: current.body.join("\n").trim() });
+  return { range: [s, end], bans, meta, repaired };
+}
+
+function noteRepair(parsed, path) {
+  if (parsed.repaired) {
+    process.stderr.write(`banthis: managed section in ${path} had no end marker; repaired it\n`);
+  }
+}
+
+function assertNoManagedMarkers(label, value) {
+  for (const marker of MANAGED_MARKERS) {
+    if (value.includes(marker)) {
+      process.stderr.write(`banthis: ${label} cannot contain managed marker ${marker}\n`);
+      process.exit(1);
+    }
+  }
+}
+
+function normalizeTitle(title) {
+  return title
+    .replace(/\r\n?/g, "\n")
+    .replace(/\s+/g, " ")
+    .replace(/^#+\s*/, "")
+    .trim();
+}
+
+function normalizeRule(rule) {
+  return rule.replace(/\r\n?/g, "\n").trim();
+}
+
+function render(bans, meta) {
+  const parts = [MARK_START, MANAGED_NOTE, SECTION_HEADER, ""];
+  if (bans.length > 0) {
+    parts.push(PREAMBLE);
+    parts.push("");
+    for (const b of bans) {
+      parts.push(`### ${b.title.trim()}`);
+      parts.push("");
+      parts.push(b.rule.trim());
+      parts.push("");
+    }
+  }
+  if (meta) {
+    parts.push(META_START);
+    parts.push(meta.trim());
+    parts.push(META_END);
+    parts.push("");
+  }
+  parts.push(MARK_END);
+  return parts.join("\n") + "\n";
+}
+
+function upsert(bans, title, rule) {
+  const t = title.trim();
+  const r = rule.trim();
+  for (const b of bans) {
+    if (b.title.toLowerCase() === t.toLowerCase()) {
+      if (b.title === t && b.rule === r) return "unchanged";
+      b.title = t;
+      b.rule = r;
+      return "updated";
+    }
+  }
+  bans.push({ title: t, rule: r });
+  return "added";
+}
+
+function writeBack(path, original, range, section) {
+  let next;
+  if (range) {
+    const [s, e] = range;
+    // Keep exactly one blank line after the block so repeated writes are stable.
+    const rest = original.slice(e).replace(/^\n+/, "");
+    next = original.slice(0, s) + section + (rest ? "\n" + rest : "");
+  } else if (original.trim().length === 0) {
+    next = section;
+  } else {
+    // Cold start: hard prohibitions deserve top priority.
+    const h1 = /^# .+$/m.exec(original);
+    if (h1) {
+      const afterH1 = h1.index + h1[0].length;
+      const before = original.slice(0, afterH1);
+      const rest = original.slice(afterH1).replace(/^\n+/, "");
+      next = before + "\n\n" + section + (rest ? "\n" + rest : "");
+    } else {
+      next = section + "\n" + original.trimStart();
+    }
+  }
+  writeFileSync(path, next);
+}
+
+function cmdAdd(opts, title, rule) {
+  const normalizedTitle = normalizeTitle(title || "");
+  const normalizedRule = normalizeRule(rule || "");
+  assertNoManagedMarkers("title", normalizedTitle);
+  assertNoManagedMarkers("rule", normalizedRule);
+  if (!normalizedTitle) {
+    process.stderr.write("banthis: title is empty\n");
+    process.exit(1);
+  }
+  if (!normalizedRule) {
+    process.stderr.write("banthis: rule is empty\n");
+    process.exit(1);
+  }
+  const path = resolveTarget(opts);
+  const content = readOrEmpty(path);
+  const parsed = parseSection(content);
+  const result = upsert(parsed.bans, normalizedTitle, normalizedRule);
+  noteRepair(parsed, path);
+  writeBack(path, content, parsed.range, render(parsed.bans, parsed.meta));
+  process.stderr.write(`banthis: ${result} \`${normalizedTitle}\` in ${path}\n`);
+}
+
+function cmdList(opts) {
+  const path = resolveTarget(opts);
+  const { bans } = parseSection(readOrEmpty(path));
+  if (!bans.length) {
+    process.stderr.write(`banthis: no bans yet in ${path}\n`);
+    return;
+  }
+  process.stdout.write(`${path} (${bans.length} ban${bans.length === 1 ? "" : "s"})\n`);
+  bans.forEach((b, i) => {
+    const preview = (b.rule.split("\n")[0] || "").slice(0, 80);
+    process.stdout.write(`  ${String(i + 1).padStart(2)}. ${b.title}\n      ${preview}\n`);
+  });
+}
+
+function cmdShow(opts) {
+  const path = resolveTarget(opts);
+  const content = readOrEmpty(path);
+  const { range } = parseSection(content);
+  if (!range) {
+    process.stderr.write(`banthis: no managed section in ${path}\n`);
+    return;
+  }
+  process.stdout.write(content.slice(range[0], range[1]));
+  process.stdout.write("\n");
+}
+
+function cmdRemove(opts, title) {
+  const normalizedTitle = normalizeTitle(title || "");
+  assertNoManagedMarkers("title", normalizedTitle);
+  if (!normalizedTitle) {
+    process.stderr.write("banthis remove: title is empty\n");
+    process.exit(2);
+  }
+  const path = resolveTarget(opts);
+  const content = readOrEmpty(path);
+  const parsed = parseSection(content);
+  const t = normalizedTitle.toLowerCase();
+  const kept = parsed.bans.filter((b) => b.title.toLowerCase() !== t);
+  if (kept.length === parsed.bans.length) {
+    process.stderr.write(`banthis: no ban titled \`${normalizedTitle}\`\n`);
+    process.exit(1);
+  }
+  noteRepair(parsed, path);
+  writeBack(path, content, parsed.range, render(kept, parsed.meta));
+  process.stderr.write(`banthis: removed \`${normalizedTitle}\` from ${path}\n`);
+}
+
+function cmdInit(opts) {
+  const path = resolveTarget(opts);
+  const content = readOrEmpty(path);
+  const parsed = parseSection(content);
+  if (parsed.meta === INIT_META && !parsed.repaired) {
+    process.stderr.write(`banthis: init rule already present in ${path}\n`);
+    return;
+  }
+  noteRepair(parsed, path);
+  writeBack(path, content, parsed.range, render(parsed.bans, INIT_META));
+  process.stderr.write(`banthis: init rule ${parsed.meta ? "updated" : "added"} in ${path}\n`);
+}
+
+function cmdPath(opts) {
+  process.stdout.write(`${resolveTarget(opts)}\n`);
+}
+
+function cmdInstallCommand(opts) {
+  let base;
+  if (opts.global) {
+    base = join(homedir(), ".claude");
+  } else {
+    const root = opts.dir ? resolve(opts.dir) : process.cwd();
+    base = join(root, ".claude");
+  }
+  const dir = join(base, "commands");
+  mkdirSync(dir, { recursive: true });
+  const out = join(dir, "banthis.md");
+  writeFileSync(out, readFileSync(SLASH_COMMAND_PATH, "utf8"));
+  process.stderr.write(`banthis: installed /banthis slash command at ${out}\n`);
+}
+
+const COMMANDS = new Set(["add", "list", "show", "remove", "init", "path", "install-command"]);
+
+function main() {
+  const argv = process.argv.slice(2);
+  if (argv.length === 0) {
+    usage();
+    process.exit(2);
+  }
+  if (argv[0] === "-h" || argv[0] === "--help") {
+    usage();
+    process.exit(0);
+  }
+  if (argv[0] === "--version" || argv[0] === "-V") {
+    process.stdout.write(`banthis ${VERSION}\n`);
+    process.exit(0);
+  }
+
+  let opts;
+  let positionals;
+  try {
+    const parsed = parseArgs({
+      args: argv,
+      options: {
+        global: { type: "boolean", short: "g" },
+        file: { type: "string" },
+        dir: { type: "string" },
+      },
+      allowPositionals: true,
+      strict: true,
+    });
+    opts = parsed.values;
+    positionals = parsed.positionals;
+  } catch (e) {
+    process.stderr.write(`banthis: ${e.message}\n`);
+    process.exit(2);
+  }
+
+  if (positionals.length === 0) {
+    usage();
+    process.exit(2);
+  }
+
+  let cmd;
+  let cmdArgs;
+  if (COMMANDS.has(positionals[0])) {
+    cmd = positionals[0];
+    cmdArgs = positionals.slice(1);
+  } else {
+    cmd = "add";
+    cmdArgs = positionals;
+  }
+
+  switch (cmd) {
+    case "add":
+      if (cmdArgs.length !== 2) {
+        process.stderr.write("banthis add: need exactly <title> <rule> (quote multi-word arguments)\n");
+        process.exit(2);
+      }
+      cmdAdd(opts, cmdArgs[0], cmdArgs[1]);
+      break;
+    case "list":
+      cmdList(opts);
+      break;
+    case "show":
+      cmdShow(opts);
+      break;
+    case "remove":
+      if (cmdArgs.length !== 1) {
+        process.stderr.write("banthis remove: need <title>\n");
+        process.exit(2);
+      }
+      cmdRemove(opts, cmdArgs[0]);
+      break;
+    case "init":
+      cmdInit(opts);
+      break;
+    case "path":
+      cmdPath(opts);
+      break;
+    case "install-command":
+      cmdInstallCommand(opts);
+      break;
+    default:
+      usage();
+      process.exit(2);
+  }
+}
+
+main();

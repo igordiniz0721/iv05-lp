@@ -1,0 +1,5 @@
+{
+  "name": "peers",
+  "description": "claude-peers MCP: lets two Claude Code sessions talk to each other (needs bun).",
+  "homepage": "https://github.com/louislva/claude-peers-mcp"
+}

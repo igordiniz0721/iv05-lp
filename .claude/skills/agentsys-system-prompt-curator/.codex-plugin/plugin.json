@@ -1,0 +1,24 @@
+{
+  "name": "system-prompt-curator",
+  "description": "Curate production-grade system prompts for autonomous coding agents",
+  "skills": "./skills",
+  "interface": {
+    "displayName": "System Prompt Curator",
+    "shortDescription": "Design and improve autonomous agent prompts",
+    "longDescription": "System Prompt Curator helps agents create and refine system prompts with environment context, goals and evidence-based done criteria, constraints with reasons, and harness checks, and removes prompting patterns written for weaker models.",
+    "developerName": "Avi Fenesh",
+    "category": "developer-tools",
+    "capabilities": [
+      "prompt-engineering",
+      "agent-configuration",
+      "orchestration",
+      "quality-gates"
+    ],
+    "websiteUrl": "https://github.com/agent-sh/system-prompt-curator",
+    "defaultPrompt": [
+      "Create a system prompt for this agent",
+      "Improve this prompt for autonomy",
+      "Review this prompt for completion gaps"
+    ]
+  }
+}
