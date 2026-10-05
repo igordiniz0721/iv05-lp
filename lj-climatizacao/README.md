@@ -38,11 +38,16 @@ const CFG = {
 
 Se o horário mudar, atualize também os textos "Seg. a sex. · 8h às 18h" e o `openingHoursSpecification` do JSON-LD no `<head>`.
 
-## Publicação
+## Publicação (Vercel)
 
-Publicado no GitHub Pages (branch `gh-pages`): https://igordiniz0721.github.io/iv05-lp/lj-climatizacao/
+Projeto estático, sem build. Na Vercel: **Add New → Project → importar `igordiniz0721/iv05-lp`**, com:
 
-- Se o site for para um domínio próprio, troque essa URL no `canonical`, `og:url`, `og:image` e no JSON-LD (`url` e `image`), senão a prévia do link no WhatsApp aponta para o endereço antigo.
+- **Root Directory:** `lj-climatizacao`
+- **Framework Preset:** Other (sem build command e sem output directory)
+
+Depois do primeiro deploy:
+
+- Troque `og-image.jpg` no `og:image` e no `image` do JSON-LD pela URL completa (`https://SEU-PROJETO.vercel.app/og-image.jpg` ou o domínio próprio), senão a prévia do link não aparece no WhatsApp.
 - Se for usar Meta Pixel ou Google Analytics, cole o código antes do `</head>`.
 
 ## Para confirmar com o cliente
