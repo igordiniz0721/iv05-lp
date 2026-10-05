@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<title>+10 Mil Imagens — brag</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400..700&display=swap">
+<link rel="stylesheet" href="site.css">
+<style>
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  html, body { margin: 0; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+  .frame { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: var(--paper); }
+  .abs { position: absolute; }
+  .scene { position: absolute; inset: 0; }
+
+  /* cena 1-2 */
+  .mark { left: 960px; top: 250px; width: 0; height: 0; }
+  .mark i { position: absolute; width: 112px; height: 112px; margin: -56px 0 0 -56px; border-radius: 50%; mix-blend-mode: multiply; }
+  #hero { left: 140px; top: 168px; width: 980px; transform-origin: 0 0; }
+  #hero .tag { font-size: 20px; margin: 0 0 22px; }
+  #hero h1 { font-weight: 820; font-stretch: 112%; font-size: 100px; line-height: .98; letter-spacing: -.025em; text-wrap: initial; }
+  #hero h1 span { display: inline-block; will-change: transform; }
+  #counter { left: 140px; top: 640px; }
+  #counter b { display: block; font-family: var(--f-display); font-weight: 820; font-stretch: 112%; font-size: 136px; line-height: 1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  #counter span { display: block; margin-top: 10px; font-size: 34px; color: var(--ink-soft); }
+  #pills { left: 140px; top: 900px; display: flex; gap: 14px; }
+  #pills div { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 12px 24px; font-size: 26px; color: var(--ink-soft); white-space: nowrap; }
+  #pills b { color: var(--ink); font-family: var(--f-display); font-weight: 760; font-stretch: 108%; }
+  #mosaic { left: 1110px; top: 0; width: 680px; height: 1080px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent); }
+  #mosaic .col { display: flex; flex-direction: column; gap: 16px; }
+  #mosaic img { width: 100%; height: auto; border-radius: 6px; }
+
+  /* cena 3 */
+  .head { left: 140px; top: 84px; }
+  .head .tag { font-size: 20px; margin: 0 0 12px; }
+  .head h2 { font-weight: 780; font-stretch: 110%; font-size: 76px; line-height: 1; letter-spacing: -.02em; }
+  #chips { left: 140px; top: 268px; width: 1640px; display: flex; align-items: center; gap: 12px; }
+  #chips .chip { font-size: 24px; padding: 11px 22px; }
+  #chips .chip small { font-size: 17px; }
+  #chips .g-count { margin-left: auto; font-size: 20px; }
+  .tile { position: absolute; width: 260px; height: 195px; border-radius: 6px; overflow: hidden; background: var(--surface); }
+  .tile img { width: 100%; height: 100%; object-fit: cover; }
+  #backdrop { inset: 0; background: rgba(8, 10, 14, .84); opacity: 0; }
+  #lbcard { background: var(--surface); border-radius: 8px; overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,.6); }
+  #lbcard img { position: absolute; left: 0; top: 0; width: 100%; object-fit: cover; }
+  #lbcard .lb-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 92px; padding: 0 22px; flex-wrap: nowrap; }
+  #lbcard .lb-txt strong { font-size: 24px; }
+  #lbcard .lb-txt .mono { font-size: 17px; }
+  #lbcard .lb-nav .mono { font-size: 17px; }
+  #lbcard .icon-btn { width: 48px; height: 48px; }
+
+  /* cena 4 e 5 */
+  #simWrap, #datasWrap { left: 0; top: 0; width: 1240px; transform-origin: 0 0; }
+  #spin-toggle { display: none; }
+
+  /* cena 6 */
+  #ink { inset: 0; background: var(--ink); color: var(--paper); }
+  #strip { left: 0; top: 0; width: 1920px; height: 240px; display: grid; grid-template-columns: repeat(8, 1fr); overflow: hidden; }
+  #strip img { width: 100%; height: 240px; object-fit: cover; }
+  #outro { left: 160px; top: 440px; width: 1220px; display: grid; gap: 34px; justify-items: start; }
+  #outro .logo svg { width: 60px; height: 44px; }
+  #outro .logo b { font-size: 34px; }
+  #outro .logo svg circle { mix-blend-mode: normal; }
+  #outro h2 { font-family: var(--f-display); font-weight: 820; font-stretch: 112%; font-size: 82px; line-height: .98; letter-spacing: -.025em; margin: 0; white-space: nowrap; }
+  #outro .btn--big { font-size: 34px; padding: 14px 14px 14px 40px; gap: 22px; }
+  #outro .btn--big .pill-arrow { width: 64px; height: 64px; }
+  #outro .btn--big .pill-arrow svg { width: 26px; height: 26px; }
+  #outro .mono { font-size: 26px; opacity: .72; }
+
+  #outroMug { left: 1440px; top: 470px; width: 290px; transform-origin: 0 0; transform: scale(1.45); }
+  #outroMug .mug { width: 290px; }
+  /* cursor */
+  #cursor { left: 0; top: 0; width: 44px; height: 44px; z-index: 50; transform-origin: 6px 4px; }
+  #ripple { width: 0; height: 0; z-index: 49; }
+  #ripple i { position: absolute; left: -40px; top: -40px; width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--magenta); }
+</style>
+</head>
+<body>
+<div class="frame" id="frame">
+
+  <!-- cenas 1 e 2 -->
+  <div class="scene" id="s12">
+    <div class="abs" id="mosaic">
+      <div class="col" data-speed="120"></div>
+      <div class="col" data-speed="-85"></div>
+      <div class="col" data-speed="150"></div>
+    </div>
+    <div class="abs mark" id="mark"><i style="background:var(--cyan)"></i><i style="background:var(--magenta)"></i><i style="background:var(--yellow)"></i></div>
+    <div class="abs" id="hero">
+      <p class="tag" id="htag">Acervo digital para sublimação e personalizados</p>
+      <h1><span>Arte</span> <span>pronta</span> <span>para</span><br><span><em class="mis" id="mis">estampar</em></span> <span>o</span> <span>que</span><br><span>você</span> <span>vende.</span></h1>
+    </div>
+    <div class="abs" id="counter"><b id="count">0</b><span>arquivos em 33 pastas por tema</span></div>
+    <div class="abs" id="pills">
+      <div><b>9.901</b> JPG</div><div><b>3.886</b> PNG</div><div><b>148</b> vetores</div><div><b>73,6 GB</b> no total</div>
+    </div>
+  </div>
+
+  <!-- cena 3 -->
+  <div class="scene" id="s3">
+    <div class="abs head" id="h3"><p class="tag">Galeria · 66 amostras</p><h2>Ache a arte pelo tema.</h2></div>
+    <div class="abs" id="chips">
+      <button class="chip" data-f="todos">Todos <small>66</small></button>
+      <button class="chip" data-f="paisagens">Paisagens <small>15</small></button>
+      <button class="chip" data-f="flores">Flores <small>7</small></button>
+      <button class="chip">Animais <small>7</small></button>
+      <button class="chip">Texturas <small>6</small></button>
+      <button class="chip">Datas <small>8</small></button>
+      <button class="chip">Frases <small>8</small></button>
+      <button class="chip">Retrô <small>5</small></button>
+      <button class="chip">Nichos <small>10</small></button>
+      <p class="g-count" id="gcount">66 imagens</p>
+    </div>
+    <div id="tiles"></div>
+    <div class="abs" id="backdrop"></div>
+    <div class="abs" id="lbcard">
+      <img src="../../acervo/img/lg/flor-rosa-azul.webp" alt="">
+      <div class="lb-bar">
+        <div class="lb-txt"><strong>Rosa azul em close</strong><span class="mono">Flores / Flores (12).jpg · 0,6 MB</span></div>
+        <div class="lb-nav">
+          <span class="mono">2 / 7</span>
+          <span class="icon-btn"><svg viewBox="0 0 20 20"><path d="M12.5 4.5 7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="icon-btn"><svg viewBox="0 0 20 20"><path d="M7.5 4.5 13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span class="icon-btn"><svg viewBox="0 0 20 20"><path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cena 4: o simulador real do site -->
+  <div class="scene" id="s4">
+    <div class="abs" id="simWrap">
+      <div class="sim">
+        <div class="stage" id="mugStage" style="--art: url('../../acervo/img/sm/textura-escamas.webp')">
+          <div class="print-wrap">
+            <div class="print-label"><span>Arquivo</span><span>20 × 9,5 cm</span></div>
+            <div class="print">
+              <svg class="crop" viewBox="0 0 100 100" preserveAspectRatio="none"><path vector-effect="non-scaling-stroke" d="M0 12V0h7M93 0h7v12M100 88v12h-7M7 100H0V88"/></svg>
+            </div>
+          </div>
+          <div class="mug" id="mug"><div class="mug-body"><div class="mug-art" id="mugArt"><span></span><span></span></div></div></div>
+        </div>
+        <div class="sim-side" id="simSide">
+          <div class="sec-head" style="margin-bottom:0">
+            <p class="tag">Simulador</p>
+            <h2>Veja na caneca antes de imprimir.</h2>
+          </div>
+          <div class="swatches" id="swatches"></div>
+          <p class="sw-name"><strong id="swName">Padrão de escamas coloridas</strong></p>
+          <dl class="specs">
+            <dt>Área</dt><dd>20 × 9,5 cm (caneca de 325 ml)</dd>
+            <dt>Resolução</dt><dd>300 dpi, ou 2362 × 1122 px</dd>
+            <dt>Impressão</dt><dd>Espelhada, em papel sublimático</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- cena 5: os cards de datas do site -->
+  <div class="scene" id="s5">
+    <div class="abs" id="datasWrap">
+      <div class="sec-head" id="h5">
+        <p class="tag">Calendário</p>
+        <h2>As datas que mais vendem já têm pasta própria.</h2>
+      </div>
+      <div class="datas">
+        <article class="data"><img src="../../acervo/img/sm/maes-guirlanda.webp" alt=""><div class="data-body"><h3>Dia das Mães</h3><p class="data-when">domingo, 9 de maio de 2027</p><p class="data-left"><b data-to="216">0</b><span>dias</span></p><p class="data-count"><strong>716</strong> artes, incluindo PNG sem fundo e artes editáveis</p></div></article>
+        <article class="data"><img src="../../acervo/img/sm/namorados-cafe-rosas.webp" alt=""><div class="data-body"><h3>Dia dos Namorados</h3><p class="data-when">sábado, 12 de junho de 2027</p><p class="data-left"><b data-to="250">0</b><span>dias</span></p><p class="data-count"><strong>89</strong> artes de corações, ursinhos e frases de amor</p></div></article>
+        <article class="data"><img src="../../acervo/img/sm/pais-heroi.webp" alt="" style="object-position: center 30%"><div class="data-body"><h3>Dia dos Pais</h3><p class="data-when">domingo, 8 de agosto de 2027</p><p class="data-left"><b data-to="307">0</b><span>dias</span></p><p class="data-count"><strong>21</strong> frases tipográficas prontas</p></div></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- cena 6 -->
+  <div class="scene" id="s6">
+    <div class="abs" id="ink">
+      <div class="abs" id="strip"></div>
+      <div class="abs" id="outroMug" style="--art: url('../../acervo/img/sm/textura-azulejo.webp')"><div class="mug"><div class="mug-body"><div class="mug-art" id="outroArt"><span></span><span></span></div></div></div></div>
+      <div class="abs" id="outro">
+        <span class="logo"><svg viewBox="0 0 30 22"><circle cx="9" cy="11" r="8" fill="var(--cyan)"></circle><circle cx="15" cy="11" r="8" fill="var(--magenta)"></circle><circle cx="21" cy="11" r="8" fill="var(--yellow)"></circle></svg><b>+10 MIL IMAGENS</b></span>
+        <h2>Seu próximo produto já<br>está numa dessas pastas.</h2>
+        <span class="btn btn--primary btn--pill btn--big" id="cta">Quero o acervo <span class="pill-arrow" id="ctaArrow"><svg viewBox="0 0 20 20"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+        <p class="mono">13.978 arquivos · 33 pastas · 73,6 GB</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="abs" id="ripple"><i></i></div>
+  <svg class="abs" id="cursor" viewBox="0 0 24 24"><path d="M4 2.5v17.2l4.6-4.3 3 6.6 3.1-1.4-3-6.5h6.3z" fill="#12151C" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+
+<script>
+const IMG = s => '../../acervo/img/sm/' + s + '.webp';
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const prog = (t, a, b) => clamp((t - a) / (b - a));
+const lerp = (a, b, x) => a + (b - a) * x;
+const eOut = x => 1 - Math.pow(1 - x, 3);
+const eInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+const eBack = x => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2); };
+const fmt = n => Math.round(n).toLocaleString('pt-BR');
+
+/* ---------- montar o conteúdo ---------- */
+const MOSAIC = [
+  ['mar-bangalos', 'flor-rosa-gotas', 'frase-insista', 'arte-monte-fuji', 'animal-tigre', 'textura-azulejo', 'retro-pizza', 'flor-girassois'],
+  ['arte-montanha-lanternas', 'animal-arara', 'retro-bolos', 'cachoeira-turquesa', 'namorados-coracao-margaridas', 'deserto-dunas', 'frase-sorrir', 'animal-pavao'],
+  ['cidade-canal-colorido', 'infantil-balao', 'flor-rosa-azul', 'arte-sol-neon', 'textura-mandalas', 'natureza-rio-montanhas', 'cafe-xicara', 'mar-ilha']
+];
+$$('#mosaic .col').forEach((c, i) => MOSAIC[i].concat(MOSAIC[i]).forEach(s => { const im = new Image(); im.src = IMG(s); c.appendChild(im); }));
+
+const GRID = ['mar-bangalos', 'flor-rosa-gotas', 'animal-arara', 'textura-azulejo', 'flor-dalia', 'retro-posto',
+  'flor-rosa-azul', 'maes-guirlanda', 'cidade-canal-colorido', 'flor-dente-de-leao', 'frase-venca-medos', 'animal-tucano',
+  'flor-girassois', 'cerveja-barril', 'flor-rosas-arco-iris', 'arte-pagode', 'flor-crisantemo', 'textura-paisley'];
+const FLOWERS = ['flor-rosa-gotas', 'flor-rosa-azul', 'flor-dalia', 'flor-dente-de-leao', 'flor-girassois', 'flor-rosas-arco-iris', 'flor-crisantemo'];
+const cell = i => ({ x: 140 + (i % 6) * 276, y: 352 + Math.floor(i / 6) * 211 });
+const tiles = GRID.map((s, i) => {
+  const d = document.createElement('div'); d.className = 'tile';
+  const im = new Image(); im.src = IMG(s); d.appendChild(im); $('#tiles').appendChild(d);
+  return { el: d, from: cell(i), to: FLOWERS.includes(s) ? cell(FLOWERS.indexOf(s)) : null, i };
+});
+
+const SW = [['textura-escamas', 'Padrão de escamas coloridas'], ['textura-azulejo', 'Padrão de azulejo'], ['arte-montanha-lanternas', 'Ilustração de montanha refletida no lago'], ['arte-praia-tropical', 'Ilustração de praia tropical'],
+  ['flor-girassois', 'Campo de girassóis'], ['maes-floral', 'Arte floral de Dia das Mães'], ['namorados-coracoes', 'Corações coloridos'], ['arte-sol-neon', 'Sol neon sobre montanhas, estilo anos 80']];
+SW.forEach(([s]) => { const b = document.createElement('button'); b.className = 'sw'; const im = new Image(); im.src = IMG(s); b.appendChild(im); $('#swatches').appendChild(b); });
+['mar-ilha', 'flor-crisantemo', 'animal-pavao', 'textura-dourada', 'retro-pizza', 'frase-sorrir', 'cachoeira-turquesa', 'animal-tucano']
+  .forEach(s => { const im = new Image(); im.src = IMG(s); $('#strip').appendChild(im); });
+
+/* ---------- medidas para as transições ---------- */
+let M = {};
+function measure() {
+  const hero = $('#hero'), hr = hero.getBoundingClientRect();
+  const spans = $$('#hero h1 span');
+  const rel = el => { const r = el.getBoundingClientRect(); return { x: r.left - hr.left, y: r.top - hr.top, w: r.width, h: r.height }; };
+  const parts = [rel($('#htag')), ...spans.slice(0, 4).map(rel)];
+  const x0 = Math.min(...parts.map(p => p.x)), y0 = Math.min(...parts.map(p => p.y));
+  const x1 = Math.max(...parts.map(p => p.x + p.w)), y1 = Math.max(...parts.map(p => p.y + p.h));
+  const s = 1.45;
+  M.hero1 = { s, tx: 960 - 140 - s * (x0 + x1) / 2, ty: 640 - 168 - s * (y0 + y1) / 2 };
+  // simulador e datas em escala 1.3, centralizados
+  const sim = $('#simWrap'); const sh = sim.offsetHeight; M.sim = { s: 1.3, x: (1920 - 1240 * 1.3) / 2, y: (1080 - sh * 1.3) / 2 };
+  const da = $('#datasWrap'); const dh = da.offsetHeight; M.datas = { s: 1.3, x: (1920 - 1240 * 1.3) / 2, y: (1080 - dh * 1.3) / 2 };
+  // alvos do cursor (em coordenadas da tela, com as escalas finais aplicadas)
+  setT(9.0); const chip = $('#chips .chip[data-f="flores"]').getBoundingClientRect(); M.chip = { x: chip.left + chip.width * .55, y: chip.top + chip.height * .6 };
+  const rose = cell(1); M.rose = { x: rose.x + 150, y: rose.y + 110 };
+  setT(13); M.sw = $$('#swatches .sw').map(b => { const r = b.getBoundingClientRect(); return { x: r.left + r.width * .55, y: r.top + r.height * .6 }; });
+  setT(21); const c = $('#cta').getBoundingClientRect(); M.cta = { x: c.left + c.width * .45, y: c.top + c.height * .6 };
+}
+
+/* ---------- cursor ---------- */
+function path(t) {
+  const K = [
+    [7.6, 1760, 1120], [8.42, M.chip.x, M.chip.y], [8.95, M.chip.x, M.chip.y], [9.42, M.rose.x, M.rose.y], [10.3, M.rose.x + 40, M.rose.y + 60],
+    [11.9, 1760, 1120], [12.42, M.sw[1].x, M.sw[1].y], [12.95, M.sw[1].x, M.sw[1].y], [13.42, M.sw[4].x, M.sw[4].y], [13.95, M.sw[4].x, M.sw[4].y], [14.42, M.sw[7].x, M.sw[7].y], [15.1, M.sw[7].x + 60, M.sw[7].y + 90],
+    [19.6, 1500, 1120], [20.42, M.cta.x, M.cta.y], [22, M.cta.x + 10, M.cta.y + 14]
+  ];
+  let vis = (t >= 7.6 && t < 10.4) || (t >= 11.9 && t < 15.2) || t >= 19.6;
+  if (!vis) return null;
+  for (let i = 0; i < K.length - 1; i++) {
+    const [ta, xa, ya] = K[i], [tb, xb, yb] = K[i + 1];
+    if (t >= ta && t <= tb) { const p = eInOut(prog(t, ta, tb)); return { x: lerp(xa, xb, p), y: lerp(ya, yb, p) }; }
+  }
+  const last = K.filter(k => k[0] <= t).pop(); return { x: last[1], y: last[2] };
+}
+const CLICKS = [8.5, 9.5, 12.5, 13.5, 14.5, 20.5];
+
+/* ---------- quadro em função do tempo ---------- */
+function setT(t) {
+  const show = (id, a, b) => { $(id).style.display = t >= a && t < b ? 'block' : 'none'; };
+  show('#s12', 0, 7.3); show('#s3', 7.0, 11.6); show('#s4', 11.4, 15.6); show('#s5', 15.4, 18.6); show('#s6', 18.4, 99);
+
+  /* cena 1-2 */
+  const mk = $$('#mark i'); const markOut = prog(t, 2.85, 3.15);
+  [[-420, 0, 0.0, -42], [0, -320, 0.1, 0], [420, 0, 0.2, 42]].forEach(([dx, dy, d, fx], i) => {
+    const p = eBack(prog(t, d, d + .38)); const k = 1 - eInOut(markOut);
+    mk[i].style.transform = `translate(${lerp(dx, fx, p)}px, ${lerp(dy, 0, p)}px) scale(${.4 + .6 * k})`;
+    mk[i].style.opacity = Math.min(prog(t, d, d + .12), k);
+  });
+  const mv = eInOut(prog(t, 3.0, 3.45));
+  const s = lerp(M.hero1.s, 1, mv), tx = lerp(M.hero1.tx, 0, mv), ty = lerp(M.hero1.ty, 0, mv);
+  const out2 = eInOut(prog(t, 7.0, 7.25));
+  $('#hero').style.transform = `translate(${tx}px, ${ty - out2 * 60}px) scale(${s})`;
+  $('#hero').style.opacity = 1 - out2;
+  $('#htag').style.opacity = eOut(prog(t, .4, .7));
+  const starts = [.45, .6, .75, .95, 3.35, 3.45, 3.55, 3.65];
+  $$('#hero h1 span').forEach((sp, i) => { const p = eOut(prog(t, starts[i], starts[i] + .28)); sp.style.opacity = p; sp.style.transform = `translateY(${(1 - p) * 34}px)`; });
+  const r = eOut(prog(t, .95, 1.75));
+  $('#mis').style.textShadow = `${lerp(.28, .045, r)}em ${lerp(.16, .03, r)}em 0 var(--mis-a), ${lerp(-.24, -.035, r)}em ${lerp(-.13, -.02, r)}em 0 var(--mis-b)`;
+  const cIn = eOut(prog(t, 3.55, 3.9));
+  $('#counter').style.opacity = cIn * (1 - out2); $('#counter').style.transform = `translateY(${(1 - cIn) * 30 - out2 * 60}px)`;
+  $('#count').textContent = fmt(13978 * eOut(prog(t, 3.6, 4.7)));
+  $$('#pills div').forEach((p, i) => { const q = prog(t, 4.75 + i * .15, 5.1 + i * .15); p.style.opacity = eOut(q) * (1 - out2); p.style.transform = `translateY(${-out2 * 60}px) scale(${lerp(.8, 1, eBack(q))})`; });
+  const mIn = 1 - eOut(prog(t, 3.25, 4.0));
+  $$('#mosaic .col').forEach((c, i) => {
+    const sp = +c.dataset.speed; const base = sp < 0 ? -900 : -40 * i;
+    c.style.transform = `translateY(${base + mIn * (1200 + Math.abs(base)) - sp * Math.max(0, t - 3.0)}px)`;
+  });
+  $('#mosaic').style.opacity = 1 - out2; $('#mark').style.display = t < 3.2 ? 'block' : 'none';
+
+  /* cena 3 */
+  const in3 = eOut(prog(t, 7.15, 7.5)), out3 = eInOut(prog(t, 11.2, 11.45));
+  $('#h3').style.opacity = in3 * (1 - out3); $('#h3').style.transform = `translateY(${(1 - in3) * 40 - out3 * 40}px)`;
+  $('#chips').style.opacity = eOut(prog(t, 7.25, 7.55)) * (1 - out3); $('#chips').style.transform = `translateY(${(1 - eOut(prog(t, 7.25, 7.55))) * 30 - out3 * 40}px)`;
+  const filtered = t >= 8.5;
+  $$('#chips .chip').forEach(c => c.setAttribute('aria-pressed', String(c.dataset.f === (filtered ? 'flores' : 'todos'))));
+  $('#gcount').textContent = filtered ? '7 imagens' : '66 imagens';
+  const f = eInOut(prog(t, 8.55, 9.0));
+  tiles.forEach(o => {
+    const a = eOut(prog(t, 7.3 + o.i * .025, 7.6 + o.i * .025));
+    let x = o.from.x, y = o.from.y, op = a, sc = lerp(.9, 1, a);
+    if (o.to) { x = lerp(o.from.x, o.to.x, f); y = lerp(o.from.y, o.to.y, f); }
+    else { op *= 1 - f; sc *= lerp(1, .85, f); }
+    o.el.style.left = x + 'px'; o.el.style.top = (y - out3 * 40) + 'px';
+    o.el.style.opacity = op * (1 - out3); o.el.style.transform = `scale(${sc})`;
+    o.el.style.visibility = op > .002 ? 'visible' : 'hidden';
+  });
+  const lb = eOut(prog(t, 9.55, 9.92));
+  $('#backdrop').style.opacity = .84 * eOut(prog(t, 9.55, 9.85)) * (1 - out3);
+  const tr = cell(1), fin = { x: 400, y: 144, w: 1120, h: 792 };
+  const card = $('#lbcard');
+  const cw = lerp(260, fin.w, lb), chh = lerp(195, fin.h, lb);
+  card.style.left = lerp(tr.x, fin.x, lb) + 'px'; card.style.top = (lerp(tr.y, fin.y, lb) - out3 * 40) + 'px';
+  card.style.width = cw + 'px'; card.style.height = chh + 'px';
+  card.querySelector('img').style.height = (chh - 92 * lb) + 'px';
+  card.style.opacity = (t >= 9.55 ? 1 : 0) * (1 - out3);
+  card.querySelector('.lb-bar').style.opacity = eOut(prog(t, 9.8, 10.05));
+
+  /* cena 4 */
+  const in4 = eOut(prog(t, 11.5, 11.85)), out4 = eInOut(prog(t, 15.2, 15.45));
+  $('#simWrap').style.transform = `translate(${M.sim.x}px, ${M.sim.y - out4 * 50}px) scale(${M.sim.s})`;
+  $('#simWrap').style.opacity = 1 - out4;
+  $('#mugStage').style.opacity = in4; $('#mugStage').style.transform = `translateX(${(1 - in4) * -60}px)`;
+  $('#simSide').style.opacity = eOut(prog(t, 11.6, 11.95)); $('#simSide').style.transform = `translateX(${(1 - eOut(prog(t, 11.6, 11.95))) * 60}px)`;
+  const pick = t >= 14.5 ? 7 : t >= 13.5 ? 4 : t >= 12.5 ? 1 : 0;
+  $('#mugStage').style.setProperty('--art', `url('${IMG(SW[pick][0])}')`);
+  $$('#swatches .sw').forEach((b, i) => b.setAttribute('aria-pressed', String(i === pick)));
+  $('#swName').textContent = SW[pick][1];
+  $('#mugArt').style.transform = `translateX(${-((Math.max(0, t - 11.0) * 3.4) % 50)}%)`;
+  const bump = Math.max(...[12.5, 13.5, 14.5].map(c => { const p = prog(t, c, c + .3); return p > 0 && p < 1 ? Math.sin(p * Math.PI) : 0; }));
+  $('#mug').style.transform = `scale(${1 + bump * .035})`;
+
+  /* cena 5 */
+  const out5 = eInOut(prog(t, 18.2, 18.45));
+  $('#datasWrap').style.transform = `translate(${M.datas.x}px, ${M.datas.y - out5 * 50}px) scale(${M.datas.s})`;
+  $('#datasWrap').style.opacity = 1 - out5;
+  const h5 = eOut(prog(t, 15.5, 15.75)); $('#h5').style.opacity = h5; $('#h5').style.transform = `translateY(${(1 - h5) * 30}px)`;
+  $$('#datasWrap .data').forEach((c, i) => { const p = eOut(prog(t, 15.6 + i * .1, 15.95 + i * .1)); c.style.opacity = p; c.style.transform = `translateY(${(1 - p) * 80}px)`; });
+  $$('#datasWrap [data-to]').forEach((b, i) => { b.textContent = fmt(+b.dataset.to * eOut(prog(t, 15.8 + i * .1, 16.7 + i * .1))); });
+
+  /* cena 6 */
+  const w = eInOut(prog(t, 18.45, 18.8));
+  $('#ink').style.clipPath = `inset(${(1 - w) * 100}% 0 0 0)`;
+  $$('#strip img').forEach((im, i) => { const p = eOut(prog(t, 18.7 + i * .035, 19.0 + i * .035)); im.style.opacity = p; im.style.transform = `translateY(${(1 - p) * -60}px)`; });
+  $$('#outro > *').forEach((el, i) => { const p = eOut(prog(t, 18.8 + i * .1, 19.15 + i * .1)); el.style.opacity = p; el.style.transform = `translateY(${(1 - p) * 40}px)`; });
+  const press = prog(t, 20.5, 20.75); const pk = press > 0 && press < 1 ? Math.sin(press * Math.PI) : 0;
+  $('#cta').style.transform += ` scale(${1 - pk * .05})`;
+  $('#ctaArrow').style.transform = `rotate(${45 * eOut(prog(t, 20.5, 20.8))}deg)`;
+
+  const om = eOut(prog(t, 18.9, 19.35));
+  $('#outroMug').style.opacity = om; $('#outroMug').style.transform = `translateY(${(1 - om) * 60}px) scale(1.45)`;
+  $('#outroArt').style.transform = `translateX(${-((Math.max(0, t - 18.0) * 3.4) % 50)}%)`;
+
+  /* cursor e clique */
+  if (M.cta) {
+    const c = path(t), cur = $('#cursor');
+    if (c) {
+      const down = Math.max(...CLICKS.map(k => { const p = prog(t, k - .04, k + .14); return p > 0 && p < 1 ? Math.sin(p * Math.PI) : 0; }));
+      cur.style.display = 'block'; cur.style.transform = `translate(${c.x - 6}px, ${c.y - 4}px) scale(${1 - down * .14})`;
+      const k = CLICKS.find(k => t >= k && t < k + .45);
+      const rp = $('#ripple');
+      if (k !== undefined) { const p = prog(t, k, k + .45); rp.style.display = 'block'; rp.style.left = c.x + 'px'; rp.style.top = c.y + 'px'; rp.firstChild.style.transform = `scale(${lerp(.2, 1.3, eOut(p))})`; rp.firstChild.style.opacity = 1 - p; }
+      else rp.style.display = 'none';
+    } else { cur.style.display = 'none'; $('#ripple').style.display = 'none'; }
+  }
+}
+
+window.ready = (async () => {
+  await document.fonts.ready;
+  await Promise.all(Array.from(document.images).map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; })));
+  measure(); setT(0);
+  return true;
+})();
+window.setT = setT;
+</script>
+</body>
+</html>
