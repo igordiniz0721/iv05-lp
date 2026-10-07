@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+/*
+ * As cores da marca vêm das props da composição: AkemiPromo injeta
+ * --akemi-primary / --akemi-secondary / --akemi-accent no elemento raiz.
+ * Com @theme inline, classes como bg-primary, text-accent ou
+ * border-secondary/40 passam a seguir o que for editado no Studio.
+ */
+@theme inline {
+  --color-primary: var(--akemi-primary);
+  --color-secondary: var(--akemi-secondary);
+  --color-accent: var(--akemi-accent);
+  --color-cream: #fdebd3;
+  --color-hot: #c8321a;
+
+  --font-display: "Anton", "Impact", sans-serif;
+  --font-heavy: "Bowlby One", "Anton", sans-serif;
+  --font-script: "Pacifico", cursive;
+  --font-body: "Poppins", "Inter", sans-serif;
+}
