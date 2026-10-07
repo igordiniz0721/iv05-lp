@@ -11,17 +11,24 @@ import { Embers } from "../components/Embers";
 import { Logo } from "../components/Logo";
 import { CLAMP, shake, SPRINGS, useSpringIn, useSpringOut, wave } from "../lib/animation";
 import { balanceLines, fitFontSize } from "../lib/text";
-import type { AkemiPromoProps } from "../schema";
+import { sec, type AkemiPromoProps } from "../schema";
 import { HOT_RED } from "../theme";
 
-/** Frame (local) do corte rápido entre as duas frases do gancho. */
-const CUT = 46;
-const EXIT = 80;
+/*
+ * Tempos amarrados à locução ("Alô Santa Tereza do Oeste, o melhor burger
+ * da cidade acabou de chegar por aqui."). Frames locais = absolutos aqui.
+ */
+const LOGO_UP = 34; // logo sobe do centro para o topo antes do "Alô"
+const PHRASE1 = sec(1.33); // "Alô"
+const CITY_WORDS = [sec(2.18), sec(2.58), sec(3.04)]; // Santa / Tereza / do Oeste
+const CUT = sec(3.9); // corte em flash → "o melhor burger"
+const BEST = { melhor: 2, burger: sec(4.46) - CUT, cidade: sec(4.88) - CUT, chegou: sec(5.56) - CUT };
+const EXIT = 214;
 const TEXT_SHADOW =
   "0 10px 0 var(--akemi-secondary), 0 22px 40px rgba(0,0,0,0.35)";
 
 /**
- * Cena 1 — O gancho local (frames 0–90).
+ * Cena 1 — O gancho local (0–7,6 s).
  * Logo com bounce elástico no topo + tipografia cinética em duas frases,
  * separadas por um corte em flash.
  */
@@ -32,12 +39,17 @@ export const Scene1_Hook: React.FC<Pick<AkemiPromoProps, "city" | "logoSrc">> = 
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  // logo entra grande no centro (bounce elástico) e sobe para o topo
   const logoIn = spring({ frame, fps, config: SPRINGS.elastic });
-  const logoY = interpolate(logoIn, [0, 1], [-420, 0]);
+  const logoUp = spring({ frame: frame - LOGO_UP, fps, config: SPRINGS.snappy });
+  const logoY = interpolate(logoIn, [0, 1], [-420, 0]) + (1 - logoUp) * 560;
+  const logoScale = (0.4 + logoIn * 0.6) * (1 + (1 - logoUp) * 0.75);
   const logoRotate = interpolate(logoIn, [0, 1], [-30, 0]) + wave(frame, 36) * 3;
 
-  // tremor de câmera nos impactos de texto
-  const hits = [6, 12, 18, CUT + 1].map((at) => shake(frame, at, 16, 9));
+  // tremor de câmera nos impactos de texto (cada palavra forte da fala)
+  const hits = [...CITY_WORDS, CUT + 1, CUT + BEST.burger, CUT + BEST.chegou].map((at) =>
+    shake(frame, at, 16, 9),
+  );
   const camX = hits.reduce((sum, h) => sum + h.x, 0);
   const camY = hits.reduce((sum, h) => sum + h.y, 0);
 
@@ -61,11 +73,11 @@ export const Scene1_Hook: React.FC<Pick<AkemiPromoProps, "city" | "logoSrc">> = 
           <Logo
             src={logoSrc}
             size={380}
-            style={{ transform: `translateY(${logoY}px) rotate(${logoRotate}deg) scale(${0.4 + logoIn * 0.6})` }}
+            style={{ transform: `translateY(${logoY}px) rotate(${logoRotate}deg) scale(${logoScale})` }}
           />
         </div>
 
-        <Sequence durationInFrames={CUT} layout="none" name="Frase 1 — cidade">
+        <Sequence from={PHRASE1} durationInFrames={CUT - PHRASE1} layout="none" name="Frase 1 — cidade">
           <CityPhrase city={city} />
         </Sequence>
         <Sequence from={CUT} layout="none" name="Frase 2 — melhor burger">
@@ -97,7 +109,11 @@ const CityPhrase: React.FC<{ city: string }> = ({ city }) => {
         Alô,
       </div>
       {lines.map((line, i) => (
-        <SlamLine key={line} delay={6 + i * 6} fontSize={fontSize}>
+        <SlamLine
+          key={line}
+          delay={(CITY_WORDS[i] ?? CITY_WORDS[CITY_WORDS.length - 1] + 12 * (i - 2)) - PHRASE1}
+          fontSize={fontSize}
+        >
           {line}
         </SlamLine>
       ))}
@@ -109,18 +125,18 @@ const CityPhrase: React.FC<{ city: string }> = ({ city }) => {
 const BestBurgerPhrase: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
-  const chegou = spring({ frame: frame - 12, fps, config: SPRINGS.snappy });
-  const stamp = spring({ frame: frame - 18, fps, config: SPRINGS.elastic });
+  const chegou = spring({ frame: frame - BEST.chegou, fps, config: SPRINGS.snappy });
+  const stamp = spring({ frame: frame - BEST.chegou - 6, fps, config: SPRINGS.elastic });
 
   return (
     <AbsoluteFill className="items-center justify-center pt-[300px]">
-      <SlamLine delay={0} fontSize={170}>
+      <SlamLine delay={BEST.melhor} fontSize={170}>
         O MELHOR
       </SlamLine>
-      <SlamLine delay={4} fontSize={205} from={3.4} className="font-heavy text-accent">
+      <SlamLine delay={BEST.burger} fontSize={205} from={3.4} className="font-heavy text-accent">
         BURGER
       </SlamLine>
-      <SlamLine delay={8} fontSize={150}>
+      <SlamLine delay={BEST.cidade} fontSize={150}>
         DA CIDADE
       </SlamLine>
       <div

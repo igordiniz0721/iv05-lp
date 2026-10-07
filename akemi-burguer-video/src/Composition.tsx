@@ -6,18 +6,21 @@ import { FlashTransition, IrisTransition, StripeWipe } from "./components/Transi
 import { Scene1_Hook } from "./scenes/Scene1_Hook";
 import { Scene2_PromoHighlight } from "./scenes/Scene2_PromoHighlight";
 import { Scene3_GridCombos } from "./scenes/Scene3_GridCombos";
-import { Scene4_CTA_Website } from "./scenes/Scene4_CTA_Website";
+import { Scene4_MoreBurgers } from "./scenes/Scene4_MoreBurgers";
+import { Scene5_CTA_Website } from "./scenes/Scene5_CTA_Website";
 import { TIMELINE, type AkemiPromoProps } from "./schema";
 
-const { hook, promo, combos, cta } = TIMELINE;
+const { hook, promo, combos, more, cta } = TIMELINE;
 
 /**
- * Akemi Burguer — vídeo promocional 9:16 (1080x1920, 30 fps, 450 frames).
+ * Akemi Burguer — vídeo promocional 9:16 (1080x1920, 30 fps, 915 frames),
+ * guiado pela locução da cliente (ver TIMELINE em schema.ts).
  *
- *   0–90    Scene1_Hook            gancho local + logo
- *   90–210  Scene2_PromoHighlight  combo duplo R$ 44,99
- *   210–330 Scene3_GridCombos      combo bacon + combo smash
- *   330–450 Scene4_CTA_Website     CTA para o site
+ *   0–228    Scene1_Hook            "Alô Santa Tereza do Oeste…" + logo
+ *   228–474  Scene2_PromoHighlight  combo duplo R$ 44,99
+ *   474–603  Scene3_GridCombos      "Prefere bacon ou dois smashes?"
+ *   603–722  Scene4_MoreBurgers     "…temos diversos outros lanches"
+ *   722–915  Scene5_CTA_Website     "Tá esperando o quê?" + site
  */
 export const AkemiPromo: React.FC<AkemiPromoProps> = (props) => {
   const brandVars = {
@@ -48,16 +51,19 @@ export const AkemiPromo: React.FC<AkemiPromoProps> = (props) => {
         />
       </Sequence>
 
-      <Sequence from={cta.from} durationInFrames={cta.duration} name="Scene4_CTA_Website">
-        <Scene4_CTA_Website
+      <Sequence from={more.from} durationInFrames={more.duration} name="Scene4_MoreBurgers">
+        <Scene4_MoreBurgers moreBurgers={props.moreBurgers} />
+      </Sequence>
+
+      <Sequence from={cta.from} durationInFrames={cta.duration} name="Scene5_CTA_Website">
+        <Scene5_CTA_Website
           siteUrl={props.siteUrl}
           city={props.city}
           logoSrc={props.logoSrc}
           burgerDoubleSrc={props.burgerDoubleSrc}
           comboBaconSrc={props.comboBaconSrc}
           comboSmashSrc={props.comboSmashSrc}
-          bgTextureSrc={props.bgTextureSrc}
-          prices={props.prices}
+          siteScreenshotSrc={props.siteScreenshotSrc}
         />
       </Sequence>
 
@@ -68,11 +74,18 @@ export const AkemiPromo: React.FC<AkemiPromoProps> = (props) => {
       <Sequence from={combos.from - 12} durationInFrames={24} name="Transição faixas">
         <StripeWipe />
       </Sequence>
+      <Sequence from={more.from - 8} durationInFrames={16} name="Transição flash 2">
+        <FlashTransition />
+      </Sequence>
       <Sequence from={cta.from - 12} durationInFrames={24} name="Transição íris">
         <IrisTransition />
       </Sequence>
 
-      <SoundDesign withSfx={props.withSfx} musicSrc={props.musicSrc} />
+      <SoundDesign
+        voiceoverSrc={props.voiceoverSrc}
+        musicSrc={props.musicSrc}
+        withSfx={props.withSfx}
+      />
     </AbsoluteFill>
   );
 };

@@ -12,12 +12,28 @@ import { Embers } from "../components/Embers";
 import { FlameIcon, PlusIcon } from "../components/Icons";
 import { Price } from "../components/Price";
 import { Tag } from "../components/Tag";
-import { CLAMP, SPRINGS, useSpringIn, useSpringOut, wave } from "../lib/animation";
+import { beatPunch, CLAMP, SPRINGS, useSpringIn, useSpringOut, wave } from "../lib/animation";
 import { resolveAsset } from "../lib/assets";
-import type { AkemiPromoProps } from "../schema";
+import { sec, TIMELINE, type AkemiPromoProps } from "../schema";
 import { HOT_RED } from "../theme";
 
-const EXIT = 106;
+/*
+ * Tempos (frames locais) amarrados à fala: "Dá uma olhada nesse combo duplo,
+ * super suculento, com batata crocante e refri por apenas R$ 44,99."
+ */
+const at = (s: number) => sec(s) - TIMELINE.promo.from;
+const T = {
+  jump: at(7.78) - 3,
+  kicker: at(8.3),
+  hamburguer: at(8.74) - 6,
+  duplo: at(9.2) - 2,
+  suculento: at(10.26) - 2,
+  batata: at(11.22) - 3,
+  refri: at(12.58) - 3,
+  priceSlide: at(13.1) - 3,
+  priceHit: at(13.9),
+};
+const EXIT = TIMELINE.promo.duration - 12;
 const BURGER_WIDTH = 900;
 
 /**
@@ -33,18 +49,20 @@ export const Scene2_PromoHighlight: React.FC<
   const src = resolveAsset(burgerDoubleSrc);
 
   // salto para o centro + flutuação contínua (translateY e rotação sutis)
-  const jump = spring({ frame, fps, config: { damping: 11, stiffness: 120, mass: 0.9 } });
+  const jump = spring({ frame: frame - T.jump, fps, config: { damping: 11, stiffness: 120, mass: 0.9 } });
   const floatY = wave(frame, 46) * 20 * jump;
   const floatRotate = wave(frame, 70, 10) * 2.4 * jump;
   const burgerY = interpolate(jump, [0, 1], [1100, 0]) + floatY;
   const burgerRotate = interpolate(jump, [0, 1], [-28, 0]) + floatRotate;
-  const burgerScale = interpolate(jump, [0, 1], [0.45, 1]);
+  // "soco" de zoom no "suculento" e empurrão lento de câmera na cena toda
+  const burgerScale = interpolate(jump, [0, 1], [0.45, 1]) + beatPunch(frame, [T.suculento], 0.9);
+  const push = 1 + frame * 0.00028;
 
   const exit = useSpringOut(EXIT, 12);
-  const glint = interpolate(frame, [34, 58], [-1, 1.4], CLAMP);
+  const glint = interpolate(frame, [T.suculento - 4, T.suculento + 20], [-1, 1.4], CLAMP);
 
   return (
-    <AbsoluteFill>
+    <AbsoluteFill style={{ transform: `scale(${push})` }}>
       <SunRays />
       <Smoke />
       <Embers count={14} seed="promo" opacity={0.8} />
@@ -95,10 +113,10 @@ export const Scene2_PromoHighlight: React.FC<
         className="absolute left-0 right-0 top-[1505px] flex justify-center gap-6"
         style={{ transform: `translateX(${exit * 1200}px)` }}
       >
-        <Tag delay={46} variant="accent" fontSize={44} rotate={-2} icon={<PlusIcon size={38} />}>
+        <Tag delay={T.batata} variant="accent" fontSize={44} rotate={-2} icon={<PlusIcon size={38} />}>
           Batata Frita Crocante
         </Tag>
-        <Tag delay={52} variant="cream" fontSize={44} rotate={3} icon={<PlusIcon size={38} />}>
+        <Tag delay={T.refri} variant="cream" fontSize={44} rotate={3} icon={<PlusIcon size={38} />}>
           Refri
         </Tag>
       </div>
@@ -107,10 +125,10 @@ export const Scene2_PromoHighlight: React.FC<
 };
 
 const Title: React.FC<{ exitProgress: number }> = ({ exitProgress }) => {
-  const kicker = useSpringIn(6, SPRINGS.elastic);
-  const line1 = useSpringIn(10, SPRINGS.snappy);
-  const line2 = useSpringIn(15, SPRINGS.snappy);
-  const script = useSpringIn(22, SPRINGS.elastic);
+  const kicker = useSpringIn(T.kicker, SPRINGS.elastic);
+  const line1 = useSpringIn(T.hamburguer, SPRINGS.snappy);
+  const line2 = useSpringIn(T.duplo, SPRINGS.snappy);
+  const script = useSpringIn(T.suculento, SPRINGS.elastic);
 
   return (
     <div
@@ -168,8 +186,10 @@ const PriceBadge: React.FC<{ value: string; exitProgress: number }> = ({
   value,
   exitProgress,
 }) => {
-  const slide = useSpringIn(30, SPRINGS.snappy);
-  const settle = useSpringIn(36, SPRINGS.elastic);
+  const frame = useCurrentFrame();
+  const slide = useSpringIn(T.priceSlide, SPRINGS.snappy);
+  const settle = useSpringIn(T.priceSlide + 6, SPRINGS.elastic);
+  const hit = 1 + beatPunch(frame, [T.priceHit, T.priceHit + 12], 1.2);
   const x = interpolate(slide, [0, 1], [-1150, 0]) - exitProgress * 1200;
 
   return (
@@ -189,7 +209,9 @@ const PriceBadge: React.FC<{ value: string; exitProgress: number }> = ({
           <br />
           <span className="text-white">por</span>
         </div>
-        <Price value={value} size={210} className="text-white" />
+        <div style={{ transform: `scale(${hit})`, transformOrigin: "left center" }}>
+          <Price value={value} size={210} className="text-white" />
+        </div>
       </div>
     </div>
   );

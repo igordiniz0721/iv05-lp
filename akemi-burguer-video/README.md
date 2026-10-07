@@ -1,7 +1,9 @@
 # Akemi Burguer — vídeo promocional (Remotion)
 
-Vídeo vertical **9:16 · 1080×1920 · 30 fps · 15 s (450 frames)** para o Akemi
+Vídeo vertical **9:16 · 1080×1920 · 30 fps · 30,5 s (915 frames)** para o Akemi
 Smash & Burguer, em Santa Tereza do Oeste, feito com Remotion, React e Tailwind CSS v4.
+O vídeo é guiado pela **locução da cliente**: cada cena e cada palavra de
+destaque entram no tempo da fala.
 
 ```bash
 cd akemi-burguer-video
@@ -13,15 +15,17 @@ npm run lint      # checagem de tipos
 
 ## Roteiro → código
 
-| Frames  | Cena (`src/scenes/`)       | O que acontece                                                                                   | Transição de saída                 |
-| ------- | -------------------------- | ------------------------------------------------------------------------------------------------ | ---------------------------------- |
-| 0–90    | `Scene1_Hook`              | Logo cai do topo com bounce elástico; "Alô, SANTA TEREZA DO OESTE!" → corte em flash → "O MELHOR BURGER DA CIDADE CHEGOU!" | zoom + desfoque e flash branco    |
-| 90–210  | `Scene2_PromoHighlight`    | Hambúrguer duplo salta e flutua (translateY + rotação), raios de luz, fumaça e brilho no pão; etiqueta marrom/vermelha "R$ 44,99" entra pela lateral; selos "+ Batata Frita Crocante" e "+ Refri" | faixas diagonais amarelo/laranja/marrom |
-| 210–330 | `Scene3_GridCombos`        | Tela dividida: Combo Bacon (R$ 47,99) e Combo Smash (R$ 59,90) entram por lados opostos, com tags "Bacon crocante", "Cheddar cremoso", "Smash burgers", "100% artesanal", selo giratório "160g" e faixa correndo. O foco alterna entre os dois no ritmo das batidas | íris marrom                        |
-| 330–450 | `Scene4_CTA_Website`       | Lanches desfocados ao fundo, "PEÇA PELO NOSSO SITE", URL em caixa alta sendo digitada, celular abrindo o cardápio digital, dedo tocando o botão "FAZER PEDIDO ONLINE" (com pulso de escala) | —                                  |
+| Tempo        | Cena (`src/scenes/`)    | Fala da cliente                                               | O que acontece                                                                                                                                              | Saída                 |
+| ------------ | ----------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------- |
+| 0–7,6 s      | `Scene1_Hook`           | "Alô Santa Tereza do Oeste, o melhor burger da cidade acabou de chegar por aqui." | Logo entra grande no centro (bounce elástico) e sobe; "Alô, SANTA / TEREZA / DO OESTE!" caem palavra por palavra; corte em flash; "O MELHOR BURGER DA CIDADE CHEGOU!" | zoom + flash          |
+| 7,6–15,8 s   | `Scene2_PromoHighlight` | "Dá uma olhada nesse combo duplo, super suculento, com batata crocante e refri por apenas R$ 44,99." | Hambúrguer duplo salta e flutua, raios, fumaça, brilho e zoom no "suculento"; selos "+ Batata Frita Crocante" e "+ Refri"; etiqueta "R$ 44,99" bate no preço falado | faixas diagonais     |
+| 15,8–20,1 s  | `Scene3_GridCombos`     | "Prefere bacon ou quer dois smashes artesanais?"              | "BACON ou SMASH?" e os cards dos combos entram junto com cada palavra; selo "100% artesanal" no "artesanais"                                                  | flash                 |
+| 20,1–24,1 s  | `Scene4_MoreBurgers`    | "Temos opções irresistíveis para matar a sua fome."           | "e fora esses, temos… DIVERSOS OUTROS LANCHES deliciosos!" + carrossel rápido com 8 lanches reais do cardápio (nome e preço), miniaturas e faixa "PARA MATAR SUA FOME!" | íris                  |
+| 24,1–30,5 s  | `Scene5_CTA_Website`    | "Tá esperando o quê? Acesse agora o nosso site e faça o seu pedido online." | "TÁ ESPERANDO O QUÊ?!" em tela cheia; depois "ACESSE AGORA NOSSO SITE", URL digitada, celular abrindo o cardápio real da Saipos e rolando, dedo tocando "FAZER PEDIDO ONLINE" no "online" | —                     |
 
-Os frames de cada cena ficam centralizados em `TIMELINE` (`src/schema.ts`), e
-as cenas, os SFX e as transições usam essa mesma constante.
+Os tempos ficam em `TIMELINE` (`src/schema.ts`), e cada cena converte os
+segundos da fala em frames com `sec()`. Se trocar a locução, ajuste esses
+tempos.
 
 ## Props editáveis
 
@@ -30,19 +34,22 @@ picker). Os valores padrão ficam em `src/Root.tsx`:
 
 | Prop               | Padrão                                     |
 | ------------------ | ------------------------------------------ |
-| `siteUrl`          | `pedidos.akemiburguer.com.br`              |
+| `siteUrl`          | `hamburgueriaconteiner.saipos.com`         |
 | `city`             | `Santa Tereza do Oeste`                    |
 | `logoSrc`          | `staticFile("assets/logo-akemi.png")`      |
 | `burgerDoubleSrc`  | `staticFile("assets/foto-duplo.png")`      |
 | `comboBaconSrc`    | `staticFile("assets/foto-combo-bacon.png")`|
 | `comboSmashSrc`    | `staticFile("assets/foto-combo-smash.png")`|
 | `bgTextureSrc`     | `staticFile("assets/bg-texture.png")`      |
+| `siteScreenshotSrc`| `staticFile("assets/site-cardapio.jpg")` (print do cardápio que rola no celular) |
 | `primaryColor`     | `#FF5E00`                                  |
 | `secondaryColor`   | `#2B1104`                                  |
 | `accentColor`      | `#FDBA25`                                  |
 | `prices`           | `{ comboDuplo: "44,99", comboBacon: "47,99", comboSmash: "59,90" }` |
+| `moreBurgers`      | 8 lanches do cardápio: `{ name, price, src }` |
+| `voiceoverSrc`     | `staticFile("audio/locucao-cliente.mp3")`  |
+| `musicSrc`         | `staticFile("audio/beat.wav")` (vazio = sem trilha) |
 | `withSfx`          | `true`                                     |
-| `musicSrc`         | `""` (sem trilha; ex.: `"audio/trilha.mp3"`) |
 
 As cores viram as variáveis CSS `--akemi-primary/secondary/accent` no elemento
 raiz, e o `@theme inline` de `src/index.css` liga essas variáveis às classes
@@ -69,11 +76,15 @@ src/
   fonts.ts              carrega as fontes locais (public/fonts)
   index.css             Tailwind v4 + tema da marca
   theme.ts              tons de apoio (vermelho das artes, creme do cardápio)
-  scenes/               Scene1_Hook, Scene2_PromoHighlight, Scene3_GridCombos, Scene4_CTA_Website
+  scenes/               Scene1_Hook, Scene2_PromoHighlight, Scene3_GridCombos,
+                        Scene4_MoreBurgers, Scene5_CTA_Website
   components/           fundo, logo, preço, tags, selo, transições, celular, ícones, som
   lib/                  presets de spring/helpers de animação, assets, quebra de texto
 public/
-  assets/               logo e fotos recortadas (PNG transparente) + textura de fundo
+  assets/               logo, fotos recortadas (PNG transparente), textura de fundo
+  assets/menu/          lanches do cardápio Saipos recortados (carrossel)
+  assets/site-cardapio.jpg  print do cardápio digital (celular da cena final)
+  audio/                locução da cliente (tratada) + batida de fundo
   fonts/                Anton, Bowlby One, Pacifico, Poppins (woff2, licença OFL)
   sfx/                  efeitos sonoros (placeholders sintéticos)
 scripts/
@@ -103,12 +114,27 @@ python3 scripts/prepare_assets.py --menu combos.jpg --story dia-de-combo.jpg --l
 
 ## Som
 
-`SoundDesign.tsx` dispara os SFX nos momentos do roteiro: bass drop e chapa
-chiando no gancho, impactos na tipografia, whoosh nas transições, estalo no
-preço, kick a cada troca da cena 3 e toque no botão. Os arquivos em `public/sfx/`
-são **placeholders sintéticos** (`npm run sfx`). Para a versão final, troque
-por SFX de banco usando os mesmos nomes. Para pôr uma trilha, coloque o MP3 em
-`public/` e preencha `musicSrc` (ela entra e sai com fade).
+`SoundDesign.tsx` monta três camadas:
+
+- **Locução da cliente** (`public/audio/locucao-cliente.mp3`): o áudio do
+  WhatsApp tratado com filtro, compressor e normalização em -14 LUFS.
+- **Trilha** (`public/audio/beat.wav`): batida de 120 BPM gerada por
+  `scripts/generate_beat.py`. Ela abaixa enquanto a cliente fala, para no
+  "Tá esperando o quê?" e volta com impacto. É um placeholder: para a versão
+  final, troque por uma trilha licenciada (mesmo nome ou prop `musicSrc`).
+- **SFX** (`public/sfx/`): bass drop, chapa chiando, impactos, whoosh nas
+  transições, kick a cada troca do carrossel e toque no botão. Também são
+  placeholders sintéticos (`npm run sfx`).
+
+Os trechos de fala que fazem a trilha abaixar ficam em `SPEECH`, e os SFX em
+`CUES`, ambos em `SoundDesign.tsx`.
+
+## Cardápio real
+
+Os lanches do carrossel e o print do celular vêm do cardápio digital em
+https://hamburgueriaconteiner.saipos.com. As fotos foram recortadas com o
+mesmo rembg dos combos. No print, o aviso de horário ("Loja fechada no
+momento…"), o pop-up "Abrir no navegador" e a barra inferior foram ocultados.
 
 ## Observações
 

@@ -5,16 +5,25 @@ import { Seal } from "../components/Seal";
 import { Tag } from "../components/Tag";
 import { beatPunch, SPRINGS, useSpringIn, useSpringOut } from "../lib/animation";
 import { resolveAsset } from "../lib/assets";
-import type { AkemiPromoProps } from "../schema";
+import { sec, TIMELINE, type AkemiPromoProps } from "../schema";
 import { CREAM } from "../theme";
 
-const EXIT = 106;
-/** Batidas (frames locais) em que o foco alterna entre os combos. */
-const BEATS_BACON = [45, 75];
-const BEATS_SMASH = [60, 90];
+/* Tempos (frames locais) da fala "Prefere bacon ou quer dois smashes artesanais?" */
+const at = (s: number) => sec(s) - TIMELINE.combos.from;
+const T = {
+  prefere: at(16.08) - 4,
+  bacon: at(16.52) - 4,
+  ou: at(17.02) - 3,
+  smash: at(17.72) - 4,
+  artesanais: at(18.72) - 2,
+};
+const EXIT = TIMELINE.combos.duration - 12;
+/** Batidas em que o foco alterna entre os combos (no ritmo da fala). */
+const BEATS_BACON = [T.bacon + 4, T.artesanais + 8];
+const BEATS_SMASH = [T.smash + 4, T.artesanais + 20];
 
 /**
- * Cena 3 — Variedade & sabor artesanal (frames 210–330).
+ * Cena 3 — "Prefere bacon ou quer dois smashes artesanais?" (15,8–20,1 s).
  * Tela dividida: Combo Bacon entra pela direita, Combo Smash pela esquerda,
  * e os "socos" de escala alternam entre os dois no ritmo das batidas.
  */
@@ -30,7 +39,7 @@ export const Scene3_GridCombos: React.FC<
       <ComboCard
         top={400}
         side="right"
-        delay={0}
+        delay={T.bacon}
         exitProgress={exit}
         beats={BEATS_BACON}
         imageSrc={comboBaconSrc}
@@ -46,7 +55,7 @@ export const Scene3_GridCombos: React.FC<
       <ComboCard
         top={990}
         side="left"
-        delay={15}
+        delay={T.smash}
         exitProgress={exit}
         beats={BEATS_SMASH}
         imageSrc={comboSmashSrc}
@@ -66,34 +75,44 @@ export const Scene3_GridCombos: React.FC<
 };
 
 const Header: React.FC<{ exitProgress: number }> = ({ exitProgress }) => {
-  const script = useSpringIn(2, SPRINGS.elastic);
-  const line1 = useSpringIn(4, SPRINGS.snappy);
-  const line2 = useSpringIn(8, SPRINGS.snappy);
+  const script = useSpringIn(T.prefere, SPRINGS.elastic);
+  const bacon = useSpringIn(T.bacon, SPRINGS.punch);
+  const ou = useSpringIn(T.ou, SPRINGS.elastic);
+  const smash = useSpringIn(T.smash, SPRINGS.punch);
+  const slam = (p: number) => ({
+    transform: `scale(${2.4 - p * 1.4})`,
+    opacity: Math.min(1, p * 3),
+    display: "inline-block",
+    transformOrigin: "left bottom",
+  });
 
   return (
     <div style={{ transform: `translateY(${-exitProgress * 500}px)` }}>
-      <div className="absolute left-[60px] top-[100px]">
+      <div className="absolute left-[60px] top-[78px]">
         <div
           className="font-script text-[64px] leading-none text-accent"
           style={{ transform: `scale(${script}) rotate(-6deg)`, transformOrigin: "left center", textShadow: "0 5px 0 var(--akemi-secondary)" }}
         >
-          variedade & sabor
+          prefere…
         </div>
         <div
-          className="mt-3 font-display text-[112px] leading-[0.95] text-white"
-          style={{ transform: `translateX(${(1 - line1) * -900}px)`, textShadow: "0 9px 0 var(--akemi-secondary)" }}
+          className="mt-2 font-display text-[116px] leading-[0.95] text-accent"
+          style={{ textShadow: "0 9px 0 var(--akemi-secondary)" }}
         >
-          ESCOLHA SEU
+          <span style={slam(bacon)}>BACON</span>{" "}
+          <span className="font-script text-[84px] text-white" style={{ ...slam(ou), transformOrigin: "center" }}>
+            ou
+          </span>
         </div>
         <div
-          className="font-display text-[112px] leading-[0.95] text-accent"
-          style={{ transform: `translateX(${(1 - line2) * -900}px)`, textShadow: "0 9px 0 var(--akemi-secondary)" }}
+          className="font-display text-[116px] leading-[0.95] text-white"
+          style={{ textShadow: "0 9px 0 var(--akemi-secondary)" }}
         >
-          COMBO
+          <span style={slam(smash)}>SMASH?</span>
         </div>
       </div>
       <div className="absolute right-[50px] top-[95px]">
-        <Seal delay={10} size={270} ringText="100% ARTESANAL • 160G • 100% ARTESANAL • 160G • " />
+        <Seal delay={T.artesanais} size={270} ringText="100% ARTESANAL • 160G • 100% ARTESANAL • 160G • " />
       </div>
     </div>
   );
@@ -192,7 +211,7 @@ const ComboCard: React.FC<{
 /** Faixa marrom com os destaques do roteiro correndo em loop. */
 const Marquee: React.FC<{ exitProgress: number }> = ({ exitProgress }) => {
   const frame = useCurrentFrame();
-  const enter = useSpringIn(20, SPRINGS.snappy);
+  const enter = useSpringIn(T.smash, SPRINGS.snappy);
   const text = "100% ARTESANAL (160G) • SMASH BURGERS • BACON CROCANTE • CHEDDAR CREMOSO • ";
   const x = -((frame * 7) % 1800);
 

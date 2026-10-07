@@ -7,29 +7,41 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { BagIcon, GlobeIcon, HandPointer, LockIcon, PlusIcon } from "../components/Icons";
+import { Embers } from "../components/Embers";
+import { BagIcon, GlobeIcon, HandPointer, LockIcon } from "../components/Icons";
 import { Logo } from "../components/Logo";
 import { PhoneMockup } from "../components/PhoneMockup";
-import { Price } from "../components/Price";
-import { beatPulse, CLAMP, SPRINGS, useSpringIn, wave } from "../lib/animation";
+import { beatPulse, CLAMP, shake, SPRINGS, useSpringIn, useSpringOut, wave } from "../lib/animation";
 import { resolveAsset } from "../lib/assets";
-import type { AkemiPromoProps } from "../schema";
-import { CREAM } from "../theme";
+import { sec, TIMELINE, type AkemiPromoProps } from "../schema";
 
-/** Momentos-chave (frames locais da cena). */
+/*
+ * Momentos-chave (frames locais) amarrados à fala:
+ * "Tá esperando o quê? Acesse agora o nosso site e faça o seu pedido online."
+ */
+const at = (s: number) => sec(s) - TIMELINE.cta.from;
 const T = {
-  phone: 8,
-  typeStart: 16,
-  typeEnd: 40,
-  pageLoaded: 40,
-  button: 50,
-  pulseStart: 62,
-  handIn: 62,
-  tap: 82,
-  handOut: 100,
+  question: 0,
+  questionHit: at(24.6),
+  questionOut: at(25.2),
+  logo: at(25.3),
+  acesse: at(25.38) - 2,
+  site: at(26.36) - 2,
+  phone: at(25.5),
+  typeStart: at(26.4),
+  typeEnd: at(27.3),
+  pageLoaded: at(27.3),
+  scrollEnd: at(30),
+  button: at(27.28) - 2,
+  pulseStart: at(27.8),
+  handIn: at(27.4),
+  tap: at(28.28),
+  handOut: at(29),
 } as const;
 
 const PHONE = { width: 480, height: 880, top: 672 };
+/** Quanto o print do cardápio rola dentro do celular (até a seção "Burguers"). */
+const SCROLL_PX = 1250;
 const BUTTON_TOP = 1410;
 const TAP_POINT = { x: 690, y: 1480 };
 
@@ -41,25 +53,25 @@ type Props = Pick<
   | "burgerDoubleSrc"
   | "comboBaconSrc"
   | "comboSmashSrc"
-  | "bgTextureSrc"
-  | "prices"
+  | "siteScreenshotSrc"
 >;
 
 /**
- * Cena 4 — CTA direto para o site (frames 330–450).
- * Fundo com os lanches desfocados, celular com o cardápio digital abrindo,
- * URL em caixa alta e botão pulsando que recebe o toque do dedo.
+ * Cena 5 — "Tá esperando o quê?" + CTA para o site (24,07–30,5 s).
+ * Pergunta em tipografia de impacto; depois os lanches desfocados ao fundo,
+ * o celular abrindo o cardápio digital de verdade (print rolando), URL em
+ * caixa alta e o botão pulsando que recebe o toque do dedo.
  */
-export const Scene4_CTA_Website: React.FC<Props> = (props) => {
+export const Scene5_CTA_Website: React.FC<Props> = (props) => {
   const { siteUrl, city, logoSrc } = props;
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const logo = useSpringIn(4, SPRINGS.elastic);
-  const line1 = useSpringIn(8, SPRINGS.punch);
-  const line2 = useSpringIn(12, SPRINGS.punch);
+  const logo = useSpringIn(T.logo, SPRINGS.elastic);
+  const line1 = useSpringIn(T.acesse, SPRINGS.punch);
+  const line2 = useSpringIn(T.site, SPRINGS.punch);
   const phone = spring({ frame: frame - T.phone, fps, config: { damping: 15, stiffness: 120, mass: 0.9 } });
-  const caption = useSpringIn(66, SPRINGS.smooth);
+  const caption = useSpringIn(T.tap, SPRINGS.smooth);
 
   return (
     <AbsoluteFill className="bg-secondary">
@@ -78,7 +90,7 @@ export const Scene4_CTA_Website: React.FC<Props> = (props) => {
           className="font-display text-[118px] leading-[0.95] text-white"
           style={{ transform: `scale(${interpolate(line1, [0, 1], [2.2, 1])})`, opacity: Math.min(1, line1 * 3) }}
         >
-          PEÇA PELO
+          ACESSE AGORA
         </div>
         <div
           className="font-display text-[170px] leading-[0.95] text-accent"
@@ -103,7 +115,7 @@ export const Scene4_CTA_Website: React.FC<Props> = (props) => {
         }}
       >
         <PhoneMockup width={PHONE.width} height={PHONE.height}>
-          <MiniSite {...props} />
+          <RealSite url={siteUrl} screenshotSrc={props.siteScreenshotSrc} />
         </PhoneMockup>
       </div>
 
@@ -117,6 +129,51 @@ export const Scene4_CTA_Website: React.FC<Props> = (props) => {
       </div>
 
       <Hand />
+
+      <WaitingQuestion />
+    </AbsoluteFill>
+  );
+};
+
+/** "TÁ ESPERANDO O QUÊ?!" — tela cheia, antes do CTA. */
+const WaitingQuestion: React.FC = () => {
+  const frame = useCurrentFrame();
+  const l1 = useSpringIn(T.question, SPRINGS.punch);
+  const l2 = useSpringIn(T.questionHit - 4, SPRINGS.punch);
+  const out = useSpringOut(T.questionOut, 8);
+  const cam = shake(frame, T.questionHit - 3, 22, 10);
+  if (out >= 0.999) return null;
+
+  return (
+    <AbsoluteFill
+      className="items-center justify-center bg-primary"
+      style={{
+        opacity: 1 - out,
+        transform: `translate(${cam.x}px, ${cam.y}px) scale(${1 + out * 1.6})`,
+        filter: `blur(${out * 14}px)`,
+      }}
+    >
+      <Embers count={20} seed="wait" />
+      <div
+        className="font-display text-[190px] leading-[0.92] text-white"
+        style={{
+          transform: `scale(${interpolate(l1, [0, 1], [2.6, 1])}) rotate(-3deg)`,
+          opacity: Math.min(1, l1 * 3),
+          textShadow: "0 12px 0 var(--akemi-secondary)",
+        }}
+      >
+        TÁ ESPERANDO
+      </div>
+      <div
+        className="mt-4 rounded-[36px] bg-secondary px-14 pb-4 font-heavy text-[190px] leading-[1.05] text-accent"
+        style={{
+          transform: `scale(${interpolate(l2, [0, 1], [3, 1])}) rotate(3deg)`,
+          opacity: Math.min(1, l2 * 3),
+          boxShadow: "0 16px 0 rgba(0,0,0,0.3)",
+        }}
+      >
+        O QUÊ?!
+      </div>
     </AbsoluteFill>
   );
 };
@@ -187,34 +244,25 @@ const UrlPill: React.FC<{ url: string }> = ({ url }) => {
   );
 };
 
-/** Conteúdo da tela do celular: navegador abrindo o cardápio digital. */
-const MiniSite: React.FC<Props> = ({
-  siteUrl,
-  logoSrc,
-  bgTextureSrc,
-  burgerDoubleSrc,
-  comboBaconSrc,
-  comboSmashSrc,
-  prices,
-}) => {
+/** Tela do celular: navegador abrindo o cardápio digital real e rolando. */
+const RealSite: React.FC<{ url: string; screenshotSrc: string }> = ({ url, screenshotSrc }) => {
   const frame = useCurrentFrame();
-  const url = siteUrl.toLowerCase();
-  const typed = url.slice(
+  const { fps } = useVideoConfig();
+  const address = url.toLowerCase();
+  const typed = address.slice(
     0,
-    Math.round(interpolate(frame, [T.typeStart, T.typeEnd], [0, url.length], CLAMP)),
+    Math.round(interpolate(frame, [T.typeStart, T.typeEnd], [0, address.length], CLAMP)),
   );
   const loading = interpolate(frame, [T.typeEnd - 4, T.pageLoaded + 4], [0, 1], CLAMP);
-  const page = useSpringIn(T.pageLoaded, SPRINGS.smooth);
-
-  const items = [
-    { name: "Combo Duplo", detail: "Duplo + fritas + refri", src: burgerDoubleSrc, price: prices.comboDuplo },
-    { name: "Combo Bacon", detail: "160g + fritas + coca lata", src: comboBaconSrc, price: prices.comboBacon },
-    { name: "Combo Smash", detail: "2 smash + fritas + coca 600ml", src: comboSmashSrc, price: prices.comboSmash },
-  ];
+  const page = spring({ frame: frame - T.pageLoaded, fps, config: SPRINGS.smooth });
+  // rola do topo até os "Burguers" do cardápio
+  const scroll = interpolate(frame, [T.pageLoaded + 10, T.scrollEnd], [0, 1], {
+    ...CLAMP,
+    easing: (t) => 1 - Math.pow(1 - t, 3),
+  });
 
   return (
-    <div className="flex h-full flex-col font-body text-secondary">
-      {/* status bar */}
+    <div className="flex h-full flex-col bg-white font-body text-secondary">
       <div className="flex h-[52px] items-end justify-between px-8 pb-1 text-[19px] font-semibold">
         <span>19:30</span>
         <span className="flex items-center gap-2">
@@ -228,11 +276,9 @@ const MiniSite: React.FC<Props> = ({
           </span>
         </span>
       </div>
-
-      {/* barra do navegador */}
-      <div className="mx-4 mt-2 flex h-[54px] items-center gap-2 rounded-full bg-[#efe3d6] px-5 text-[19px] font-semibold">
-        <LockIcon size={18} className="shrink-0 text-[#2f8f46]" />
-        <span className="truncate">{typed || " "}</span>
+      <div className="mx-4 mt-2 flex h-[50px] items-center gap-2 rounded-full bg-[#efe9e3] px-5 text-[17px] font-semibold">
+        <LockIcon size={16} className="shrink-0 text-[#2f8f46]" />
+        <span className="truncate">{typed || "\u00a0"}</span>
       </div>
       <div className="mx-4 mt-2 h-[5px] overflow-hidden rounded-full">
         <div
@@ -240,69 +286,12 @@ const MiniSite: React.FC<Props> = ({
           style={{ width: `${loading * 100}%`, opacity: loading >= 1 ? 1 - page : 1 }}
         />
       </div>
-
-      {/* página */}
-      <div
-        className="mt-2 flex flex-1 flex-col"
-        style={{ opacity: page, transform: `translateY(${(1 - page) * 40}px)` }}
-      >
-        <div className="relative mx-4 h-[200px] overflow-hidden rounded-[26px] bg-primary">
-          <Img src={resolveAsset(bgTextureSrc)} className="absolute inset-0 h-full w-full object-cover opacity-70" />
-          <div className="relative flex h-full items-center gap-4 px-5">
-            <Img
-              src={resolveAsset(logoSrc)}
-              className="w-[132px] shrink-0 object-contain"
-              style={{ filter: "drop-shadow(0 6px 10px rgba(0,0,0,0.35))" }}
-            />
-            <div className="flex flex-col items-start">
-              <span className="font-display text-[54px] leading-none text-white">AKEMI</span>
-              <span className="font-script text-[24px] leading-tight text-accent">smash & burguer</span>
-              <span className="mt-2 flex items-center gap-2 rounded-full bg-secondary/70 px-3 py-1 text-[13px] font-bold uppercase tracking-wide text-white">
-                <span className="h-[9px] w-[9px] rounded-full bg-[#3ddc6b]" />
-                Aberto agora
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className="mx-5 mb-3 mt-5 text-[19px] font-extrabold uppercase tracking-wide">
-          Combos em destaque
-        </div>
-
-        {items.map((item, i) => (
-          <MenuRow key={item.name} index={i} {...item} />
-        ))}
-      </div>
-    </div>
-  );
-};
-
-const MenuRow: React.FC<{
-  index: number;
-  name: string;
-  detail: string;
-  src: string;
-  price: string;
-}> = ({ index, name, detail, src, price }) => {
-  const enter = useSpringIn(T.pageLoaded + 4 + index * 4, SPRINGS.snappy);
-  return (
-    <div
-      className="mx-4 mb-3 flex h-[112px] items-center gap-3 rounded-[22px] bg-white px-3"
-      style={{
-        boxShadow: "0 6px 16px rgba(43,17,4,0.12)",
-        transform: `translateX(${(1 - enter) * 480}px)`,
-      }}
-    >
-      <div className="flex h-[92px] w-[100px] shrink-0 items-center justify-center rounded-[16px]" style={{ background: CREAM }}>
-        <Img src={resolveAsset(src)} className="max-h-[86px] max-w-[94px] object-contain" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[21px] font-extrabold leading-tight">{name}</div>
-        <div className="truncate text-[14px] font-medium text-secondary/60">{detail}</div>
-        <Price value={price} size={34} className="mt-1 text-primary" />
-      </div>
-      <div className="flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full bg-primary text-white">
-        <PlusIcon size={22} />
+      <div className="relative mt-1 flex-1 overflow-hidden" style={{ opacity: page }}>
+        <Img
+          src={resolveAsset(screenshotSrc)}
+          className="absolute left-0 top-0 w-full"
+          style={{ transform: `translateY(${-scroll * SCROLL_PX}px)` }}
+        />
       </div>
     </div>
   );

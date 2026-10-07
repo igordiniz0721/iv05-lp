@@ -1,7 +1,7 @@
 {
   "name": "akemi-burguer-video",
   "version": "1.0.0",
-  "description": "Vídeo promocional 9:16 do Akemi Burguer (Santa Tereza do Oeste) feito em Remotion",
+  "description": "Vídeo promocional 9:16 do Akemi Burguer (Santa Tereza do Oeste) feito em Remotion, guiado pela locução da cliente",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -11,7 +11,8 @@
     "still": "remotion still AkemiPromo out/akemi-promo.png --frame=150",
     "lint": "tsc --noEmit",
     "assets": "python3 scripts/prepare_assets.py",
-    "sfx": "bash scripts/generate_sfx.sh"
+    "sfx": "bash scripts/generate_sfx.sh",
+    "beat": "python3 scripts/generate_beat.py"
   },
   "dependencies": {
     "@remotion/cli": "4.0.533",
