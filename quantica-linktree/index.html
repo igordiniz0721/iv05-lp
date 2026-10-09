@@ -24,7 +24,7 @@
     --line:rgba(34,211,238,0.16);
     --panel:rgba(34,211,238,0.045);
     --ease:cubic-bezier(.2,.7,.2,1);
-    --stage:clamp(260px,74vw,330px);
+    --stage:clamp(270px,84vw,360px);
   }
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -75,14 +75,14 @@
 
   /* ============ THE LIVING ATOM (logo = nucleus) ============ */
   .stage{
-    position:relative;width:var(--stage);aspect-ratio:697/754;
+    position:relative;width:var(--stage);aspect-ratio:660/588;
     display:grid;place-items:center;
     margin-top:clamp(4px,2vh,20px);
     transform-style:preserve-3d;
   }
   .aura{
-    position:absolute;left:50%;top:32%;transform:translate(-50%,-50%);
-    width:78%;aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
+    position:absolute;left:48.5%;top:31%;transform:translate(-50%,-50%);
+    width:58%;aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
     background:radial-gradient(circle,rgba(34,211,238,0.34) 0%,rgba(10,165,196,0.12) 42%,transparent 70%);
     filter:blur(10px);
     animation:breathe 6.5s ease-in-out infinite;
@@ -91,10 +91,10 @@
 
   /* flat, wide orbits centered on the atom; electrons pass BEHIND the atom art (occluded) */
   .orbits{
-    position:absolute;left:50%;top:32%;translate:-50% -50%;
-    width:132%;aspect-ratio:400/168;z-index:1;pointer-events:none;overflow:visible;
+    position:absolute;left:48.5%;top:31%;translate:-50% -50%;
+    width:100%;aspect-ratio:400/168;z-index:1;pointer-events:none;overflow:visible;
   }
-  .track{fill:none;stroke:rgba(34,211,238,0.22);stroke-width:1.2}
+  .track{fill:none;stroke:rgba(34,211,238,0.22);stroke-width:1.5}
   .electron{fill:var(--cyan);filter:drop-shadow(0 0 5px rgba(34,211,238,0.95))}
   .electron.hot{fill:var(--hot);filter:drop-shadow(0 0 6px rgba(255,59,107,0.9))}
 
@@ -247,12 +247,12 @@
         <g transform="rotate(-16 200 84)"><path class="track" d="M40,84 a160,34 0 1,0 320,0 a160,34 0 1,0 -320,0"/></g>
         <g transform="rotate(9 200 84)"><path class="track" d="M64,84 a136,52 0 1,0 272,0 a136,52 0 1,0 -272,0"/></g>
         <g transform="rotate(24 200 84)"><path class="track" d="M92,84 a108,26 0 1,0 216,0 a108,26 0 1,0 -216,0"/></g>
-        <circle id="e1" class="electron" r="4"/>
-        <circle id="e2" class="electron" r="4"/>
-        <circle id="e3" class="electron hot" r="3.4"/>
+        <circle id="e1" class="electron" r="4.8"/>
+        <circle id="e2" class="electron" r="4.8"/>
+        <circle id="e3" class="electron hot" r="4.1"/>
       </svg>
-      <img class="logo" id="logo" src="logo-quantica.png" width="697" height="754"
-           alt="Logotipo da Quântica Assessoria Digital — um átomo com órbitas em ciano e o nome Quântica.">
+      <img class="logo" id="logo" src="logo-quantica.png" width="660" height="588"
+           alt="Logotipo da Quântica Assessoria Digital — um átomo em ciano com ADS no centro e o nome Quântica.">
     </section>
 
     <header class="id">
