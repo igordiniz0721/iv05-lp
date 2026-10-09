@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#000000">
+<meta name="description" content="Quântica Assessoria Digital — fazemos sua empresa vender mais com tráfego, WhatsApp e site sob medida. Cascavel–PR, atendemos todo o Brasil.">
+<title>Quântica Assessoria Digital</title>
+<meta property="og:title" content="Quântica Assessoria Digital">
+<meta property="og:description" content="Sua empresa vendendo mais — tráfego, WhatsApp e site sob medida.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#000000;
+    --cyan:#22D3EE;
+    --cyan-soft:#8ff0ff;
+    --cyan-deep:#0aa5c4;
+    --hot:#FF3B6B;
+    --ink:#eef8fb;
+    --muted:#7d97a1;
+    --line:rgba(34,211,238,0.16);
+    --panel:rgba(34,211,238,0.045);
+    --ease:cubic-bezier(.2,.7,.2,1);
+    --stage:clamp(270px,84vw,360px);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--black);
+    color:var(--ink);
+    font-family:"DM Sans",system-ui,sans-serif;
+    line-height:1.55;
+    min-height:100svh;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ============ LIVING BACKGROUND ============ */
+  #field{
+    position:fixed;inset:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;display:block;
+  }
+  .washes{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+  .washes .w{position:absolute;border-radius:50%;filter:blur(60px);will-change:transform,opacity}
+  .washes .w1{
+    left:50%;top:-8%;width:min(680px,140vw);aspect-ratio:1;transform:translateX(-50%);
+    background:radial-gradient(circle,rgba(34,211,238,0.18),rgba(10,165,196,0.06) 42%,transparent 66%);
+    animation:drift1 18s ease-in-out infinite;
+  }
+  .washes .w2{
+    right:-14%;bottom:-6%;width:min(520px,120vw);aspect-ratio:1;
+    background:radial-gradient(circle,rgba(255,59,107,0.06),transparent 62%);
+    animation:drift2 24s ease-in-out infinite;
+  }
+  .washes .vignette{
+    position:absolute;inset:0;
+    background:radial-gradient(130% 90% at 50% 0%, transparent 42%, rgba(0,0,0,0.66) 100%);
+  }
+  @keyframes drift1{0%,100%{transform:translateX(-50%) translateY(0) scale(1)}50%{transform:translateX(-50%) translateY(24px) scale(1.06)}}
+  @keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-26px,-18px) scale(1.1)}}
+
+  main{
+    position:relative;z-index:2;
+    max-width:452px;margin:0 auto;
+    min-height:100svh;
+    padding:calc(env(safe-area-inset-top) + clamp(30px,7vw,54px)) 22px calc(env(safe-area-inset-bottom) + clamp(30px,7vw,44px));
+    display:flex;flex-direction:column;align-items:center;
+  }
+
+  /* ============ THE LIVING ATOM (logo = nucleus) ============ */
+  .stage{
+    position:relative;width:var(--stage);aspect-ratio:660/588;
+    display:grid;place-items:center;
+    margin-top:clamp(4px,2vh,20px);
+    transform-style:preserve-3d;
+  }
+  .aura{
+    position:absolute;left:48.5%;top:31%;transform:translate(-50%,-50%);
+    width:58%;aspect-ratio:1;border-radius:50%;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(34,211,238,0.34) 0%,rgba(10,165,196,0.12) 42%,transparent 70%);
+    filter:blur(10px);
+    animation:breathe 6.5s ease-in-out infinite;
+  }
+  @keyframes breathe{0%,100%{opacity:.75;transform:translate(-50%,-50%) scale(.94)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.08)}}
+
+  /* flat, wide orbits centered on the atom; electrons pass BEHIND the atom art (occluded) */
+  .orbits{
+    position:absolute;left:48.5%;top:31%;translate:-50% -50%;
+    width:100%;aspect-ratio:400/168;z-index:1;pointer-events:none;overflow:visible;
+  }
+  .track{fill:none;stroke:rgba(34,211,238,0.22);stroke-width:1.5}
+  .electron{fill:var(--cyan);filter:drop-shadow(0 0 5px rgba(34,211,238,0.95))}
+  .electron.hot{fill:var(--hot);filter:drop-shadow(0 0 6px rgba(255,59,107,0.9))}
+
+  .logo{
+    position:relative;z-index:2;width:100%;height:auto;display:block;
+    filter:drop-shadow(0 8px 30px rgba(34,211,238,0.22));
+    will-change:transform;
+  }
+
+  /* ============ IDENTITY ============ */
+  .id{text-align:center;margin-top:clamp(18px,4vh,30px)}
+  .eyebrow{
+    font-family:"Space Grotesk",monospace;
+    font-size:.66rem;font-weight:500;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--cyan);opacity:.9;display:inline-flex;align-items:center;gap:9px;
+  }
+  .eyebrow::before,.eyebrow::after{content:"";width:22px;height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,.65))}
+  .eyebrow::after{background:linear-gradient(90deg,rgba(34,211,238,.65),transparent)}
+
+  .tagline{
+    font-family:"Sora",sans-serif;font-weight:700;
+    font-size:clamp(1.5rem,7vw,2rem);line-height:1.1;letter-spacing:-.024em;
+    margin-top:14px;color:var(--ink);text-wrap:balance;
+  }
+  .tagline .big{
+    display:inline-block;font-weight:800;position:relative;
+    background:linear-gradient(180deg,var(--cyan-soft) 0%,var(--cyan) 52%,var(--cyan-deep) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline .big::after{
+    content:"";position:absolute;left:0;right:0;bottom:-.06em;height:.09em;border-radius:2px;
+    background:linear-gradient(90deg,transparent,var(--hot),transparent);
+    filter:blur(.3px);opacity:.85;
+    transform:scaleX(0);transform-origin:center;animation:underline 1s var(--ease) .9s forwards;
+  }
+  @keyframes underline{to{transform:scaleX(1)}}
+  .sub{margin-top:13px;color:var(--muted);font-size:1rem;line-height:1.5;max-width:33ch;margin-inline:auto}
+  .sub b{color:var(--ink);font-weight:500}
+
+  .proof{
+    margin-top:20px;display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px 12px;
+    font-family:"Space Grotesk",monospace;
+    font-size:.72rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  }
+  .proof b{color:var(--ink);font-weight:600}
+  .proof b.stat{color:var(--cyan)}
+  .proof .dot{width:4px;height:4px;border-radius:50%;background:var(--cyan-deep);opacity:.85}
+
+  /* ============ LINK CARDS ============ */
+  .links{width:100%;margin-top:clamp(26px,6vh,42px);display:flex;flex-direction:column;gap:14px}
+  .card{
+    position:relative;display:flex;align-items:center;gap:15px;
+    padding:16px 18px;border-radius:18px;text-decoration:none;color:var(--ink);
+    border:1px solid var(--line);background:var(--panel);
+    overflow:hidden;isolation:isolate;-webkit-tap-highlight-color:transparent;
+    transform:translateZ(0);
+    transition:border-color .3s var(--ease),background .3s var(--ease),box-shadow .3s var(--ease),transform .12s var(--ease);
+  }
+  .card::before{
+    content:"";position:absolute;top:0;bottom:0;left:0;width:60%;z-index:-1;
+    background:linear-gradient(100deg,transparent,rgba(34,211,238,0.16),transparent);
+    transform:translateX(-180%) skewX(-14deg);
+  }
+  .card:hover::before,.card:focus-visible::before{animation:sheen .9s var(--ease)}
+  @keyframes sheen{to{transform:translateX(320%) skewX(-14deg)}}
+  .card:hover{
+    border-color:rgba(34,211,238,0.5);background:rgba(34,211,238,0.08);
+    box-shadow:0 0 0 1px rgba(34,211,238,0.08),0 18px 44px -20px rgba(34,211,238,0.6);
+  }
+  .card:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-color:rgba(34,211,238,0.5)}
+  .card:active{transform:scale(.988)}
+  .card.primary{
+    border-color:rgba(34,211,238,0.34);
+    background:linear-gradient(180deg,rgba(34,211,238,0.14),rgba(10,165,196,0.05));
+    box-shadow:0 18px 44px -26px rgba(34,211,238,0.55);
+  }
+
+  .ic{
+    flex:none;width:46px;height:46px;border-radius:13px;display:grid;place-items:center;
+    background:linear-gradient(160deg,rgba(34,211,238,0.16),rgba(10,165,196,0.05));
+    border:1px solid rgba(34,211,238,0.26);
+    box-shadow:0 1px 0 rgba(255,255,255,0.1) inset;
+  }
+  .ic svg{width:24px;height:24px;display:block}
+  .card.primary .ic{background:linear-gradient(160deg,var(--cyan),var(--cyan-deep));border-color:rgba(34,211,238,0.5)}
+  .card.primary .ic svg{color:#022}
+
+  .txt{flex:1;min-width:0}
+  .label{
+    font-family:"Sora",sans-serif;font-weight:700;font-size:1.06rem;letter-spacing:-.01em;
+    display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+  }
+  .live{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:"Space Grotesk",monospace;font-size:.56rem;font-weight:600;
+    letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);
+    padding:2px 7px;border-radius:20px;border:1px solid rgba(34,211,238,0.3);background:rgba(34,211,238,0.08);
+  }
+  .live i{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);animation:pulse 1.8s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+  .desc{margin-top:3px;color:var(--muted);font-size:.85rem;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card.primary .desc{color:#a7d9e4}
+  .chev{flex:none;color:var(--cyan);opacity:.5;transition:transform .3s var(--ease),opacity .3s var(--ease)}
+  .card:hover .chev,.card:focus-visible .chev{transform:translateX(4px);opacity:1}
+
+  /* ============ FOOTER ============ */
+  footer{
+    margin-top:auto;padding-top:32px;text-align:center;
+    font-family:"Space Grotesk",monospace;
+    font-size:.66rem;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);opacity:.72;line-height:1.9;
+  }
+  footer .sep{color:var(--cyan);opacity:.6;margin:0 6px}
+
+  /* ============ ENTRANCE CHOREOGRAPHY ============ */
+  .reveal{opacity:0;transform:translateY(18px);filter:blur(6px);animation:reveal .8s var(--ease) forwards}
+  .stage.reveal{animation:revealStage .9s var(--ease) forwards}
+  .r1{animation-delay:.05s}.r2{animation-delay:.22s}.r3{animation-delay:.34s}
+  .r4{animation-delay:.44s}.r5{animation-delay:.54s}.r6{animation-delay:.64s}.r7{animation-delay:.74s}
+  @keyframes reveal{to{opacity:1;transform:none;filter:blur(0)}}
+  @keyframes revealStage{from{opacity:0;transform:translateY(10px) scale(.94);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+
+  @media (max-width:360px){
+    main{padding-left:16px;padding-right:16px}
+    .card{padding:14px 15px;gap:13px}
+    .ic{width:42px;height:42px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .reveal,.stage.reveal{opacity:1 !important;transform:none !important;filter:none !important}
+    .tagline .big::after{transform:scaleX(1) !important}
+    .logo{transform:none !important}
+  }
+</style>
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="washes" aria-hidden="true">
+    <div class="w w1"></div>
+    <div class="w w2"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <main>
+    <!-- SIGNATURE: the living atom — transparent logo is the nucleus -->
+    <section class="stage reveal r1" id="stage" aria-hidden="true">
+      <div class="aura" id="aura"></div>
+      <svg class="orbits" id="orbits" viewBox="0 0 400 168" fill="none">
+        <g transform="rotate(-16 200 84)"><path class="track" d="M40,84 a160,34 0 1,0 320,0 a160,34 0 1,0 -320,0"/></g>
+        <g transform="rotate(9 200 84)"><path class="track" d="M64,84 a136,52 0 1,0 272,0 a136,52 0 1,0 -272,0"/></g>
+        <g transform="rotate(24 200 84)"><path class="track" d="M92,84 a108,26 0 1,0 216,0 a108,26 0 1,0 -216,0"/></g>
+        <circle id="e1" class="electron" r="4.8"/>
+        <circle id="e2" class="electron" r="4.8"/>
+        <circle id="e3" class="electron hot" r="4.1"/>
+      </svg>
+      <img class="logo" id="logo" src="logo-quantica.png" width="660" height="588"
+           alt="Logotipo da Quântica Assessoria Digital — um átomo em ciano com ADS no centro e o nome Quântica.">
+    </section>
+
+    <header class="id">
+      <p class="eyebrow reveal r2">Assessoria de Vendas</p>
+      <h1 class="tagline reveal r3">Fazemos sua empresa <span class="big">vender mais</span></h1>
+      <p class="sub reveal r4">Tráfego, WhatsApp e site <b>sob medida</b> pro seu negócio — do clique ao cliente.</p>
+      <div class="proof reveal r5" role="list">
+        <span role="listitem"><b class="stat">+R$ 8 MI</b> gerados</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span role="listitem"><b class="stat">+3 anos</b> de operação</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span role="listitem">Cascavel–PR</span>
+      </div>
+    </header>
+
+    <nav class="links" aria-label="Contato">
+      <a class="card primary reveal r6" data-tilt
+         href="https://wa.me/5545999812513?text=Ol%C3%A1%20Igor%20Diniz%2C%20tudo%20bem%3F%20Queria%20mais%20informa%C3%A7%C3%B5es%20sobre%20a%20assessoria%20digital%21"
+         target="_blank" rel="noopener">
+        <span class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.13h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.36c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.23-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.35-.77-1.85-.2-.48-.41-.42-.56-.43l-.48-.01c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+        </span>
+        <span class="txt">
+          <span class="label">Falar no WhatsApp <span class="live"><i></i>Responde na hora</span></span>
+          <span class="desc">Fale direto com o Igor · (45) 99981-2513</span>
+        </span>
+        <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+
+      <a class="card reveal r7" data-tilt
+         href="https://www.instagram.com/quanticaassessoria/"
+         target="_blank" rel="noopener">
+        <span class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>
+        </span>
+        <span class="txt">
+          <span class="label">@quanticaassessoria</span>
+          <span class="desc">Bastidores, cases e resultados reais</span>
+        </span>
+        <svg class="chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </a>
+    </nav>
+
+    <footer>
+      Quântica Assessoria Digital<span class="sep">·</span>Cascavel–PR<br>
+      Atendemos todo o Brasil
+    </footer>
+  </main>
+
+  <script>
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ---------- Orbiting electrons (JS/rAF — reliable everywhere) ---------- */
+    var ORB = [
+      {el:document.getElementById('e1'), rx:160, ry:34, tilt:-16, dur:6.5,  dir: 1, ph:0.2},
+      {el:document.getElementById('e2'), rx:136, ry:52, tilt:  9, dur:9,    dir:-1, ph:2.1},
+      {el:document.getElementById('e3'), rx:108, ry:26, tilt: 24, dur:11.5, dir: 1, ph:4.0}
+    ];
+    var CX=200, CY=84;
+    function placeElectrons(t){
+      for(var i=0;i<ORB.length;i++){
+        var o=ORB[i]; if(!o.el) continue;
+        var a=(t/o.dur)*6.2831853*o.dir + o.ph;
+        var x=o.rx*Math.cos(a), y=o.ry*Math.sin(a);
+        var r=o.tilt*Math.PI/180, cs=Math.cos(r), sn=Math.sin(r);
+        o.el.setAttribute('cx', (CX + x*cs - y*sn).toFixed(2));
+        o.el.setAttribute('cy', (CY + x*sn + y*cs).toFixed(2));
+      }
+    }
+    placeElectrons(0);
+    var eStart = null;
+
+    /* ---------- Quantum constellation field ---------- */
+    var canvas = document.getElementById('field');
+    var ctx = canvas.getContext('2d');
+    var W=0, H=0, DPR=1, pts=[], raf=null, running=false;
+    var pointer = {x:-9999, y:-9999};
+
+    function count(){
+      var a = window.innerWidth * window.innerHeight;
+      return Math.max(28, Math.min(80, Math.round(a/16000)));
+    }
+    function seed(){
+      pts = [];
+      var n = count();
+      for(var i=0;i<n;i++){
+        pts.push({
+          x:Math.random()*W, y:Math.random()*H,
+          vx:(Math.random()-.5)*0.16, vy:(Math.random()-.5)*0.16,
+          r:Math.random()*1.6+0.6
+        });
+      }
+    }
+    function resize(){
+      DPR = Math.min(window.devicePixelRatio||1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      canvas.width = Math.floor(W*DPR); canvas.height = Math.floor(H*DPR);
+      canvas.style.width = W+'px'; canvas.style.height = H+'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      seed();
+    }
+    var LINK = 128, LINK2 = LINK*LINK;
+    function frame(){
+      raf = requestAnimationFrame(frame);
+      if(eStart===null) eStart = performance.now();
+      placeElectrons((performance.now()-eStart)/1000);
+      ctx.clearRect(0,0,W,H);
+      var i,p;
+      for(i=0;i<pts.length;i++){
+        p = pts[i];
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.x<-20)p.x=W+20; else if(p.x>W+20)p.x=-20;
+        if(p.y<-20)p.y=H+20; else if(p.y>H+20)p.y=-20;
+        var dxp=pointer.x-p.x, dyp=pointer.y-p.y, dp=dxp*dxp+dyp*dyp;
+        if(dp<26000){ var dpr=Math.max(60,Math.sqrt(dp)), f=(1-dp/26000)*0.9; p.x+=dxp/dpr*f; p.y+=dyp/dpr*f; }
+      }
+      for(var a=0;a<pts.length;a++){
+        for(var b=a+1;b<pts.length;b++){
+          var dx=pts[a].x-pts[b].x, dy=pts[a].y-pts[b].y, d2=dx*dx+dy*dy;
+          if(d2<LINK2){
+            var al=(1-d2/LINK2)*0.30;
+            ctx.strokeStyle='rgba(34,211,238,'+al.toFixed(3)+')';
+            ctx.lineWidth=1;
+            ctx.beginPath(); ctx.moveTo(pts[a].x,pts[a].y); ctx.lineTo(pts[b].x,pts[b].y); ctx.stroke();
+          }
+        }
+      }
+      for(var k=0;k<pts.length;k++){
+        var q=pts[k];
+        ctx.beginPath(); ctx.arc(q.x,q.y,q.r,0,6.2832);
+        ctx.fillStyle='rgba(120,230,245,0.85)'; ctx.fill();
+      }
+    }
+    function start(){ if(running||reduce)return; running=true; frame(); }
+    function stop(){ running=false; if(raf)cancelAnimationFrame(raf); raf=null; }
+
+    if(!reduce){
+      resize();
+      window.addEventListener('resize', resize, {passive:true});
+      window.addEventListener('pointermove', function(e){ pointer.x=e.clientX; pointer.y=e.clientY; }, {passive:true});
+      window.addEventListener('pointerleave', function(){ pointer.x=-9999; pointer.y=-9999; });
+      document.addEventListener('visibilitychange', function(){ document.hidden ? stop() : start(); });
+      start();
+    }
+
+    /* ---------- Pointer parallax on the atom (depth) ---------- */
+    if(!reduce && window.matchMedia('(hover:hover)').matches){
+      var logo=document.getElementById('logo');
+      var tx=0,ty=0,praf=null;
+      function applyP(){
+        /* tilt only (no translate) so the atom stays centered over its orbits */
+        if(logo) logo.style.transform = 'rotateY('+(tx*7)+'deg) rotateX('+(-ty*7)+'deg)';
+        praf=null;
+      }
+      window.addEventListener('pointermove', function(e){
+        tx=(e.clientX/window.innerWidth)-.5; ty=(e.clientY/window.innerHeight)-.5;
+        if(!praf) praf=requestAnimationFrame(applyP);
+      }, {passive:true});
+    }
+
+    /* ---------- Magnetic tilt on link cards ---------- */
+    if(!reduce && window.matchMedia('(hover:hover)').matches){
+      document.querySelectorAll('[data-tilt]').forEach(function(card){
+        card.addEventListener('pointermove', function(e){
+          var r=card.getBoundingClientRect();
+          var mx=(e.clientX-r.left)/r.width-.5, my=(e.clientY-r.top)/r.height-.5;
+          card.style.transform='translateY(-2px) perspective(600px) rotateX('+(-my*4)+'deg) rotateY('+(mx*6)+'deg)';
+        });
+        card.addEventListener('pointerleave', function(){ card.style.transform=''; });
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
